@@ -1,8 +1,0 @@
-.unfocusable{
-  pointer-events: none; /* makes item unfocusable*/
-
-  /* makes item unselectable (typically for text) */
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-}
