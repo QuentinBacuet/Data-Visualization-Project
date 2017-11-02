@@ -30,6 +30,7 @@ let timeline_cursor = svg.append("rect")
                          .attr("x", margin.left + 10)
                          .attr("y", margin.top + (timeline_height - cursor_height))
                          .attr("class", "unfocusable")
+                         .attr("id", "cursor")
 let year_scale = d3.scaleLinear()
                         .domain([min_year, max_year])
                         .range([0, width]);
@@ -53,14 +54,21 @@ svg.append("g")
 let update_cursor = function(evt){
   if(mouse_down){
     timeline_cursor.attr("x", clamp(round_cursor(evt.clientX - 8), margin.left, margin.left + width));
+    console.log(cursor_pos_to_year(get_cursor_x()));
   }
 }
-let round_cursor = function(x_val){
+
+let cursor_pos_to_year = function(x_val){
   timeline_x_cursor = x_val - margin.left;
   x_year = Math.round(min_year + (max_year - min_year)*timeline_x_cursor/width);
+  return x_year;
+}
+let round_cursor = function(x_val){
+  x_year = cursor_pos_to_year(x_val);
   new_x = year_scale(x_year);
   return new_x + margin.left;
 }
+
 
 let down_mouse = function(){
   mouse_down = true;
@@ -69,7 +77,15 @@ let up_mouse = function(){
   mouse_down = false;
 }
 
+let get_cursor_x = function(){
+  let cursor = document.getElementById("cursor");
+  return cursor.getAttribute("x");
+}
+
 let t = document.getElementById("timeline");
 t.addEventListener("mousedown", down_mouse, false);
 document.addEventListener("mouseup", up_mouse, false);
 document.addEventListener("mousemove", update_cursor, false);
+/*while(1){
+console.log(cursor_pos_to_year(get_cursor_x()));
+}*/
