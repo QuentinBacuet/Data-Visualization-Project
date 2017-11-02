@@ -5,6 +5,7 @@ let svg = d3.select("body").append("svg")
 let g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+/** init timeline: a clickable rect*/
 let timeline = svg.append("rect")
             .attr("width", width)
             .attr("height", timevals.height)
@@ -13,6 +14,7 @@ let timeline = svg.append("rect")
             .attr("fill", timevals.color)
             .attr("id", "timeline");
 
+/** init cursor: a thin rect on the timeline*/
 let timeline_cursor = svg.append("rect")
          .attr("width", cursor.width)
          .attr("height", cursor.height)
@@ -28,18 +30,15 @@ svg.append("g")
   .attr("class", "unfocusable")
   .call(year_axis);
 
-const box = {size:24};
+/** init year box: text that displays the value pointed by the cursor*/
 let year_box = svg.append("text")
-                       .attr("x", margin.left)
-                       .attr("y", margin.top + timevals.height + box.size)
+                       .attr("x", box.x)
+                       .attr("y", box.y)
                        .attr("font-size", box.size)
                        .text(rel_to_year(get_relative_cursor_x()))
                        .attr("class", "unfocusable");
-let update_year_box = function(){
-  year_box.text(rel_to_year(get_relative_cursor_x()));
-}
-const button = {height: 18, width:14, left: 32, right: 102,
-   y: margin.top + timevals.height + 8};
+
+/** init left button: a button to decrease the year value by 1*/
 let button_left = svg.append("polygon")
                      .attr("points", +(button.left + button.width) +" " +
                      button.y + " " + button.left + " "+ +(button.y +
@@ -49,6 +48,8 @@ let button_left = svg.append("polygon")
                      .attr("stroke-width", "2")
                      .attr("stroke", "black")
                      .attr("fill", "white");
+
+/** init right button: a button to increase the year value by 1*/
 let button_right = svg.append("polygon")
                       .attr("points", button.right +" " +
                       button.y + " " + +(button.right + button.width)+
@@ -59,35 +60,35 @@ let button_right = svg.append("polygon")
                      .attr("stroke", "black")
                      .attr("fill", "white");
 
+/**Changes the cursor position and value in the year_box to year_value
+* @param {int} year_value a year value to set the cursor and year_box to
+*/
 let move_year = function(year_value){
         let clamped = clamp(year_value, timevals.min_year, timevals.max_year);
         timeline_cursor.attr("x", margin.left + year_scale(clamped));
-        update_year_box()
+        update_year_box(year_box)
                      }
-let btnr_pressed = function(){
-    move_year(1 + rel_to_year(get_relative_cursor_x()));
-}
-let btnl_pressed = function(){
-    move_year(-1 + rel_to_year(get_relative_cursor_x()));
-}
 
-
-const mouse_adjustement = 8;
-
+/** Called when any event has changed the year_value to move the cursor
+* and change the year_box accordingly
+*/
 let update_cursor = function(evt){
   if(mouse_down){
     let x = relative_x(evt.clientX) - mouse_adjustement;
     let new_x = clamp(round_cursor(x), margin.left, margin.left + width);
     timeline_cursor.attr("x", new_x);
-    update_year_box();
+    update_year_box(year_box);
   }
 }
 
-let t = document.getElementById("timeline");
-let btnr = document.getElementById("btnR");
-let btnl = document.getElementById("btnL");
-t.addEventListener("mousedown", down_mouse, false);
-btnr.addEventListener("click", btnr_pressed, false);
-btnl.addEventListener("click", btnl_pressed, false);
-document.addEventListener("mouseup", up_mouse, false);
-document.addEventListener("mousemove", update_cursor, false);
+/** add listeners to every dynamic DOM element*/
+{
+  let t = document.getElementById("timeline");
+  let btnr = document.getElementById("btnR");
+  let btnl = document.getElementById("btnL");
+  t.addEventListener("mousedown", down_mouse, false);
+  btnr.addEventListener("click", btnr_pressed, false);
+  btnl.addEventListener("click", btnl_pressed, false);
+  document.addEventListener("mouseup", up_mouse, false);
+  document.addEventListener("mousemove", update_cursor, false);
+}

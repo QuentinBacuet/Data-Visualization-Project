@@ -1,0 +1,12 @@
+const button = {height: 18, width:14, left: 32, right: 102,
+   y: margin.top + timevals.height + 8};
+
+/** function called when right button is pressed*/
+let btnr_pressed = function(){
+       move_year(1 + rel_to_year(get_relative_cursor_x()));
+   }
+
+/** function called when left button is pressed*/
+let btnl_pressed = function(){
+       move_year(-1 + rel_to_year(get_relative_cursor_x()));
+   }
