@@ -52,8 +52,9 @@ svg.append("g")
   .call(year_axis);
 
 let update_cursor = function(evt){
+  let x = evt.clientX;
   if(mouse_down){
-    timeline_cursor.attr("x", clamp(round_cursor(evt.clientX - 8), margin.left, margin.left + width));
+    timeline_cursor.attr("x", clamp(round_cursor(x - 8), margin.left, margin.left + width));
     console.log(cursor_pos_to_year(get_cursor_x()));
   }
 }
@@ -70,7 +71,8 @@ let round_cursor = function(x_val){
 }
 
 
-let down_mouse = function(){
+let down_mouse = function(evt){
+  timeline_cursor.attr("x", clamp(round_cursor(evt.clientX - 8), margin.left, margin.left + width));
   mouse_down = true;
 }
 let up_mouse = function(){
