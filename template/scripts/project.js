@@ -21,11 +21,21 @@ let timeline_cursor = svg.append("rect")
          .attr("class", "unfocusable")
          .attr("id", "cursor");
 
+
 svg.append("g")
   .attr("class", "axis")
   .attr("transform", "translate(" + margin.left + ","+ +(margin.top + timevals.height) +")")
   .attr("class", "unfocusable")
   .call(year_axis);
+
+const box = {size:24};
+let year_box = svg.append("text")
+                       .attr("x", margin.left)
+                       .attr("y", margin.top + timevals.height + box.size)
+                       .attr("font-size", box.size)
+                       .text(rel_to_year(get_relative_cursor_x()));
+
+
 
 const mouse_adjustement = 8;
 
@@ -34,6 +44,7 @@ let update_cursor = function(evt){
     let x = relative_x(evt.clientX) - mouse_adjustement;
     let new_x = clamp(round_cursor(x), margin.left, margin.left + width);
     timeline_cursor.attr("x", new_x);
+    year_box.text(rel_to_year(get_relative_cursor_x()));
   }
 }
 
