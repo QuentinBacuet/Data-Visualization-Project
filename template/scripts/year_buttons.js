@@ -1,4 +1,4 @@
-const button = {height: 18, width:14, left: 32, right: 102,
+const button = {height: 18, width:14, left: 52, right: 122,
    y: margin.top + timevals.height + 8};
 
 /** function called when right button is pressed*/
