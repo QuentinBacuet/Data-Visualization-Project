@@ -69,14 +69,7 @@ let play_btn = svg.append("polygon")
                      .attr("id", "playBtn");
 
 
-/**Changes the cursor position and value in the year_box to year_value
-* @param {int} year_value a year value to set the cursor and year_box to
-*/
-let move_year = function(year_value){
-        let clamped = clamp(year_value, timevals.min_year, timevals.max_year);
-        timeline_cursor.attr("x", margin.left + year_scale(clamped));
-        update_year_box(year_box)
-        }
+
 
 /** Called when any event has changed the year_value to move the cursor
 * and change the year_box accordingly

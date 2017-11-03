@@ -7,6 +7,11 @@ let playing = false;
 /** Saves the reference of the repeating calls on function moving cursor*/
 let timer;
 
+let stop_timer = function(){
+  clearInterval(timer);
+  playing = false;
+  set_play_button();
+}
 /** Changes the shape of the play button into a triangle*/
 let set_play_button = function(){
   play_btn.attr("points", play.x +" " +
@@ -27,7 +32,7 @@ let set_stop_button = function(){
 let play_clicked = function(){
     playing = !playing;
     if(playing){
-      timer = setInterval(btnr_pressed, play.timer_interval);
+      timer = setInterval(pass_year, play.timer_interval);
       set_stop_button();
     }else{
       clearInterval(timer);

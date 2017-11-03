@@ -4,13 +4,11 @@ const mouse_adjustement = 8;
 
 /** function called when mouse is clicked*/
 let down_mouse = function(evt){
-  console.log("clicked timeline")
-  clearInterval(timer);
-  playing = false;
-  set_play_button();
-  timeline_cursor.attr("x", clamp(round_cursor(relative_x(evt.clientX) - mouse_adjustement),
-  margin.left, margin.left + width));
+  stop_timer();
+  /*timeline_cursor.attr("x", clamp(round_cursor(relative_x(evt.clientX) - mouse_adjustement),
+  margin.left, margin.left + width));*/
   mouse_down = true;
+  update_cursor(evt);
 }
 
 /** function called when mouse is released*/
