@@ -60,9 +60,7 @@ let button_right = svg.append("polygon")
                      .attr("stroke", "black")
                      .attr("fill", "white");
 
-const play = {x: 20, y: margin.top + timevals.height/3, height: 18, width:14, side: 15}
-let playing = false;
-let timer;
+
 let play_btn = svg.append("polygon")
                       .attr("points", play.x +" " +
                       play.y + " " + +(play.x + play.width)+
@@ -70,30 +68,7 @@ let play_btn = svg.append("polygon")
                       " "+ +(play.y + play.height))
                      .attr("id", "playBtn");
 
-let set_play_button = function(){
-  play_btn.attr("points", play.x +" " +
-  play.y + " " + +(play.x + play.width)+
-  " "+ +(play.y + play.height/2) + " " + play.x +
-  " "+ +(play.y + play.height));
-}
 
-let set_stop_button = function(){
-  play_btn.attr("points", play.x              +" "+  play.y
-                + " "+ +(play.x + play.side) +" "+  play.y
-                + " "+ +(play.x + play.side)+" "+ +(play.y + play.side)
-                +" "+  play.x                 +" "+ +(play.y + play.side));
-}
-let play_clicked = function(){
-    playing = !playing;
-    if(playing){
-      timer = setInterval(btnr_pressed, 500);
-      set_stop_button();
-    }else{
-      clearInterval(timer);
-      set_play_button();
-    }
-
-}
 /**Changes the cursor position and value in the year_box to year_value
 * @param {int} year_value a year value to set the cursor and year_box to
 */
@@ -101,7 +76,7 @@ let move_year = function(year_value){
         let clamped = clamp(year_value, timevals.min_year, timevals.max_year);
         timeline_cursor.attr("x", margin.left + year_scale(clamped));
         update_year_box(year_box)
-                     }
+        }
 
 /** Called when any event has changed the year_value to move the cursor
 * and change the year_box accordingly
@@ -128,5 +103,3 @@ let update_cursor = function(evt){
   document.addEventListener("mouseup", up_mouse, false);
   document.addEventListener("mousemove", update_cursor, false);
 }
-
-//setInterval(btnr_pressed, 1000);
