@@ -60,6 +60,40 @@ let button_right = svg.append("polygon")
                      .attr("stroke", "black")
                      .attr("fill", "white");
 
+const play = {x: 20, y: margin.top + timevals.height/3, height: 18, width:14, side: 15}
+let playing = false;
+let timer;
+let play_btn = svg.append("polygon")
+                      .attr("points", play.x +" " +
+                      play.y + " " + +(play.x + play.width)+
+                      " "+ +(play.y + play.height/2) + " " + play.x +
+                      " "+ +(play.y + play.height))
+                     .attr("id", "playBtn");
+
+let set_play_button = function(){
+  play_btn.attr("points", play.x +" " +
+  play.y + " " + +(play.x + play.width)+
+  " "+ +(play.y + play.height/2) + " " + play.x +
+  " "+ +(play.y + play.height));
+}
+
+let set_stop_button = function(){
+  play_btn.attr("points", play.x              +" "+  play.y
+                + " "+ +(play.x + play.side) +" "+  play.y
+                + " "+ +(play.x + play.side)+" "+ +(play.y + play.side)
+                +" "+  play.x                 +" "+ +(play.y + play.side));
+}
+let play_clicked = function(){
+    playing = !playing;
+    if(playing){
+      timer = setInterval(btnr_pressed, 500);
+      set_stop_button();
+    }else{
+      clearInterval(timer);
+      set_play_button();
+    }
+
+}
 /**Changes the cursor position and value in the year_box to year_value
 * @param {int} year_value a year value to set the cursor and year_box to
 */
@@ -86,9 +120,13 @@ let update_cursor = function(evt){
   let t = document.getElementById("timeline");
   let btnr = document.getElementById("btnR");
   let btnl = document.getElementById("btnL");
+  let playbtn = document.getElementById("playBtn");
   t.addEventListener("mousedown", down_mouse, false);
   btnr.addEventListener("click", btnr_pressed, false);
   btnl.addEventListener("click", btnl_pressed, false);
+  playbtn.addEventListener("click", play_clicked, false);
   document.addEventListener("mouseup", up_mouse, false);
   document.addEventListener("mousemove", update_cursor, false);
 }
+
+//setInterval(btnr_pressed, 1000);
