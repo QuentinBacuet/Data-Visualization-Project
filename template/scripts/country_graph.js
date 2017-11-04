@@ -20,7 +20,6 @@ for (i = 0; i < 65; i++) {
   data_diff.push(data_entry[i] - data_exit[i])
 }
 
-console.log(data_diff)
 max_entry = Math.max(...data_entry);
 max_exit = Math.max(...data_exit);
 
