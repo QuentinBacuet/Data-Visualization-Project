@@ -6,3 +6,21 @@
   -khtml-user-select: none;
   -webkit-user-select: none;
 }
+
+#graph_entry{
+    fill: #a8ddb5
+}
+
+#graph_exit{
+    fill: #2b8cbe
+}
+
+#line{
+    stroke: #33cccc;
+    stroke-width: 2;
+    fill: none;
+}
+
+#graph_dot{
+    fill: #006666
+}

@@ -38,6 +38,13 @@ let year_box = svg.append("text")
                        .text(rel_to_year(get_relative_cursor_x()))
                        .attr("class", "unfocusable");
 
+let country_graph = svg.append("text")
+                      .attr("x", country_graph_box.x)
+                      .attr("y", country_graph_box.y)
+                      .attr("font-size", country_graph_box.size)
+                      .attr("class", "unfocusable");
+
+
 /** init left button: a button to decrease the year value by 1*/
 let button_left = svg.append("polygon")
                      .attr("points", +(button.left + button.width) +" " +
@@ -76,6 +83,7 @@ let move_year = function(year_value){
         let clamped = clamp(year_value, timevals.min_year, timevals.max_year);
         timeline_cursor.attr("x", margin.left + year_scale(clamped));
         update_year_box(year_box)
+        update_graph(country_graph)
         }
 
 /** Called when any event has changed the year_value to move the cursor
@@ -87,6 +95,7 @@ let update_cursor = function(evt){
     let new_x = clamp(round_cursor(x), margin.left, margin.left + width);
     timeline_cursor.attr("x", new_x);
     update_year_box(year_box);
+    update_graph(country_graph)
   }
 }
 
