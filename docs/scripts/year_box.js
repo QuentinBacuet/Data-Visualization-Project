@@ -2,8 +2,8 @@ const box_size = 24
 const left_offset = 20;
 const box = {
   size: box_size,
-  x: margin.left + left_offset,
-  y: margin.top +
+  x: margins.left + left_offset,
+  y: margins.top +
     timevals.height + box_size,
   offset: left_offset
 };
@@ -18,7 +18,7 @@ let update_year_box = function(yb) {
  */
 let move_year = function(year_value) {
   let clamped = clamp(year_value, timevals.min_year, timevals.max_year);
-  timeline_cursor.attr("x", margin.left + year_scale(clamped));
+  timeline_cursor.attr("x", margins.left + year_scale(clamped));
   update_year_box(year_box)
   update_graph(country_graph)
 }

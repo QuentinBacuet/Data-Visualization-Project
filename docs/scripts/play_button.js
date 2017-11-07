@@ -1,6 +1,6 @@
 const play = {
   x: 20,
-  y: margin.top + timevals.height / 3,
+  y: svg_margins.top + timevals.height / 3,
   height: 18,
   width: 14,
   side: 15,

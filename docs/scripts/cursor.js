@@ -8,12 +8,12 @@ const cursor = {
 let round_cursor = function(x_val) {
   x_year = rel_to_year(x_val);
   new_x = year_scale(x_year);
-  return new_x + margin.left;
+  return new_x + margins.left;
 }
 
 /** Return the position of the cursor relative to the timeline [0, width]*/
 let get_relative_cursor_x = function() {
-  return get_cursor_x() - margin.left;
+  return get_cursor_x() - margins.left;
 }
 
 /** Return the raw cursor x position*/

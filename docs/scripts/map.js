@@ -2,8 +2,8 @@ let Map = {
     id: "#mapid",
     width_: width,
     height: 500,
-    x: margin.left,
-    y: margin.top,
+    x: margins.left,
+    y: margins.top,
     zoom: 2,
     max_zoom: 10,
     center: [38.338319, 18.466935]
