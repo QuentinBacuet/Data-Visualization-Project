@@ -9,6 +9,12 @@ const country_graph = {
     max_height: 30
 };
 
+country_graph.graph = svg.append("text")
+    .attr("x", country_graph.x)
+    .attr("y", country_graph.y)
+    .attr("font-size", country_graph.size)
+    .attr("class", "unfocusable no_pointer_event");
+
 country_graph.update_graph = function () {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
@@ -87,7 +93,7 @@ country_graph.update_graph = function () {
             const data_exit_slice = data_exit.slice(0, last_year_selected);
             const data_diff_slice = data_diff.slice(0, last_year_selected);
 
-            draw_graph(domainOnlyScale(max_entry),data_entry_slice,data_exit_slice,data_diff_slice)
+            country_graph.draw_graph(domainOnlyScale(max_entry), data_entry_slice, data_exit_slice, data_diff_slice)
         })
     });
 };

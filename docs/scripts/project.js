@@ -1,12 +1,3 @@
-let country_graph = svg.append("text")
-    .attr("x", country_graph.x)
-    .attr("y", country_graph.y)
-    .attr("font-size", country_graph.size)
-    .attr("class", "unfocusable no_pointer_event");
-
-country_graph.update_graph();
-
-
 /** Called when any event has changed the year_value to move the cursor
  * and change the year_box accordingly
  */
@@ -19,6 +10,8 @@ let update_cursor = function(evt) {
       country_graph.update_graph()
   }
 };
+
+country_graph.update_graph();
 
 /** add listeners to every dynamic DOM element*/
 {
