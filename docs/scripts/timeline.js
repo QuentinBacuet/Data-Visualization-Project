@@ -1,6 +1,6 @@
 /* Constant values for the timeline*/
 const timevals = {
-    color: "teal",
+    color: "steelblue",
     height: 50,
     min_year: 1950,
     max_year: 2016
