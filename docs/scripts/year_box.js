@@ -20,7 +20,7 @@ box.move_year = function(year_value) {
   let clamped = helpers.clamp(year_value, timevals.min_year, timevals.max_year);
   cursor.timeline_cursor.attr("x", margins.left + timevals.year_scale(clamped));
   box.update_year_box(box.year_box);
-  update_graph(country_graph);
+    country_graph.update_graph();
 };
 
 box.pass_year = function() {

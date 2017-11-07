@@ -1,6 +1,6 @@
 const country_graph_size = 24;
 const country_graph_left_offset = 20;
-const country_graph_box = {
+const country_graph = {
     size: box_size,
     x: margins.left + country_graph_left_offset,
     y: margins.top +
@@ -9,7 +9,7 @@ const country_graph_box = {
     max_height: 30
 };
 
-let update_graph = function () {
+country_graph.update_graph = function () {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
             const last_year_selected = timevals.rel_to_year(cursor.get_relative_cursor_x()) - timevals.min_year;
@@ -92,8 +92,8 @@ let update_graph = function () {
     });
 };
 
-let draw_graph = function (max_entry, data_entry_slice, data_exit_slice, data_diff_slice) {
-    const offset = margins.top + (timevals.height) + country_graph_box.max_height;
+country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slice, data_diff_slice) {
+    const offset = margins.top + (timevals.height) + country_graph.max_height;
 
     svg.selectAll("#line")
         .remove();

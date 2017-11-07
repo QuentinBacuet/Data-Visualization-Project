@@ -1,9 +1,10 @@
 let country_graph = svg.append("text")
-    .attr("x", country_graph_box.x)
-    .attr("y", country_graph_box.y)
-    .attr("font-size", country_graph_box.size)
+    .attr("x", country_graph.x)
+    .attr("y", country_graph.y)
+    .attr("font-size", country_graph.size)
     .attr("class", "unfocusable no_pointer_event");
-update_graph(country_graph);
+
+country_graph.update_graph();
 
 
 /** Called when any event has changed the year_value to move the cursor
@@ -15,7 +16,7 @@ let update_cursor = function(evt) {
     let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
     cursor.timeline_cursor.attr("x", new_x);
     box.update_year_box(box.year_box);
-    update_graph(country_graph)
+      country_graph.update_graph()
   }
 };
 
