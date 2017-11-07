@@ -79,8 +79,8 @@ let button_right = svg.append("polygon")
  * and change the year_box accordingly
  */
 let update_cursor = function(evt) {
-  if (mouse_down) {
-    let x = relative_x(evt.clientX) - mouse_adjustement;
+  if (mouse.mouse_down) {
+    let x = relative_x(evt.clientX) - mouse.mouse_adjustement;
     let new_x = clamp(cursor.round_cursor(x), margin.left, margin.left + width);
     timeline_cursor.attr("x", new_x);
     update_year_box(year_box);
@@ -94,10 +94,10 @@ let update_cursor = function(evt) {
   let btnr = document.getElementById("btnR");
   let btnl = document.getElementById("btnL");
   let playbtn = document.getElementById("playBtn");
-  t.addEventListener("mousedown", down_mouse, false);
+  t.addEventListener("mousedown", mouse.down_mouse, false);
   btnr.addEventListener("click", button.btnr_pressed, false);
   btnl.addEventListener("click", button.btnl_pressed, false);
   playbtn.addEventListener("click", play_clicked, false);
-  document.addEventListener("mouseup", up_mouse, false);
+  document.addEventListener("mouseup", mouse.up_mouse, false);
   document.addEventListener("mousemove", update_cursor, false);
 }
