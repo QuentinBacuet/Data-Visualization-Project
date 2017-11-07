@@ -9,9 +9,9 @@ mouse.down_mouse = function(evt) {
   play.stop_timer();
   mouse.mouse_down = true;
   update_cursor(evt);
-}
+};
 
 /** function called when mouse is released*/
 mouse.up_mouse = function() {
   mouse.mouse_down = false;
-}
+};
