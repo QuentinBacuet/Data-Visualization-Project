@@ -2,8 +2,8 @@ const country_graph_size = 24
 const country_graph_left_offset = 20;
 const country_graph_box = {
   size: box_size,
-  x: margin.left + country_graph_left_offset,
-  y: margin.top +
+  x: margins.left + country_graph_left_offset,
+  y: margins.top +
     timevals.height + country_graph_size,
   offset: country_graph_left_offset,
   max_height: 30
@@ -35,7 +35,7 @@ let generate_graph = function(a) {
   const data_exit_slice = data_exit.slice(0, a)
   const data_diff_slice = data_diff.slice(0, a)
 
-  const offset = margin.top + (timevals.height) + country_graph_box.max_height
+  const offset = margins.top + (timevals.height) + country_graph_box.max_height
 
   svg.selectAll("#line")
     .remove()
@@ -61,7 +61,7 @@ let generate_graph = function(a) {
     .append("rect")
     .attr("width", (d, i) => year_scale(i + 1) - year_scale(i))
     .attr("height", (d, i) => d)
-    .attr("x", (d, i) => margin.left + (year_scale(i + 1) - year_scale(i)) * i)
+    .attr("x", (d, i) => margins.left + (year_scale(i + 1) - year_scale(i)) * i)
     .attr("y", (d, i) => offset + max_entry - d)
     .attr("class", "unfocusable")
     .attr("id", "graph_entry");
@@ -72,14 +72,14 @@ let generate_graph = function(a) {
     .append("rect")
     .attr("width", (d, i) => year_scale(i + 1) - year_scale(i))
     .attr("height", (d, i) => d)
-    .attr("x", (d, i) => margin.left + (year_scale(i + 1) - year_scale(i)) * i)
+    .attr("x", (d, i) => margins.left + (year_scale(i + 1) - year_scale(i)) * i)
     .attr("y", (d, i) => offset + max_entry)
     .attr("class", "unfocusable")
     .attr("id", "graph_exit");
 
   // Define the line
   var valueline = d3.line()
-    .x((d, i) => margin.left + (year_scale(i + 1) - year_scale(i)) * (i + 0.5))
+    .x((d, i) => margins.left + (year_scale(i + 1) - year_scale(i)) * (i + 0.5))
     .y((d, i) => offset + max_entry - d);
 
 
@@ -97,7 +97,7 @@ let generate_graph = function(a) {
     .enter()
     .append("circle")
     .attr("r", 3.5)
-    .attr("cx", (d, i) => margin.left + (year_scale(i + 1) - year_scale(i)) * (i + 0.5))
+    .attr("cx", (d, i) => margins.left + (year_scale(i + 1) - year_scale(i)) * (i + 0.5))
     .attr("cy", (d, i) => offset + max_entry - d)
     .attr("id", "graph_dot");
 

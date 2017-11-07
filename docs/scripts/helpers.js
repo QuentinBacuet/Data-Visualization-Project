@@ -17,5 +17,5 @@ let clamp = function(val, min, max) {
  * @return {int} the value adapted to timeline origin
  */
 let relative_x = function(x) {
-  return x - margin.left;
+  return x - margins.left;
 }

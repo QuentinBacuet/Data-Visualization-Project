@@ -3,7 +3,7 @@ const button = {
   width: 14,
   left: 52,
   right: 122,
-  y: margin.top + timevals.height + 8
+  y: margins.top + timevals.height + 8
 };
 
 /** function called when right button is pressed*/
