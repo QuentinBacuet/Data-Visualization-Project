@@ -10,7 +10,7 @@ const box = {
 
 /** updates the year_box value accoridng to the cursor position*/
 let update_year_box = function(yb) {
-  yb.text(rel_to_year(get_relative_cursor_x()));
+  yb.text(rel_to_year(cursor.get_relative_cursor_x()));
 }
 
 /**Changes the cursor position and value in the year_box to year_value
@@ -24,5 +24,5 @@ let move_year = function(year_value) {
 }
 
 let pass_year = function() {
-  move_year(1 + rel_to_year(get_relative_cursor_x()));
+  move_year(1 + rel_to_year(cursor.get_relative_cursor_x()));
 }

@@ -35,7 +35,7 @@ let year_box = svg.append("text")
   .attr("x", box.x)
   .attr("y", box.y)
   .attr("font-size", box.size)
-  .text(rel_to_year(get_relative_cursor_x()))
+  .text(rel_to_year(cursor.get_relative_cursor_x()))
   .attr("class", "unfocusable");
 
 let country_graph = svg.append("text")
@@ -81,7 +81,7 @@ let button_right = svg.append("polygon")
 let update_cursor = function(evt) {
   if (mouse_down) {
     let x = relative_x(evt.clientX) - mouse_adjustement;
-    let new_x = clamp(round_cursor(x), margin.left, margin.left + width);
+    let new_x = clamp(cursor.round_cursor(x), margin.left, margin.left + width);
     timeline_cursor.attr("x", new_x);
     update_year_box(year_box);
     update_graph(country_graph)

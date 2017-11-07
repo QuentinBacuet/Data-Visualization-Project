@@ -10,12 +10,12 @@ const button = {
 let btnr_pressed = function() {
   console.log("right");
   stop_timer();
-  move_year(1 + rel_to_year(get_relative_cursor_x()));
+  move_year(1 + rel_to_year(cursor.get_relative_cursor_x()));
 }
 
 /** function called when left button is pressed*/
 let btnl_pressed = function() {
   console.log("left");
   stop_timer();
-  move_year(-1 + rel_to_year(get_relative_cursor_x()));
+  move_year(-1 + rel_to_year(cursor.get_relative_cursor_x()));
 }

@@ -25,7 +25,7 @@ max_exit = Math.max(...data_exit);
 
 
 let update_graph = function(yb) {
-  a = rel_to_year(get_relative_cursor_x()) - timevals.min_year
+  a = rel_to_year(cursor.get_relative_cursor_x()) - timevals.min_year
   generate_graph(a)
 }
 
