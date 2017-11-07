@@ -15,12 +15,20 @@ country_graph.graph = svg.append("text")
     .attr("font-size", country_graph.size)
     .attr("class", "unfocusable no_pointer_event");
 
-country_graph.update_graph = function () {
+country_graph.update_new_graph = function (country_code) {
+    svg.selectAll("#graph_entry")
+        .remove();
+
+    svg.selectAll("#graph_exit")
+        .remove();
+
+    country_graph.update_graph(country_code);
+};
+
+country_graph.update_graph = function (country_code) {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
             const last_year_selected = timevals.rel_to_year(cursor.get_relative_cursor_x()) - timevals.min_year;
-
-            country_code = "AM";
 
             first_index_immigration_exit = 0;
             last_index_immigration_exit = 0;

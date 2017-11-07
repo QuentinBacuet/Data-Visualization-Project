@@ -28,6 +28,25 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{
     maxZoom: Map.max_zoom,
 }).addTo(Map.interactive_map);
 
+function whenClicked(e) {
+    country_graph.update_new_graph(e.target.feature.properties.iso_a2);
+}
+
+function onEachFeature(feature, layer) {
+    //bind click
+    layer.on({
+        click: whenClicked
+    });
+}
+
+d3.json("data/world.geo.json", function (data) {
+    L.geoJSON(data, {
+        onEachFeature: onEachFeature
+    }).addTo(Map.interactive_map);
+});
+
+
+
 
 let canvas = L.canvasLayer()
     .delegate(this); // -- if we do not inherit from L.CanvasLayer  we can setup a delegate to receive events from L.CanvasLayer
@@ -92,4 +111,4 @@ function onDrawLayer(info) {
     ctx.arc(dot.x, dot.y, 3, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();
-};
+}
