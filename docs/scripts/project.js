@@ -97,7 +97,7 @@ let update_cursor = function(evt) {
   t.addEventListener("mousedown", mouse.down_mouse, false);
   btnr.addEventListener("click", button.btnr_pressed, false);
   btnl.addEventListener("click", button.btnl_pressed, false);
-  playbtn.addEventListener("click", play_clicked, false);
+  playbtn.addEventListener("click", play.play_clicked, false);
   document.addEventListener("mouseup", mouse.up_mouse, false);
   document.addEventListener("mousemove", update_cursor, false);
 }

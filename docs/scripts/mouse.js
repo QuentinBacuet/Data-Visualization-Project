@@ -6,7 +6,7 @@ const mouse = {
 
 /** function called when mouse is clicked*/
 mouse.down_mouse = function(evt) {
-  stop_timer();
+  play.stop_timer();
   mouse.mouse_down = true;
   update_cursor(evt);
 }
