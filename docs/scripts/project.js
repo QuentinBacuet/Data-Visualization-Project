@@ -20,14 +20,14 @@ let timeline_cursor = svg.append("rect")
   .attr("height", cursor.height)
   .attr("x", margin.left + cursor.init)
   .attr("y", margin.top + (timevals.height - cursor.height))
-  .attr("class", "unfocusable")
+  .attr("class", "unfocusable no_pointer_event")
   .attr("id", "cursor");
 
 
 svg.append("g")
   .attr("class", "axis")
   .attr("transform", "translate(" + margin.left + "," + +(margin.top + timevals.height) + ")")
-  .attr("class", "unfocusable")
+  .attr("class", "unfocusable no_pointer_event")
   .call(year_axis);
 
 /** init year box: text that displays the value pointed by the cursor*/
@@ -36,13 +36,13 @@ let year_box = svg.append("text")
   .attr("y", box.y)
   .attr("font-size", box.size)
   .text(rel_to_year(get_relative_cursor_x()))
-  .attr("class", "unfocusable");
+  .attr("class", "unfocusable no_pointer_event");
 
 let country_graph = svg.append("text")
                       .attr("x", country_graph_box.x)
                       .attr("y", country_graph_box.y)
                       .attr("font-size", country_graph_box.size)
-                      .attr("class", "unfocusable");
+                      .attr("class", "unfocusable no_pointer_event");
 update_graph(country_graph)
 
 
