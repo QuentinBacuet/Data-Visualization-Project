@@ -7,11 +7,11 @@ let update_cursor = function(evt) {
     let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
     cursor.timeline_cursor.attr("x", new_x);
     box.update_year_box(box.year_box);
-      country_graph.update_graph("CH")
+      country_graph.update_graph()
   }
 };
 
-country_graph.update_graph("CH");
+country_graph.update_graph();
 
 /** add listeners to every dynamic DOM element*/
 {

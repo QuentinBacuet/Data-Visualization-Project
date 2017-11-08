@@ -6,8 +6,10 @@ const country_graph = {
     y: margins.top +
     timevals.height + country_graph_size,
     offset: country_graph_left_offset,
-    max_height: 30
+    max_height: 30,
+    current_code: "CH"
 };
+
 
 country_graph.graph = svg.append("text")
     .attr("x", country_graph.x)
@@ -22,6 +24,9 @@ country_graph.update_new_graph = function (country_code) {
     svg.selectAll("#graph_exit")
         .remove();
 
+    svg.selectAll("#graph_dot")
+        .remove();
+
     country_graph.update_graph(country_code);
 };
 
@@ -30,6 +35,10 @@ country_graph.update_graph = function (country_code) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
             const last_year_selected = timevals.rel_to_year(cursor.get_relative_cursor_x()) - timevals.min_year;
 
+            if ((country_code) !== undefined) {
+                country_graph.current_code = country_code;
+            }
+
             first_index_immigration_exit = 0;
             last_index_immigration_exit = 0;
             exit_found = false;
@@ -37,12 +46,12 @@ country_graph.update_graph = function (country_code) {
             i = 0;
 
             while(i < data_immigration_exit.length){
-                if(!exit_found && data_immigration_exit[i].country_origin === country_code){
+                if (!exit_found && data_immigration_exit[i].country_origin === country_graph.current_code) {
                     first_index_immigration_exit = i;
                     exit_found = true
                 }
 
-                if(exit_found && data_immigration_exit[i].country_origin !== country_code){
+                if (exit_found && data_immigration_exit[i].country_origin !== country_graph.current_code) {
                     last_index_immigration_exit = i;
                     break
                 }
@@ -57,12 +66,12 @@ country_graph.update_graph = function (country_code) {
             i = 0;
 
             while(i < data_immigration_entry.length){
-                if(!entry_found && data_immigration_entry[i].country_asylum === country_code){
+                if (!entry_found && data_immigration_entry[i].country_asylum === country_graph.current_code) {
                     first_index_immigration_entry = i;
                     entry_found = true
                 }
 
-                if(entry_found && data_immigration_entry[i].country_asylum !== country_code){
+                if (entry_found && data_immigration_entry[i].country_asylum !== country_graph.current_code) {
                     last_index_immigration_entry = i;
                     break
                 }
