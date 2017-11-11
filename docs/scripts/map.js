@@ -1,3 +1,28 @@
+
+// Canvas manipulation object
+let MapLayer = function(){
+
+    this.interpolator_ = d3.geoInterpolate([49.0, 14.0], [0.0, 0.0]);
+
+    this.onDrawLayer = function(info) {
+        var ctx = info.canvas.getContext('2d');
+        ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
+        ctx.fillStyle = "rgba(255,165,0, 0.8)";
+        let t = (Date.now() % 4000)/4000.0;
+
+        dot = info.layer._map.latLngToContainerPoint(this.interpolator_(t));
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+        console.log("Finish draw layer")
+    }
+}
+
+// MapLayer inherits from L.CanvasLayer, ES5 style
+MapLayer.prototype = new L.CanvasLayer();
+
+// Encapsulate map attributes
 let Map = {
     id: "#mapid",
     width_: width,
@@ -9,6 +34,7 @@ let Map = {
     center: [38.338319, 18.466935]
 };
 
+// Make map unfocusable
 d3.select(Map.id)
     .style("height", Map.height)
     .style("width", Map.width_)
@@ -16,42 +42,39 @@ d3.select(Map.id)
     .style("top", Map.y)
     .attr("class", "unfocusable");
 
+// Add interactive Leaflet map to Map object
 Map.interactive_map = L.map('mapid', {
     center: Map.center,
     zoom: Map.zoom,
     scrollWheelZoom: false
 });
 
+// Add carto layer to map
 L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
     subdomains: 'abcd',
     maxZoom: Map.max_zoom,
 }).addTo(Map.interactive_map);
 
+
 function whenClicked(e) {
     country_graph.update_new_graph(e.target.feature.properties.iso_a2);
-}
 
+}
 function onEachFeature(feature, layer) {
-    //bind click
     layer.on({
         click: whenClicked
     });
+
 }
 
 d3.json("data/world.geo.json", function (data) {
-    L.geoJSON(data, {
+    let layer = L.geoJSON(data, {
         onEachFeature: onEachFeature
-    }).addTo(Map.interactive_map);
+    });
+    layer.addTo(Map.interactive_map)
+    layer.bringToBack();
 });
-
-
-
-
-let canvas = L.canvasLayer()
-    .delegate(this); // -- if we do not inherit from L.CanvasLayer  we can setup a delegate to receive events from L.CanvasLayer
-
-canvas.addTo(Map.interactive_map);
 
 const data = [
     [49.72015422,14.27402629,1  ],
@@ -71,44 +94,8 @@ const data = [
     [49.65551256,13.94388785,15  ],
     [49.70122451,14.30093723,16  ]];
 
-const geo_point1 = [49.0, 14.0];
-const geo_point2 = [0.0, 0.0];
-
-let interpolated_point = [0.0,0.0];
-
-let interpolator = d3.geoInterpolate(geo_point1, geo_point2);
+let canvas = new MapLayer();
+canvas.addTo(Map.interactive_map);
 
 
-
-let test = function(){
-    console.log("Test");
-    canvas.drawLayer();
-}
-
-
-let timer_point = setInterval(test, 20);
-
-
-
-function onDrawLayer(info) {
-    var ctx = info.canvas.getContext('2d');
-    ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
-    ctx.fillStyle = "rgba(0,112,185, 0.8)";
-    /*for (var i = 0; i < data.length; i++) {
-        var d = data[i];
-        if (info.bounds.contains([d[0], d[1]])) {
-            dot = info.layer._map.latLngToContainerPoint([d[0], d[1]]);
-            ctx.beginPath();
-            ctx.arc(dot.x, dot.y, 3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.closePath();
-        }
-    }*/
-    let t = (Date.now() % 4000)/4000.0;
-
-    dot = info.layer._map.latLngToContainerPoint(interpolator(t));
-    ctx.beginPath();
-    ctx.arc(dot.x, dot.y, 3, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.closePath();
-}
+setInterval(() => canvas.drawLayer(), 20);
