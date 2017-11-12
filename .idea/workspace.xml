@@ -17,20 +17,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="map.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="map.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docs/scripts/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+            <state relative-caret-position="-775">
+              <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
               <folding>
-                <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
-                <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
+                <marker date="1510483250015" expanded="true" signature="2568:2574" ph="©" />
+                <marker date="1510483250015" expanded="true" signature="2642:2648" ph="©" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="770">
@@ -76,6 +76,8 @@
       <find>this</find>
       <find>console</find>
       <find>pane</find>
+      <find>ad</find>
+      <find>fini</find>
     </findStrings>
     <replaceStrings>
       <replace>unfocusable no_pointer_event</replace>
@@ -220,7 +222,7 @@
       <option name="presentableId" value="Default" />
       <updated>1510053326900</updated>
       <workItem from="1510053329322" duration="11271000" />
-      <workItem from="1510438985237" duration="6981000" />
+      <workItem from="1510438985237" duration="9649000" />
     </task>
     <task id="LOCAL-00001" summary="Layout map, disable scrolling with wheel and rectify display order">
       <created>1510060255662</created>
@@ -250,11 +252,18 @@
       <option name="project" value="LOCAL" />
       <updated>1510444012863</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Redefine onAdd and onRemove so that canvas layer is always on top">
+      <created>1510480599573</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1510480599573</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18419000" />
+    <option name="totallyTimeSpent" value="21087000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="93" y="-11" width="2478" height="1462" extended-state="6" />
@@ -289,7 +298,8 @@
     <MESSAGE value="Refactor map.js variables" />
     <MESSAGE value="Correct margins and positions for map and timeline" />
     <MESSAGE value="Clean Map class, first part" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clean Map class, first part" />
+    <MESSAGE value="Redefine onAdd and onRemove so that canvas layer is always on top" />
+    <option name="LAST_COMMIT_MESSAGE" value="Redefine onAdd and onRemove so that canvas layer is always on top" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -301,8 +311,8 @@
         <state relative-caret-position="1870">
           <caret line="85" column="9" lean-forward="false" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
           <folding>
-            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
-            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
+            <marker date="1510483250015" expanded="true" signature="2568:2574" ph="©" />
+            <marker date="1510483250015" expanded="true" signature="2642:2648" ph="©" />
           </folding>
         </state>
       </provider>
@@ -328,8 +338,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
-            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
+            <marker date="1510483250015" expanded="true" signature="2568:2574" ph="©" />
+            <marker date="1510483250015" expanded="true" signature="2642:2648" ph="©" />
           </folding>
         </state>
       </provider>
@@ -431,8 +441,8 @@
         <state relative-caret-position="479">
           <caret line="79" column="36" lean-forward="false" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
           <folding>
-            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
-            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
+            <marker date="1510483250015" expanded="true" signature="2568:2574" ph="©" />
+            <marker date="1510483250015" expanded="true" signature="2642:2648" ph="©" />
           </folding>
         </state>
       </provider>
@@ -505,22 +515,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/scripts/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
-          <folding>
-            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
-            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="770">
           <caret line="35" column="67" lean-forward="true" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/scripts/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-775">
+          <caret line="53" column="1" lean-forward="false" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
+          <folding>
+            <marker date="1510483250015" expanded="true" signature="2568:2574" ph="©" />
+            <marker date="1510483250015" expanded="true" signature="2642:2648" ph="©" />
+          </folding>
         </state>
       </provider>
     </entry>
