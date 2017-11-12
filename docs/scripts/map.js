@@ -1,8 +1,10 @@
+'use strict';
+
 // Canvas manipulation object
 class MapLayer extends L.CanvasLayer {
     constructor(paneLabeltmp) {
         super();
-        this.paneLabel = paneLabeltmp
+        this.paneLabel = paneLabeltmp;
         this.interpolator_ = d3.geoInterpolate([49.0, 14.0], [0.0, 0.0]);
     }
 
@@ -11,24 +13,24 @@ class MapLayer extends L.CanvasLayer {
         this._canvas = L.DomUtil.create('canvas', 'leaflet-layer');
         this.tiles = {};
 
-        var size = this._map.getSize();
+        const size = this._map.getSize();
         this._canvas.width = size.x;
         this._canvas.height = size.y;
 
-        var animated = this._map.options.zoomAnimation && L.Browser.any3d;
+        const animated = this._map.options.zoomAnimation && L.Browser.any3d;
         L.DomUtil.addClass(this._canvas, 'leaflet-zoom-' + (animated ? 'animated' : 'hide'));
 
         map._panes[this.paneLabel].appendChild(this._canvas);
 
         map.on(this.getEvents(), this);
 
-        var del = this._delegate || this;
+        const del = this._delegate || this;
         del.onLayerDidMount && del.onLayerDidMount(); // -- callback
         this.needRedraw();
     };
 
     onRemove(map) {
-        var del = this._delegate || this;
+        const del = this._delegate || this;
         del.onLayerWillUnmount && del.onLayerWillUnmount(); // -- callback
 
         map.getPanes()[this.paneLabel].removeChild(this._canvas);
@@ -40,7 +42,7 @@ class MapLayer extends L.CanvasLayer {
     };
 
     onDrawLayer(info) {
-        var ctx = info.canvas.getContext('2d');
+        const ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
         ctx.fillStyle = "rgba(255,165,0, 1.0)";
         let t = (Date.now() % 4000) / 4000.0;
@@ -89,7 +91,7 @@ class Map {
         }).addTo(this.interactive_map);
 
         // Add a new pane
-        this.interactive_map.createPane('CanvasLayer')
+        this.interactive_map.createPane('CanvasLayer');
         this.interactive_map.getPane('CanvasLayer').style.zIndex = 1000;
         this.interactive_map.getPane('CanvasLayer').style.pointerEvents = 'none';
 
@@ -97,7 +99,7 @@ class Map {
             let layer = L.geoJSON(data, {
                 onEachFeature: Map.featureAction((e) => country_graph.update_new_graph(e.target.feature.properties.iso_a2))
             });
-            layer.addTo(map.interactive_map)
+            layer.addTo(map.interactive_map);
             layer.bringToBack();
         });
     }
