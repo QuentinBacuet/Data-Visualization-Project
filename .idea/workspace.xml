@@ -17,24 +17,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="map.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="map.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/scripts/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="94" column="36" lean-forward="false" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="36" />
+            <state relative-caret-position="500">
+              <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
               <folding>
-                <marker date="1510443983014" expanded="true" signature="1424:1430" ph="©" />
-                <marker date="1510443983014" expanded="true" signature="1498:1504" ph="©" />
+                <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
+                <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="770">
               <caret line="35" column="67" lean-forward="true" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="L.CanvasLayer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docs/plugins/gLayers.Leaflet/L.CanvasLayer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-710">
+              <caret line="86" column="26" lean-forward="true" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -65,6 +75,7 @@
       <find>getEve</find>
       <find>this</find>
       <find>console</find>
+      <find>pane</find>
     </findStrings>
     <replaceStrings>
       <replace>unfocusable no_pointer_event</replace>
@@ -101,10 +112,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="632" />
-    <option name="y" value="220" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="x" value="94" />
+    <option name="width" value="1248" />
+    <option name="height" value="1450" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -210,7 +220,7 @@
       <option name="presentableId" value="Default" />
       <updated>1510053326900</updated>
       <workItem from="1510053329322" duration="11271000" />
-      <workItem from="1510438985237" duration="4492000" />
+      <workItem from="1510438985237" duration="6981000" />
     </task>
     <task id="LOCAL-00001" summary="Layout map, disable scrolling with wheel and rectify display order">
       <created>1510060255662</created>
@@ -233,17 +243,24 @@
       <option name="project" value="LOCAL" />
       <updated>1510062385908</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Clean Map class, first part">
+      <created>1510444012863</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1510444012863</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15930000" />
+    <option name="totallyTimeSpent" value="18419000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="93" y="-11" width="2478" height="1462" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18729642" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3752039" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294753" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294753" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -271,7 +288,8 @@
     <MESSAGE value="Layout map, disable scrolling with wheel and rectify display order" />
     <MESSAGE value="Refactor map.js variables" />
     <MESSAGE value="Correct margins and positions for map and timeline" />
-    <option name="LAST_COMMIT_MESSAGE" value="Correct margins and positions for map and timeline" />
+    <MESSAGE value="Clean Map class, first part" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean Map class, first part" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -283,8 +301,8 @@
         <state relative-caret-position="1870">
           <caret line="85" column="9" lean-forward="false" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
           <folding>
-            <marker date="1510443983014" expanded="true" signature="1424:1430" ph="©" />
-            <marker date="1510443983014" expanded="true" signature="1498:1504" ph="©" />
+            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
+            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
           </folding>
         </state>
       </provider>
@@ -310,8 +328,8 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1510443983014" expanded="true" signature="1424:1430" ph="©" />
-            <marker date="1510443983014" expanded="true" signature="1498:1504" ph="©" />
+            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
+            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
           </folding>
         </state>
       </provider>
@@ -413,8 +431,8 @@
         <state relative-caret-position="479">
           <caret line="79" column="36" lean-forward="false" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
           <folding>
-            <marker date="1510443983014" expanded="true" signature="1424:1430" ph="©" />
-            <marker date="1510443983014" expanded="true" signature="1498:1504" ph="©" />
+            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
+            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
           </folding>
         </state>
       </provider>
@@ -481,9 +499,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/plugins/gLayers.Leaflet/L.CanvasLayer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="163" column="0" lean-forward="false" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+        <state relative-caret-position="-710">
+          <caret line="86" column="26" lean-forward="true" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/scripts/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+          <folding>
+            <marker date="1510480558180" expanded="true" signature="2415:2421" ph="©" />
+            <marker date="1510480558180" expanded="true" signature="2489:2495" ph="©" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -492,17 +521,6 @@
         <state relative-caret-position="770">
           <caret line="35" column="67" lean-forward="true" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/docs/scripts/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="94" column="36" lean-forward="false" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="36" />
-          <folding>
-            <marker date="1510443983014" expanded="true" signature="1424:1430" ph="©" />
-            <marker date="1510443983014" expanded="true" signature="1498:1504" ph="©" />
-          </folding>
         </state>
       </provider>
     </entry>

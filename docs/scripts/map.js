@@ -1,13 +1,46 @@
 
 // Canvas manipulation object
-let MapLayer = function(){
+let MapLayer = function(paneLabel){
 
     this.interpolator_ = d3.geoInterpolate([49.0, 14.0], [0.0, 0.0]);
+
+    this.onAdd = function (map) {
+        this._map = map;
+        this._canvas = L.DomUtil.create('canvas', 'leaflet-layer');
+        this.tiles = {};
+
+        var size = this._map.getSize();
+        this._canvas.width = size.x;
+        this._canvas.height = size.y;
+
+        var animated = this._map.options.zoomAnimation && L.Browser.any3d;
+        L.DomUtil.addClass(this._canvas, 'leaflet-zoom-' + (animated ? 'animated' : 'hide'));
+
+        map._panes[paneLabel].appendChild(this._canvas);
+
+        map.on(this.getEvents(), this);
+
+        var del = this._delegate || this;
+        del.onLayerDidMount && del.onLayerDidMount(); // -- callback
+        this.needRedraw();
+    };
+
+    this.onRemove =  function (map) {
+        var del = this._delegate || this;
+        del.onLayerWillUnmount && del.onLayerWillUnmount(); // -- callback
+
+        map.getPanes()[paneLabel].removeChild(this._canvas);
+
+        map.off(this.getEvents(), this);
+
+        this._canvas = null;
+
+    };
 
     this.onDrawLayer = function(info) {
         var ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
-        ctx.fillStyle = "rgba(255,165,0, 0.8)";
+        ctx.fillStyle = "rgba(255,165,0, 1.0)";
         let t = (Date.now() % 4000)/4000.0;
 
         dot = info.layer._map.latLngToContainerPoint(this.interpolator_(t));
@@ -56,6 +89,11 @@ L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_nolabels/{
     maxZoom: Map.max_zoom,
 }).addTo(Map.interactive_map);
 
+// Add a new pane
+Map.interactive_map.createPane('CanvasLayer')
+Map.interactive_map.getPane('CanvasLayer').style.zIndex = 1000;
+Map.interactive_map.getPane('CanvasLayer').style.pointerEvents = 'none';
+
 
 function whenClicked(e) {
     country_graph.update_new_graph(e.target.feature.properties.iso_a2);
@@ -94,7 +132,7 @@ const data = [
     [49.65551256,13.94388785,15  ],
     [49.70122451,14.30093723,16  ]];
 
-let canvas = new MapLayer();
+let canvas = new MapLayer("CanvasLayer");
 canvas.addTo(Map.interactive_map);
 
 
