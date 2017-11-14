@@ -1,3 +1,4 @@
+
 const country_graph_size = 24;
 const country_graph_left_offset = 20;
 const country_graph = {

@@ -1,11 +1,37 @@
 'use strict';
 
+let AnimationConstants = {
+    offset_size : 10,
+    speed : 0.1
+};
+
+class AnimatedPoint{
+    constructor(){
+        this.delta_t = Math.random();
+        this.offset = [Math.random() * AnimationConstants.offset_size, Math.random() * AnimationConstants.offset_size];
+    }
+}
+
+class Animator{
+    constructor( quantity, start_geopoint, end_geopoint){
+
+        this.animated_points = [];
+        this.start_geopoint = start_geopoint;
+        this.end_geopoint = end_geopoint;
+
+        // Add points
+        for(let i=0; i < quantity; i++){
+            this.animated_points.push(new AnimatedPoint())
+        }
+    }
+}
+
 // Canvas manipulation object
 class MapLayer extends L.CanvasLayer {
     constructor(paneLabeltmp) {
         super();
         this.paneLabel = paneLabeltmp;
-        this.interpolator_ = d3.geoInterpolate([49.0, 14.0], [0.0, 0.0]);
+        this.animation_start_time = Date.now();
     }
 
     onAdd(map) {
@@ -44,14 +70,43 @@ class MapLayer extends L.CanvasLayer {
     onDrawLayer(info) {
         const ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
-        ctx.fillStyle = "rgba(255,165,0, 1.0)";
-        let t = (Date.now() % 4000) / 4000.0;
 
-        let dot = info.layer._map.latLngToContainerPoint(this.interpolator_(t));
-        ctx.beginPath();
-        ctx.arc(dot.x, dot.y, 3, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.closePath();
+        ctx.fillStyle = "rgba(255,165,0, 1.0)";
+        let t = Date.now();
+
+        this.animators.forEach((animator) => {
+
+            let p1 = info.layer._map.latLngToContainerPoint(animator.start_geopoint);
+            let p2 = info.layer._map.latLngToContainerPoint(animator.end_geopoint);
+
+            let perp = [-p2.y + p1.y, p2.x-p1.x];
+            let norm = Math.norm(perp);
+            perp = perp.map((v) => v/norm);
+
+            let travel_time = Math.sqrt(Math.pow(p2.x-p1.x, 2) + Math.pow(p2.y - p1.y, 2))/ AnimationConstants.speed;
+            let interpolate = helpers.LinearInterpolator2D(p1, p2);
+
+            animator.animated_points.forEach((point) => {
+
+                let point_delta_travel_time = point.delta_t * travel_time;
+
+                if (t - point_delta_travel_time < this.animation_start_time){
+                    return;
+                } else {
+
+                    let point_time = ((t - point_delta_travel_time - this.animation_start_time) % travel_time)
+                        / travel_time;
+
+                    let dot = interpolate(point_time);
+
+                    ctx.beginPath();
+                    ctx.arc(dot[0] + point.offset[0], dot[1] + point.offset[1], 3, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            });
+        })
+
     }
 }
 
@@ -134,8 +189,13 @@ const data = [
 
 let map = new Map();
 map.init();
-
 let canvas = new MapLayer("CanvasLayer");
+canvas.animators = [new Animator(20, [27.360169, 2.837152], [48.859586, 2.340734]),
+                    new Animator(20, [38.797414, 35.200125], [48.859586, 2.340734]),
+                    new Animator(20, [51.992734, 19.710632], [48.859586, 2.340734]),
+                    new Animator(20, [35.478226, 37.980002], [48.859586, 2.340734]),
+                    new Animator(20, [51.825289, -176.539915], [48.859586, 2.340734])];
+canvas.animation_start_time = Date.now();
 canvas.addTo(map.interactive_map);
 
 setInterval(() => canvas.drawLayer(), 20);
