@@ -2,7 +2,7 @@
 const timevals = {
     color: "steelblue",
     height: 50,
-    min_year: 1950,
+    min_year: 1985,
     max_year: 2016
 };
 
