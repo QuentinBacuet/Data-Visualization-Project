@@ -5,7 +5,7 @@ let AnimationConstants = {
     half_interval_size : 5,
     min_dot_size : 0.8,
     lnScale : 0.2, // Defines the scaling factor of the points with respect to the zoom level
-    speed : 0.0001 // Defines the speed of the animated points on the map
+    speed : 0.0002 // Defines the speed of the animated points on the map
 };
 
 class AnimatedPoint{
@@ -15,6 +15,7 @@ class AnimatedPoint{
     }
 }
 
+//const dist_scale = 0.03;
 class Animator{
     constructor(quantity, start_geopoint, end_geopoint){
 
@@ -23,7 +24,16 @@ class Animator{
         this.end_geopoint = end_geopoint.slice(); // Slice just makes a copy
         //this.travel_time = d3.geoDistance(start_geopoint.reverse(), end_geopoint.reverse()) / AnimationConstants.speed;
         this.travel_time = 4000;
+        /*  TO CHANGE TO DISTANCE SCALE: uncomment const dist_scale, uncomment following lines
+            comment the line before and uncomment this.travel_time = d3. etc.
+            then change quantity in the for-loop to normalized quantity
 
+        let dx = start_geopoint[0] - end_geopoint[0];
+
+        let dy = start_geopoint[1] - end_geopoint[1];
+        let dist = Math.sqrt(dx*dx + dy*dy);
+        let normalized_quantity = quantity * dist_scale * dist;
+        */
         // Add points
         for(let i=0; i < quantity; i++){
             this.animated_points.push(new AnimatedPoint(this.travel_time))
