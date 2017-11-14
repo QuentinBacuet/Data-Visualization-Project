@@ -1,27 +1,32 @@
 'use strict';
 
 let AnimationConstants = {
-    offset_size : 10,
-    speed : 0.1
+    offset_interval_size : 10,
+    half_interval_size : 5,
+    min_dot_size : 0.8,
+    lnScale : 0.2, // Defines the scaling factor of the points with respect to the zoom level
+    speed : 0.0001 // Defines the speed of the animated points on the map
 };
 
 class AnimatedPoint{
-    constructor(){
-        this.delta_t = Math.random();
-        this.offset = [Math.random() * AnimationConstants.offset_size, Math.random() * AnimationConstants.offset_size];
+    constructor(travel_time){
+        this.delta_t = Math.random() * travel_time;
+        this.offset = (Math.random() * AnimationConstants.offset_interval_size) - AnimationConstants.half_interval_size;
     }
 }
 
 class Animator{
-    constructor( quantity, start_geopoint, end_geopoint){
+    constructor(quantity, start_geopoint, end_geopoint){
 
         this.animated_points = [];
-        this.start_geopoint = start_geopoint;
-        this.end_geopoint = end_geopoint;
+        this.start_geopoint = start_geopoint.slice(); // Slice just makes a copy
+        this.end_geopoint = end_geopoint.slice(); // Slice just makes a copy
+        //this.travel_time = d3.geoDistance(start_geopoint.reverse(), end_geopoint.reverse()) / AnimationConstants.speed;
+        this.travel_time = 4000;
 
         // Add points
         for(let i=0; i < quantity; i++){
-            this.animated_points.push(new AnimatedPoint())
+            this.animated_points.push(new AnimatedPoint(this.travel_time))
         }
     }
 }
@@ -74,33 +79,40 @@ class MapLayer extends L.CanvasLayer {
         ctx.fillStyle = "rgba(255,165,0, 1.0)";
         let t = Date.now();
 
+        /* Size refs are used to specify the dot size in pixels.
+         * The farther the camera from the map, the smaller the dots.
+         */
+        let sizeRef1 = info.layer._map.latLngToContainerPoint([0.0,0.0]);
+        let sizeRef2 = info.layer._map.latLngToContainerPoint([0.0, AnimationConstants.lnScale]);
+        let dotRadius = sizeRef2.x - sizeRef1.x + AnimationConstants.min_dot_size;
+
         this.animators.forEach((animator) => {
 
             let p1 = info.layer._map.latLngToContainerPoint(animator.start_geopoint);
             let p2 = info.layer._map.latLngToContainerPoint(animator.end_geopoint);
 
-            //let perp = [-p2.y + p1.y, p2.x-p1.x];
-            //let norm = Math.norm(perp);
-            //perp = perp.map((v) => v/norm);
+            let perp = [-p2.y + p1.y, p2.x-p1.x];
+            let norm = Math.sqrt(perp[0] * perp[0] + perp[1] * perp[1]);
 
-            let travel_time = Math.sqrt(Math.pow(p2.x-p1.x, 2) + Math.pow(p2.y - p1.y, 2))/ AnimationConstants.speed;
+            perp = perp.map((v) => v/norm);
+
             let interpolate = helpers.LinearInterpolator2D(p1, p2);
 
             animator.animated_points.forEach((point) => {
 
-                let point_delta_travel_time = point.delta_t * travel_time;
-
-                if (t - point_delta_travel_time < this.animation_start_time){
+                if (t - point.delta_t < this.animation_start_time){
                     return;
                 } else {
 
-                    let point_time = ((t - point_delta_travel_time - this.animation_start_time) % travel_time)
-                        / travel_time;
+                    let point_time = ((t - point.delta_t - this.animation_start_time) % animator.travel_time)
+                        / animator.travel_time;
 
                     let dot = interpolate(point_time);
 
+                    let offsetFactor = Math.sin(point_time * Math.PI) * dotRadius * point.offset;
+
                     ctx.beginPath();
-                    ctx.arc(dot[0] + point.offset[0], dot[1] + point.offset[1], 3, 0, Math.PI * 2);
+                    ctx.arc(dot[0] + perp[0] * offsetFactor, dot[1] + perp[1] * offsetFactor, dotRadius, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.closePath();
                 }
@@ -190,11 +202,11 @@ const data = [
 let map = new Map();
 map.init();
 let canvas = new MapLayer("CanvasLayer");
-canvas.animators = [new Animator(20, [27.360169, 2.837152], [48.859586, 2.340734]),
+canvas.animators = [new Animator(100, [27.360169, 2.837152], [48.859586, 2.340734]),
                     new Animator(20, [38.797414, 35.200125], [48.859586, 2.340734]),
                     new Animator(20, [51.992734, 19.710632], [48.859586, 2.340734]),
                     new Animator(20, [35.478226, 37.980002], [48.859586, 2.340734]),
-                    new Animator(20, [51.825289, -176.539915], [48.859586, 2.340734])];
+                    new Animator(100, [51.825289, -176.539915], [48.859586, 2.340734])];
 canvas.animation_start_time = Date.now();
 canvas.addTo(map.interactive_map);
 
