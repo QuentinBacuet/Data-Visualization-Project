@@ -79,9 +79,9 @@ class MapLayer extends L.CanvasLayer {
             let p1 = info.layer._map.latLngToContainerPoint(animator.start_geopoint);
             let p2 = info.layer._map.latLngToContainerPoint(animator.end_geopoint);
 
-            let perp = [-p2.y + p1.y, p2.x-p1.x];
-            let norm = Math.norm(perp);
-            perp = perp.map((v) => v/norm);
+            //let perp = [-p2.y + p1.y, p2.x-p1.x];
+            //let norm = Math.norm(perp);
+            //perp = perp.map((v) => v/norm);
 
             let travel_time = Math.sqrt(Math.pow(p2.x-p1.x, 2) + Math.pow(p2.y - p1.y, 2))/ AnimationConstants.speed;
             let interpolate = helpers.LinearInterpolator2D(p1, p2);
