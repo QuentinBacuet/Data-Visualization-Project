@@ -39,6 +39,7 @@ d3.csv("data/final_data.csv", function (data) {
         document.addEventListener("mousemove", project.update_cursor, false);
     }
 
+    /*
     d3.csv("data/test1985.csv", function (d) {
         d.forEach(function(v){ delete v.Year });
         console.log(d);
@@ -46,7 +47,7 @@ d3.csv("data/final_data.csv", function (data) {
         project.set_countries(['ET'])
         console.log(project.get_flows());
         console.log(project.delta_for_countrycode());
-    });
+    });*/
 
 });
 /**
@@ -114,7 +115,7 @@ project.get_flows = function(){
  * @returns {number}
  *      The delta flow
  */
-project.delta_for_countrycode = function(){
+project.get_delta = function(){
     function sum_values(rows){
         return  rows.reduce(function(acc, row) {
             return +(acc) + +(row.Value);

@@ -180,7 +180,7 @@ class Map {
             let layer = L.geoJSON(data, {
                 onEachFeature: Map.featureAction((e) => {
                     country_graph.update_new_graph(e.target.feature.properties.iso_a2)
-                    this.updateAnimators(project.get_flows(e.target.feature.properties.iso_a2));
+                    this.updateAnimators(project.get_flows());
                 })
             });
             layer.addTo(this.interactive_map);
@@ -233,7 +233,7 @@ class Map {
 
     static style(feature) {
         return {
-            fillColor: Map.getChoroplethColor(project.delta_for_countrycode(feature.properties.iso_a2)),
+            fillColor: Map.getChoroplethColor(project.get_delta()),
             weight: 2,
             opacity: 1,
             color: 'white',
