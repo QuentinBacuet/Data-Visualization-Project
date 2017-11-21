@@ -43,7 +43,7 @@ d3.csv("data/final_data.csv", function (data) {
         console.log(d);
         console.log(project.data);
         console.log(project.flows_for_countrycode(['ET']));
-        //console.log(project.delta_for_countrycode(['ET']));
+        console.log(project.delta_for_countrycode(['ET']));
     });
 
 });
@@ -91,14 +91,6 @@ project.filter_country = function(origins, asylums, year_data){
     flows.outflows = year_data.filter(is_origin);
     flows.inflows = year_data.filter(is_asylum_not_origin);
 
-    function remove_origin_asylum(data){
-        data.forEach(function(v){
-            delete v.country_origin;
-            delete v.country_asylum;
-        });
-    }
-    remove_origin_asylum(flows.outflows);
-    remove_origin_asylum(flows.inflows);
     return flows;
 };
 
@@ -108,24 +100,14 @@ project.flows_for_countrycode = function(countrys){
     return project.filter_country_inout(countrys, year_data)
 };
 
-/*project.delta_for_countrycode = function(countrys){
+project.delta_for_countrycode = function(countrys){
     function sum_values(rows){
-        let sum  = rows.reduce(function(acc, row) {
-            console.log(row.value);
-            return accumulator + row.Value;
+        return  rows.reduce(function(acc, row) {
+            return +(acc) + +(row.Value);
         }, 0);
-        return sum;
     }
     let flows = project.flows_for_countrycode(countrys);
-    console.log('flows');
-    console.log(flows);
-    console.log('inflows');
     let sum_inflows = sum_values(flows.inflows);
-    console.log('sum_inflows');
-    console.log(sum_inflows);
-    console.log('outflows');
     let sum_outflows = sum_values(flows.outflows);
-    console.log('sum_outflows');
-    console.log(sum_outflows);
     return sum_inflows - sum_outflows;
-};*/
+};
