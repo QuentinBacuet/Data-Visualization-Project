@@ -5,7 +5,7 @@ let AnimationConstants = {
     half_interval_size : 5,
     min_dot_size : 0.8,
     lnScale : 0.2, // Defines the scaling factor of the points with respect to the zoom level
-    speed : 0.0002 // Defines the speed of the animated points on the map
+    speed : 0.0001 // Defines the speed of the animated points on the map
 };
 
 class AnimatedPoint{
@@ -41,8 +41,8 @@ class Animator{
     }
 }
 
-Animator.outflowColor = "rgba(255,165,0, 1.0)";
-Animator.inflowColor = "rgba(102, 204, 0, 1.0)";
+Animator.outflowColor = "rgba(214,96,77, 1.0)";
+Animator.inflowColor = "rgba(67,147,195, 1.0)";
 
 // Canvas manipulation object
 class MapLayer extends L.CanvasLayer {
@@ -178,7 +178,10 @@ class Map {
 
         d3.json("data/world.geo.json", (data) => {
             let layer = L.geoJSON(data, {
-                onEachFeature: Map.featureAction((e) => country_graph.update_new_graph(e.target.feature.properties.iso_a2))
+                onEachFeature: Map.featureAction((e) => {
+                    country_graph.update_new_graph(e.target.feature.properties.iso_a2)
+                    this.updateAnimators(project.flows_for_countrycode(e.target.feature.properties.iso_a2));
+                })
             });
             layer.addTo(this.interactive_map);
             layer.bringToBack();
@@ -189,6 +192,7 @@ class Map {
             new Animator(20, Animator.inflowColor, [38.797414, 35.200125], [48.859586, 2.340734]),
             new Animator(20,Animator.inflowColor, [51.992734, 19.710632], [48.859586, 2.340734]),
             new Animator(20, Animator.inflowColor, [35.478226, 37.980002], [48.859586, 2.340734]),
+            new Animator(20,Animator.outflowColor, [48.859586, 2.340734], [35.478226, 37.980002]),
             new Animator(100, Animator.inflowColor, [51.825289, -176.539915], [48.859586, 2.340734])];
         this.canvas.animation_start_time = Date.now();
         this.canvas.addTo(this.interactive_map);
@@ -215,23 +219,50 @@ class Map {
             });
         }
     }
-}
 
-const data = [
-    [49.72015422, 14.27402629, 1],
-    [49.66549949, 14.29529302, 2],
-    [49.54634256, 14.08849707, 3],
-    [49.78010369, 14.19906883, 4],
-    [49.72015422, 14.27402629, 5],
-    [49.63421271, 13.94838986, 6],
-    [49.77532293, 14.26745979, 7],
-    [49.62830954, 14.18657097, 8],
-    [49.61765210, 14.38976172, 9],
-    [49.57182912, 14.53259733, 10],
-    [49.80750806, 14.27987907, 11],
-    [49.58177169, 14.20328340, 12],
-    [49.60774451, 14.47812497, 13],
-    [49.67415889, 13.95112806, 14],
-    [49.65551256, 13.94388785, 15],
-    [49.70122451, 14.30093723, 16]];
+    static getChoroplethColor(d) {
+        return  d > 1000 ? '#b2182b' :
+                d > 500  ? '#ef8a62' :
+                d > 200  ? '#fddbc7' :
+                d > 100  ? '#f7f7f7' :
+                d > 50   ? '#d1e5f0' :
+                d > 20   ? '#67a9cf' :
+                d > 10   ? '#2166ac' :
+                '#000000';
+    }
+
+    static style(feature) {
+        return {
+            fillColor: Map.getChoroplethColor(project.delta_for_countrycode(feature.properties.iso_a2)),
+            weight: 2,
+            opacity: 1,
+            color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.7
+        };
+    }
+
+    static highlightFeature(e) {
+        var layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+        }
+    }
+
+    static resetHighlight(e) {
+        geojson.resetStyle(e.target);
+    }
+
+    static zoomToFeature(e) {
+        map.fitBounds(e.target.getBounds());
+    }
+}
 
