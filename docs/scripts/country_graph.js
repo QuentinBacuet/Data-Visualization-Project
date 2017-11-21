@@ -45,7 +45,8 @@ country_graph.update_graph = function (country_code) {
     let data_immigration_exit_slice = project.data_immigration_exit.filter(x => x.country_origin === country_graph.current_code);
 
     if (data_immigration_exit_slice.length > 0 && data_immigration_entry_slice.length > 0) {
-        const max_entry = Math.max(...data_immigration_exit_slice.map(x => x.Value), ...data_immigration_entry_slice.map(x => x.Value));
+        const max_entry = Math.max(...data_immigration_exit_slice.map(x => x.value), ...data_immigration_entry_slice.map(x => x.value));
+
         const domainOnlyScale_up = d3.scaleLinear().domain([0, max_entry]).range([0, 100]);
         const domainOnlyScale_down = d3.scaleLinear().domain([max_entry, 0]).range([-100, 0]);
 
@@ -57,14 +58,14 @@ country_graph.update_graph = function (country_code) {
         country_graph.y_axis_down = d3.axisRight(domainOnlyScale_down).ticks(5);
 
         for (let i = 0, i_entry = 0, i_exit = 0; i < timevals.max_year - timevals.min_year; i++) {
-            if (data_immigration_entry_slice[i_entry].Year === (timevals.min_year + i).toString()) {
-                data_entry.push(domainOnlyScale_up(data_immigration_entry_slice[i_entry].Value));
+            if (data_immigration_entry_slice[i_entry].year === (timevals.min_year + i).toString()) {
+                data_entry.push(domainOnlyScale_up(data_immigration_entry_slice[i_entry].value));
                 i_entry++;
             } else {
                 data_entry.push(0)
             }
-            if (data_immigration_exit_slice[i_exit].Year === (timevals.min_year + i).toString()) {
-                data_exit.push(domainOnlyScale_up(data_immigration_exit_slice[i_exit].Value));
+            if (data_immigration_exit_slice[i_exit].year === (timevals.min_year + i).toString()) {
+                data_exit.push(domainOnlyScale_up(data_immigration_exit_slice[i_exit].value));
                 i_exit++;
             } else {
                 data_exit.push(0)

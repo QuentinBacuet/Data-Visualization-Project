@@ -15,10 +15,10 @@ d3.csv("data/final_data.csv", function (data) {
                 project.data_immigration_exit = data_immigration_exit;
                 project.data_immigration_delta = data_immigration_delta;
 
-                for (let i_year = data[0].Year; i_year < data[data.length - 1].Year; i_year++) {
-                    let temp = data.filter(x => x.Year === i_year.toString());
+                for (let i_year = data[0].year; i_year < data[data.length - 1].year; i_year++) {
+                    let temp = data.filter(x => x.year === i_year.toString());
                     temp.forEach(function (v) {
-                        delete v.Year
+                        delete v.year
                     });
                     project.data.push(temp);
                 }
@@ -36,31 +36,36 @@ d3.csv("data/final_data.csv", function (data) {
 
                 country_graph.update_graph();
 
-    /** add listeners to every dynamic DOM element*/
-    {
-        let t = document.getElementById("timeline");
-        let btnr = document.getElementById("btnR");
-        let btnl = document.getElementById("btnL");
-        let playbtn = document.getElementById("playBtn");
-        t.addEventListener("mousedown", mouse.down_mouse, false);
-        btnr.addEventListener("click", button.btnr_pressed, false);
-        btnl.addEventListener("click", button.btnl_pressed, false);
-        playbtn.addEventListener("click", play.play_clicked, false);
-        document.addEventListener("mouseup", mouse.up_mouse, false);
-        document.addEventListener("mousemove", project.update_cursor, false);
-    }
+                /** add listeners to every dynamic DOM element*/
+                {
+                    let t = document.getElementById("timeline");
+                    let btnr = document.getElementById("btnR");
+                    let btnl = document.getElementById("btnL");
+                    let playbtn = document.getElementById("playBtn");
+                    t.addEventListener("mousedown", mouse.down_mouse, false);
+                    btnr.addEventListener("click", button.btnr_pressed, false);
+                    btnl.addEventListener("click", button.btnl_pressed, false);
+                    playbtn.addEventListener("click", play.play_clicked, false);
+                    document.addEventListener("mouseup", mouse.up_mouse, false);
+                    document.addEventListener("mousemove", project.update_cursor, false);
+                }
 
-    /*
-    d3.csv("data/test1985.csv", function (d) {
-        d.forEach(function(v){ delete v.Year });
-        console.log(d);
-        console.log(project.data);
-        project.set_countries(['ET'])
-        console.log(project.get_flows());
-        console.log(project.delta_for_countrycode());
-    });*/
+                /*
+                d3.csv("data/test1985.csv", function (d) {
+                    d.forEach(function(v){ delete v.year });
+                    console.log(d);
+                    console.log(project.data);
+                    project.set_countries(['ET'])
+                    console.log(project.get_flows());
+                    console.log(project.delta_for_countrycode());
+                });*/
 
-});
+            })
+
+        })
+    })
+})
+;
 /**
  * @param countrys
  *      The countrys for which you want to know in/out-flows
@@ -74,7 +79,7 @@ d3.csv("data/final_data.csv", function (data) {
  *          arr[i].latitude_asylum
  *          arr[i].value
  */
-project.filter_country_inout = function(countrys, year_data){
+project.filter_country_inout = function (countrys, year_data) {
     return project.filter_country(countrys, countrys, year_data);
 };
 
@@ -93,15 +98,18 @@ project.filter_country_inout = function(countrys, year_data){
  *          arr[i].latitude_asylum
  *          arr[i].value
  */
-project.filter_country = function(origins, asylums, year_data){
+project.filter_country = function (origins, asylums, year_data) {
 
     let flows = {};
-    function is_origin(row){
+
+    function is_origin(row) {
         return origins.includes(row.country_origin);
     }
-    function is_asylum_not_origin(row){
+
+    function is_asylum_not_origin(row) {
         return asylums.includes(row.country_asylum) && !is_origin(row);
     }
+
     flows.outflows = year_data.filter(is_origin);
     flows.inflows = year_data.filter(is_asylum_not_origin);
 
@@ -114,7 +122,7 @@ project.filter_country = function(origins, asylums, year_data){
  * @returns {((float|float|float|float|int)[]|(float|float|float|float|int)[])[]}
  *          see return of filter_country
  */
-project.get_flows = function(){
+project.get_flows = function () {
     let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
     let year_data = project.data[year - timevals.min_year];
     return project.filter_country_inout(project.countries, year_data)
@@ -126,12 +134,13 @@ project.get_flows = function(){
  * @returns {number}
  *      The delta flow
  */
-project.get_delta = function(){
-    function sum_values(rows){
-        return  rows.reduce(function(acc, row) {
-            return +(acc) + +(row.Value);
+project.get_delta = function () {
+    function sum_values(rows) {
+        return rows.reduce(function (acc, row) {
+            return +(acc) + +(row.value);
         }, 0);
     }
+
     let flows = project.get_flows(project.countries);
     let sum_inflows = sum_values(flows.inflows);
     let sum_outflows = sum_values(flows.outflows);
@@ -142,7 +151,7 @@ project.get_delta = function(){
  * @param countries
  *      the new value
  */
-project.set_countries = function(countries){
+project.set_countries = function (countries) {
     project.countries = countries;
 };
 
