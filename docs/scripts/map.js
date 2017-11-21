@@ -172,13 +172,31 @@ class Map {
         this.interactive_map.getPane('CanvasLayer').style.zIndex = 1000;
         this.interactive_map.getPane('CanvasLayer').style.pointerEvents = 'none';
 
-        d3.json("data/world.geo.json", function (data) {
+        d3.json("data/world.geo.json", (data) => {
             let layer = L.geoJSON(data, {
                 onEachFeature: Map.featureAction((e) => country_graph.update_new_graph(e.target.feature.properties.iso_a2))
             });
-            layer.addTo(map.interactive_map);
+            layer.addTo(this.interactive_map);
             layer.bringToBack();
         });
+
+        this.canvas = new MapLayer("CanvasLayer");
+        this.canvas.animators = [new Animator(100, [27.360169, 2.837152], [48.859586, 2.340734]),
+            new Animator(20, [38.797414, 35.200125], [48.859586, 2.340734]),
+            new Animator(20, [51.992734, 19.710632], [48.859586, 2.340734]),
+            new Animator(20, [35.478226, 37.980002], [48.859586, 2.340734]),
+            new Animator(100, [51.825289, -176.539915], [48.859586, 2.340734])];
+        this.canvas.animation_start_time = Date.now();
+        this.canvas.addTo(this.interactive_map);
+
+        setInterval(() => this.canvas.drawLayer(), 20);
+    }
+
+    updateAnimators(newData){
+        this.canvas.animators.splice(0, this.canvas.animators.length);
+        newData.forEach( d => {
+            this.canvas.animators.push(new Animator(d.value, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
+        })
     }
 
     static featureAction(f) {
@@ -199,10 +217,10 @@ const data = [
     [49.63421271, 13.94838986, 6],
     [49.77532293, 14.26745979, 7],
     [49.62830954, 14.18657097, 8],
-    [49.6176521, 14.38976172, 9],
+    [49.61765210, 14.38976172, 9],
     [49.57182912, 14.53259733, 10],
     [49.80750806, 14.27987907, 11],
-    [49.58177169, 14.2032834, 12],
+    [49.58177169, 14.20328340, 12],
     [49.60774451, 14.47812497, 13],
     [49.67415889, 13.95112806, 14],
     [49.65551256, 13.94388785, 15],
@@ -211,13 +229,3 @@ const data = [
 
 let map = new Map();
 map.init();
-let canvas = new MapLayer("CanvasLayer");
-canvas.animators = [new Animator(100, [27.360169, 2.837152], [48.859586, 2.340734]),
-                    new Animator(20, [38.797414, 35.200125], [48.859586, 2.340734]),
-                    new Animator(20, [51.992734, 19.710632], [48.859586, 2.340734]),
-                    new Animator(20, [35.478226, 37.980002], [48.859586, 2.340734]),
-                    new Animator(100, [51.825289, -176.539915], [48.859586, 2.340734])];
-canvas.animation_start_time = Date.now();
-canvas.addTo(map.interactive_map);
-
-setInterval(() => canvas.drawLayer(), 20);
