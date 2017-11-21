@@ -165,6 +165,11 @@ project.set_countries = function (countries) {
 
 project.get_delta_for_code = function (code_country) {
     let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
-    return project.data_immigration_delta[year - timevals.min_year].filter(x => x.country === code_country)[0].value;
+    let data_per_country = project.data_immigration_delta[year - timevals.min_year].filter(x => x.country === code_country);
+    if (data_per_country.length === 1) {
+        return data_per_country[0].value
+    } else {
+        return 0;
+    }
 };
 
