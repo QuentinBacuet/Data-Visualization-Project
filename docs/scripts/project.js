@@ -7,7 +7,7 @@ d3.csv("data/final_data.csv", function (data) {
     /** Called when any event has changed the year_value to move the cursor
      * and change the year_box accordingly
      */
-    for(let i_year = data[0].Year;i_year<data[data.length-1].Year;i_year++ ){
+    for(let i_year = data[0].Year;i_year <= data[data.length-1].Year;i_year++ ){
         let temp = data.filter(x => x.Year === i_year.toString());
         temp.forEach(function(v){ delete v.Year });
         project.data.push(temp);
@@ -40,14 +40,15 @@ d3.csv("data/final_data.csv", function (data) {
         document.addEventListener("mousemove", project.update_cursor, false);
     }
 
-    /*
-    d3.csv("data/test1985.csv", function (d) {
+   /* d3.csv("data/test1985.csv", function (d) {
         d.forEach(function(v){ delete v.Year });
         console.log(d);
-        console.log(project.data);
-        project.set_countries(['ET'])
+        console.log('project data', project.data);
+        project.set_countries(['ET']);
         console.log(project.get_flows());
-        console.log(project.delta_for_countrycode());
+        console.log(project.get_delta());
+        project.set_countries(['AO']);
+        console.log(project.get_flows());
     });*/
 
 });
@@ -94,7 +95,6 @@ project.filter_country = function(origins, asylums, year_data){
     }
     flows.outflows = year_data.filter(is_origin);
     flows.inflows = year_data.filter(is_asylum_not_origin);
-
     return flows;
 };
 
