@@ -21,6 +21,7 @@ box.move_year = function(year_value) {
   cursor.timeline_cursor.attr("x", margins.left + timevals.year_scale(clamped));
   box.update_year_box(box.year_box);
     country_graph.update_graph();
+    project.map.updateAnimators(project.get_flows())
 };
 
 box.pass_year = function() {

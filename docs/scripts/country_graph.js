@@ -37,7 +37,7 @@ country_graph.update_new_graph = function (country_code) {
 };
 
 country_graph.update_graph = function (country_code) {
-    const last_year_selected = timevals.rel_to_year(cursor.get_relative_cursor_x()) - timevals.min_year;
+    const last_year_selected = timevals.rel_to_year(cursor.get_relative_cursor_x()) - timevals.min_year + 1;
 
     country_graph.current_code = (country_code !== undefined) ? country_code : country_graph.current_code;
 

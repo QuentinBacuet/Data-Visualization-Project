@@ -48,6 +48,7 @@ Animator.inflowColor = "rgba(67,147,195, 1.0)";
 class MapLayer extends L.CanvasLayer {
     constructor(paneLabeltmp) {
         super();
+        this.animators = [];
         this.paneLabel = paneLabeltmp;
         this.animation_start_time = Date.now();
     }
@@ -178,6 +179,7 @@ class Map {
 
         d3.json("data/world.geo.json", (data) => {
             let layer = L.geoJSON(data, {
+                //style : Map.style,
                 onEachFeature: Map.featureAction((e) => {
                     country_graph.update_new_graph(e.target.feature.properties.iso_a2)
                     project.set_countries(e.target.feature.properties.iso_a2);
@@ -189,12 +191,6 @@ class Map {
         });
 
         this.canvas = new MapLayer("CanvasLayer");
-        this.canvas.animators = [new Animator(100, Animator.inflowColor, [27.360169, 2.837152], [48.859586, 2.340734]),
-            new Animator(20, Animator.inflowColor, [38.797414, 35.200125], [48.859586, 2.340734]),
-            new Animator(20,Animator.inflowColor, [51.992734, 19.710632], [48.859586, 2.340734]),
-            new Animator(20, Animator.inflowColor, [35.478226, 37.980002], [48.859586, 2.340734]),
-            new Animator(20,Animator.outflowColor, [48.859586, 2.340734], [35.478226, 37.980002]),
-            new Animator(100, Animator.inflowColor, [51.825289, -176.539915], [48.859586, 2.340734])];
         this.canvas.animation_start_time = Date.now();
         this.canvas.addTo(this.interactive_map);
 

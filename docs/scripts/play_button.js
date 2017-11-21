@@ -4,7 +4,7 @@ const play = {
   height: 18,
   width: 14,
   side: 15,
-  timer_interval: 500,
+  timer_interval: 2000,
     /** Defines whether the cursor is currently moving or not*/
     playing: false,
     timer: 0
