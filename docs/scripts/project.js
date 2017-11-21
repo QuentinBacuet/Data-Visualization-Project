@@ -23,15 +23,16 @@ d3.csv("data/final_data.csv", function (data) {
                     project.data.push(temp);
                 }
 
-                project.update_cursor = function (evt) {
-                    if (mouse.mouse_down) {
-                        let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
-                        let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
-                        cursor.timeline_cursor.attr("x", new_x);
-                        box.update_year_box(box.year_box);
-                        country_graph.update_graph();
-                    }
-                };
+    project.update_cursor = function (evt) {
+        if (mouse.mouse_down) {
+            let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
+            let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
+            cursor.timeline_cursor.attr("x", new_x);
+            box.update_year_box(box.year_box);
+            country_graph.update_graph();
+            project.map.updateAnimators(project.get_flows());
+        }
+    };
 
                 country_graph.update_graph();
 
