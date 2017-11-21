@@ -234,7 +234,7 @@ class Map {
 
     static style(feature) {
         return {
-            fillColor: Map.getChoroplethColor(project.get_delta()),
+            fillColor: Map.getChoroplethColor(project.get_delta(feature.properties.iso_a2)),
             weight: 2,
             opacity: 1,
             color: 'white',
@@ -244,7 +244,7 @@ class Map {
     }
 
     static highlightFeature(e) {
-        var layer = e.target;
+        let layer = e.target;
 
         layer.setStyle({
             weight: 5,
