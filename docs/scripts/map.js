@@ -180,6 +180,7 @@ class Map {
             let layer = L.geoJSON(data, {
                 onEachFeature: Map.featureAction((e) => {
                     country_graph.update_new_graph(e.target.feature.properties.iso_a2)
+                    project.set_countries(e.target.feature.properties.iso_a2);
                     this.updateAnimators(project.get_flows());
                 })
             });
@@ -204,11 +205,11 @@ class Map {
         this.canvas.animators.splice(0, this.canvas.animators.length);
 
         newData.outflows.forEach( d => {
-            this.canvas.animators.push(new Animator(d.value, Animator.outflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
+            this.canvas.animators.push(new Animator(Math.round(d.Value/1000), Animator.outflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
         })
 
         newData.inflows.forEach( d => {
-            this.canvas.animators.push(new Animator(d.value, Animator.inflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
+            this.canvas.animators.push(new Animator(Math.round(d.Value/1000), Animator.inflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
         })
     }
 

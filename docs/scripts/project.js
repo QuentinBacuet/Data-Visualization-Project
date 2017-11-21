@@ -20,6 +20,7 @@ d3.csv("data/final_data.csv", function (data) {
             cursor.timeline_cursor.attr("x", new_x);
             box.update_year_box(box.year_box);
             country_graph.update_graph();
+            project.map.updateAnimators(project.get_flows());
         }
     };
 
