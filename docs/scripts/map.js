@@ -15,31 +15,34 @@ class AnimatedPoint{
     }
 }
 
-//const dist_scale = 0.03;
+const dist_scale = 0.03;
 class Animator{
-    constructor(quantity, start_geopoint, end_geopoint){
-
+    constructor(quantity, color_code, start_geopoint, end_geopoint){
+        this.color_code = color_code;
         this.animated_points = [];
         this.start_geopoint = start_geopoint.slice(); // Slice just makes a copy
         this.end_geopoint = end_geopoint.slice(); // Slice just makes a copy
-        //this.travel_time = d3.geoDistance(start_geopoint.reverse(), end_geopoint.reverse()) / AnimationConstants.speed;
-        this.travel_time = 4000;
-        /*  TO CHANGE TO DISTANCE SCALE: uncomment const dist_scale, uncomment following lines
+        this.travel_time = d3.geoDistance(start_geopoint.reverse(), end_geopoint.reverse()) / AnimationConstants.speed;
+        //this.travel_time = 4000;
+          /*TO CHANGE TO DISTANCE SCALE: uncomment const dist_scale, uncomment following lines
             comment the line before and uncomment this.travel_time = d3. etc.
-            then change quantity in the for-loop to normalized quantity
+            then change quantity in the for-loop to normalized quantity*/
 
         let dx = start_geopoint[0] - end_geopoint[0];
 
         let dy = start_geopoint[1] - end_geopoint[1];
         let dist = Math.sqrt(dx*dx + dy*dy);
         let normalized_quantity = quantity * dist_scale * dist;
-        */
+
         // Add points
-        for(let i=0; i < quantity; i++){
+        for(let i=0; i < normalized_quantity; i++){
             this.animated_points.push(new AnimatedPoint(this.travel_time))
         }
     }
 }
+
+Animator.outflowColor = "rgba(255,165,0, 1.0)";
+Animator.inflowColor = "rgba(102, 204, 0, 1.0)";
 
 // Canvas manipulation object
 class MapLayer extends L.CanvasLayer {
@@ -86,7 +89,6 @@ class MapLayer extends L.CanvasLayer {
         const ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
 
-        ctx.fillStyle = "rgba(255,165,0, 1.0)";
         let t = Date.now();
 
         /* Size refs are used to specify the dot size in pixels.
@@ -97,6 +99,8 @@ class MapLayer extends L.CanvasLayer {
         let dotRadius = sizeRef2.x - sizeRef1.x + AnimationConstants.min_dot_size;
 
         this.animators.forEach((animator) => {
+
+            ctx.fillStyle = animator.color_code;
 
             let p1 = info.layer._map.latLngToContainerPoint(animator.start_geopoint);
             let p2 = info.layer._map.latLngToContainerPoint(animator.end_geopoint);
@@ -181,11 +185,11 @@ class Map {
         });
 
         this.canvas = new MapLayer("CanvasLayer");
-        this.canvas.animators = [new Animator(100, [27.360169, 2.837152], [48.859586, 2.340734]),
-            new Animator(20, [38.797414, 35.200125], [48.859586, 2.340734]),
-            new Animator(20, [51.992734, 19.710632], [48.859586, 2.340734]),
-            new Animator(20, [35.478226, 37.980002], [48.859586, 2.340734]),
-            new Animator(100, [51.825289, -176.539915], [48.859586, 2.340734])];
+        this.canvas.animators = [new Animator(100, Animator.inflowColor, [27.360169, 2.837152], [48.859586, 2.340734]),
+            new Animator(20, Animator.inflowColor, [38.797414, 35.200125], [48.859586, 2.340734]),
+            new Animator(20,Animator.inflowColor, [51.992734, 19.710632], [48.859586, 2.340734]),
+            new Animator(20, Animator.inflowColor, [35.478226, 37.980002], [48.859586, 2.340734]),
+            new Animator(100, Animator.inflowColor, [51.825289, -176.539915], [48.859586, 2.340734])];
         this.canvas.animation_start_time = Date.now();
         this.canvas.addTo(this.interactive_map);
 
@@ -194,8 +198,13 @@ class Map {
 
     updateAnimators(newData){
         this.canvas.animators.splice(0, this.canvas.animators.length);
-        newData.forEach( d => {
-            this.canvas.animators.push(new Animator(d.value, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
+
+        newData.outflows.forEach( d => {
+            this.canvas.animators.push(new Animator(d.value, Animator.outflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
+        })
+
+        newData.inflows.forEach( d => {
+            this.canvas.animators.push(new Animator(d.value, Animator.inflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
         })
     }
 
@@ -226,6 +235,3 @@ const data = [
     [49.65551256, 13.94388785, 15],
     [49.70122451, 14.30093723, 16]];
 
-
-let map = new Map();
-map.init();

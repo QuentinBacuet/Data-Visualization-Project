@@ -40,3 +40,7 @@ d3.csv("data/final_data.csv", function (data) {
         document.addEventListener("mousemove", project.update_cursor, false);
     }
 });
+
+
+project.map = new Map();
+project.map.init();
