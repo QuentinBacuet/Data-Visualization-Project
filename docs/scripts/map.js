@@ -179,7 +179,7 @@ class Map {
 
         d3.json("data/world.geo.json", (data) => {
             let layer = L.geoJSON(data, {
-                //style : Map.style,
+                style : Map.style,
                 onEachFeature: Map.featureAction((e) => {
                     country_graph.update_new_graph(e.target.feature.properties.iso_a2)
                     project.set_countries(e.target.feature.properties.iso_a2);
@@ -230,7 +230,7 @@ class Map {
 
     static style(feature) {
         return {
-            fillColor: Map.getChoroplethColor(project.get_delta(feature.properties.iso_a2)),
+            fillColor: Map.getChoroplethColor(project.get_delta_for_code(feature.properties.iso_a2)),
             weight: 2,
             opacity: 1,
             color: 'white',

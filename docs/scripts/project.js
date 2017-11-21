@@ -28,43 +28,46 @@ d3.csv("data/final_data.csv", function (data) {
                     project.data_immigration_delta.push(temp_delta);
                 }
 
-    project.update_cursor = function (evt) {
-        if (mouse.mouse_down) {
-            let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
-            let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
-            cursor.timeline_cursor.attr("x", new_x);
-            box.update_year_box(box.year_box);
-            country_graph.update_graph();
-            project.map.updateAnimators(project.get_flows());
-        }
-    };
+                project.update_cursor = function (evt) {
+                    if (mouse.mouse_down) {
+                        let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
+                        let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
+                        cursor.timeline_cursor.attr("x", new_x);
+                        box.update_year_box(box.year_box);
+                        country_graph.update_graph();
+                        project.map.updateAnimators(project.get_flows());
+                    }
+                };
 
                 country_graph.update_graph();
 
-    /** add listeners to every dynamic DOM element*/
-    {
-        let t = document.getElementById("timeline");
-        let btnr = document.getElementById("btnR");
-        let btnl = document.getElementById("btnL");
-        let playbtn = document.getElementById("playBtn");
-        t.addEventListener("mousedown", mouse.down_mouse, false);
-        btnr.addEventListener("click", button.btnr_pressed, false);
-        btnl.addEventListener("click", button.btnl_pressed, false);
-        playbtn.addEventListener("click", play.play_clicked, false);
-        document.addEventListener("mouseup", mouse.up_mouse, false);
-        document.addEventListener("mousemove", project.update_cursor, false);
-    }
+                /** add listeners to every dynamic DOM element*/
+                {
+                    let t = document.getElementById("timeline");
+                    let btnr = document.getElementById("btnR");
+                    let btnl = document.getElementById("btnL");
+                    let playbtn = document.getElementById("playBtn");
+                    t.addEventListener("mousedown", mouse.down_mouse, false);
+                    btnr.addEventListener("click", button.btnr_pressed, false);
+                    btnl.addEventListener("click", button.btnl_pressed, false);
+                    playbtn.addEventListener("click", play.play_clicked, false);
+                    document.addEventListener("mouseup", mouse.up_mouse, false);
+                    document.addEventListener("mousemove", project.update_cursor, false);
+                }
 
-    /* d3.csv("data/test1985.csv", function (d) {
-         d.forEach(function(v){ delete v.Year });
-         console.log(d);
-         console.log('project data', project.data);
-         project.set_countries(['ET']);
-         console.log(project.get_flows());
-         console.log(project.get_delta());
-         project.set_countries(['AO']);
-         console.log(project.get_flows());
-     });*/
+                /* d3.csv("data/test1985.csv", function (d) {
+                     d.forEach(function(v){ delete v.Year });
+                     console.log(d);
+                     console.log('project data', project.data);
+                     project.set_countries(['ET']);
+                     console.log(project.get_flows());
+                     console.log(project.get_delta());
+                     project.set_countries(['AO']);
+                     console.log(project.get_flows());
+                 });*/
+
+                project.map = new Map();
+                project.map.init();
 
             })
         })
@@ -145,6 +148,7 @@ project.get_delta = function () {
             return +(acc) + +(row.value);
         }, 0);
     }
+
     let flows = project.get_flows(project.countries);
     let sum_inflows = sum_values(flows.inflows);
     let sum_outflows = sum_values(flows.outflows);
@@ -164,7 +168,3 @@ project.get_delta_for_code = function (code_country) {
     return project.data_immigration_delta[year - timevals.min_year].filter(x => x.country === code_country)[0].value;
 };
 
-
-
-project.map = new Map();
-project.map.init();
