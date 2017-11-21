@@ -1,13 +1,11 @@
 'use strict';
 
 const project = {};
-
+project.data = [];
 d3.csv("data/final_data.csv", function (data) {
     /** Called when any event has changed the year_value to move the cursor
      * and change the year_box accordingly
      */
-    project.data = [];
-
     for(let i_year = data[0].Year;i_year<data[data.length-1].Year;i_year++ ){
         let temp = data.filter(x => x.Year === i_year.toString());
         temp.forEach(function(v){ delete v.Year });
@@ -43,7 +41,9 @@ d3.csv("data/final_data.csv", function (data) {
     d3.csv("data/test1985.csv", function (d) {
         d.forEach(function(v){ delete v.Year });
         console.log(d);
-        console.log(project.filter_country(['NA', 'PH', 'ET'], ['AO', 'MY', 'IT'], d));
+        console.log(project.data);
+        console.log(project.flows_for_countrycode(['ET']));
+        //console.log(project.delta_for_countrycode(['ET']));
     });
 
 });
@@ -60,7 +60,7 @@ d3.csv("data/final_data.csv", function (data) {
  *          arr[i].latitude_asylum
  *          arr[i].value
  */
-project.filter_country_origin = function(countrys, year_data){
+project.filter_country_inout = function(countrys, year_data){
     return project.filter_country(countrys, countrys, year_data);
 };
 
@@ -101,3 +101,31 @@ project.filter_country = function(origins, asylums, year_data){
     remove_origin_asylum(flows.inflows);
     return flows;
 };
+
+project.flows_for_countrycode = function(countrys){
+    let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
+    let year_data = project.data[year - timevals.min_year];
+    return project.filter_country_inout(countrys, year_data)
+};
+
+/*project.delta_for_countrycode = function(countrys){
+    function sum_values(rows){
+        let sum  = rows.reduce(function(acc, row) {
+            console.log(row.value);
+            return accumulator + row.Value;
+        }, 0);
+        return sum;
+    }
+    let flows = project.flows_for_countrycode(countrys);
+    console.log('flows');
+    console.log(flows);
+    console.log('inflows');
+    let sum_inflows = sum_values(flows.inflows);
+    console.log('sum_inflows');
+    console.log(sum_inflows);
+    console.log('outflows');
+    let sum_outflows = sum_values(flows.outflows);
+    console.log('sum_outflows');
+    console.log(sum_outflows);
+    return sum_inflows - sum_outflows;
+};*/
