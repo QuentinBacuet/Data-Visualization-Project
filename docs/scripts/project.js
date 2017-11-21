@@ -4,26 +4,36 @@ const project = {};
 project.data = [];
 project.countries = [];
 d3.csv("data/final_data.csv", function (data) {
-    /** Called when any event has changed the year_value to move the cursor
-     * and change the year_box accordingly
-     */
-    for(let i_year = data[0].Year;i_year<data[data.length-1].Year;i_year++ ){
-        let temp = data.filter(x => x.Year === i_year.toString());
-        temp.forEach(function(v){ delete v.Year });
-        project.data.push(temp);
-    }
+    d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
+        d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
+            d3.csv("data/data_immigration_delta.csv", function (data_immigration_delta) {
+                /** Called when any event has changed the year_value to move the cursor
+                 * and change the year_box accordingly
+                 */
+                project.data = [];
+                project.data_immigration_entry = data_immigration_entry;
+                project.data_immigration_exit = data_immigration_exit;
+                project.data_immigration_delta = data_immigration_delta;
 
-    project.update_cursor = function (evt) {
-        if (mouse.mouse_down) {
-            let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
-            let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
-            cursor.timeline_cursor.attr("x", new_x);
-            box.update_year_box(box.year_box);
-            country_graph.update_graph();
-        }
-    };
+                for (let i_year = data[0].Year; i_year < data[data.length - 1].Year; i_year++) {
+                    let temp = data.filter(x => x.Year === i_year.toString());
+                    temp.forEach(function (v) {
+                        delete v.Year
+                    });
+                    project.data.push(temp);
+                }
 
-    country_graph.update_graph();
+                project.update_cursor = function (evt) {
+                    if (mouse.mouse_down) {
+                        let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
+                        let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
+                        cursor.timeline_cursor.attr("x", new_x);
+                        box.update_year_box(box.year_box);
+                        country_graph.update_graph();
+                    }
+                };
+
+                country_graph.update_graph();
 
     /** add listeners to every dynamic DOM element*/
     {
