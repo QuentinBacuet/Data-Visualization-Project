@@ -11,16 +11,21 @@ d3.csv("data/final_data.csv", function (data) {
                  * and change the year_box accordingly
                  */
                 project.data = [];
+                project.data_immigration_delta = [];
                 project.data_immigration_entry = data_immigration_entry;
                 project.data_immigration_exit = data_immigration_exit;
-                project.data_immigration_delta = data_immigration_delta;
 
                 for (let i_year = data[0].year; i_year <= data[data.length - 1].year; i_year++) {
-                    let temp = data.filter(x => x.year === i_year.toString());
-                    temp.forEach(function (v) {
+                    let temp_data = data.filter(x => x.year === i_year.toString());
+                    temp_data.forEach(function (v) {
                         delete v.year
                     });
-                    project.data.push(temp);
+                    project.data.push(temp_data);
+                    let temp_delta = data_immigration_delta.filter(x => x.year === i_year.toString());
+                    temp_delta.forEach(function (v) {
+                        delete v.year
+                    });
+                    project.data_immigration_delta.push(temp_delta);
                 }
 
     project.update_cursor = function (evt) {
@@ -62,7 +67,6 @@ d3.csv("data/final_data.csv", function (data) {
      });*/
 
             })
-
         })
     })
 })
@@ -154,6 +158,13 @@ project.get_delta = function () {
 project.set_countries = function (countries) {
     project.countries = countries;
 };
+
+project.get_delta_for_code = function (code_country) {
+    let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
+    return project.data_immigration_delta[year - timevals.min_year].filter(x => x.country === code_country)[0].value;
+};
+
+
 
 project.map = new Map();
 project.map.init();
