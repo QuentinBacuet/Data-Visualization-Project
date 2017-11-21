@@ -180,7 +180,7 @@ class Map {
             let layer = L.geoJSON(data, {
                 onEachFeature: Map.featureAction((e) => {
                     country_graph.update_new_graph(e.target.feature.properties.iso_a2)
-                    this.updateAnimators(project.flows_for_countrycode(e.target.feature.properties.iso_a2));
+                    this.updateAnimators(project.get_flows(e.target.feature.properties.iso_a2));
                 })
             });
             layer.addTo(this.interactive_map);

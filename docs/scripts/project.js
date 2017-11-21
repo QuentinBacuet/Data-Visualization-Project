@@ -2,6 +2,7 @@
 
 const project = {};
 project.data = [];
+project.countries = [];
 d3.csv("data/final_data.csv", function (data) {
     /** Called when any event has changed the year_value to move the cursor
      * and change the year_box accordingly
@@ -42,8 +43,9 @@ d3.csv("data/final_data.csv", function (data) {
         d.forEach(function(v){ delete v.Year });
         console.log(d);
         console.log(project.data);
-        console.log(project.flows_for_countrycode(['ET']));
-        console.log(project.delta_for_countrycode(['ET']));
+        project.set_countries(['ET'])
+        console.log(project.get_flows());
+        console.log(project.delta_for_countrycode());
     });
 
 });
@@ -94,20 +96,43 @@ project.filter_country = function(origins, asylums, year_data){
     return flows;
 };
 
-project.flows_for_countrycode = function(countrys){
+/**
+ * @param countries
+ *      The countries for which you want to know the flows
+ * @returns {((float|float|float|float|int)[]|(float|float|float|float|int)[])[]}
+ *          see return of filter_country
+ */
+project.get_flows = function(){
     let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
     let year_data = project.data[year - timevals.min_year];
-    return project.filter_country_inout(countrys, year_data)
+    return project.filter_country_inout(project.countries, year_data)
 };
 
-project.delta_for_countrycode = function(countrys){
+/**
+ * @param countrys
+ *      The countries for which you want to know the delta flow
+ * @returns {number}
+ *      The delta flow
+ */
+project.delta_for_countrycode = function(){
     function sum_values(rows){
         return  rows.reduce(function(acc, row) {
             return +(acc) + +(row.Value);
         }, 0);
     }
-    let flows = project.flows_for_countrycode(countrys);
+    let flows = project.get_flows(project.countries);
     let sum_inflows = sum_values(flows.inflows);
     let sum_outflows = sum_values(flows.outflows);
     return sum_inflows - sum_outflows;
 };
+
+/** A basic setter for countries
+ * @param countries
+ *      the new value
+ */
+project.set_countries = function(countries){
+    project.countries = countries;
+};
+
+project.map = new Map();
+project.map.init();
