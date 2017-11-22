@@ -178,16 +178,16 @@ class Map {
         this.interactive_map.getPane('CanvasLayer').style.pointerEvents = 'none';
 
         d3.json("data/world.geo.json", (data) => {
-            let layer = L.geoJSON(data, {
-                style : Map.style,
-                onEachFeature: Map.featureAction((e) => {
-                    country_graph.update_new_graph(e.target.feature.properties.iso_a2)
+            this.geolayer = L.geoJSON(data, {
+                style : this.style,
+                onEachFeature: this.featureAction((e) => {
+                    country_graph.update_new_graph(e.target.feature.properties.iso_a2);
                     project.set_countries(e.target.feature.properties.iso_a2);
                     this.updateAnimators(project.get_flows());
                 })
             });
-            layer.addTo(this.interactive_map);
-            layer.bringToBack();
+            this.geolayer.addTo(this.interactive_map);
+            this.geolayer.bringToBack();
         });
 
         this.canvas = new MapLayer("CanvasLayer");
@@ -202,50 +202,54 @@ class Map {
 
         newData.outflows.forEach( d => {
             this.canvas.animators.push(new Animator(Math.round(d.value/1000), Animator.outflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
-        })
+        });
 
         newData.inflows.forEach( d => {
             this.canvas.animators.push(new Animator(Math.round(d.value/1000), Animator.inflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
-        })
+        });
     }
 
-    static featureAction(f) {
+    featureAction(f) {
         return (feature, layer) => {
             layer.on({
-                click: f
+                click: f,
+                mouseover: this.highlightFeature,
+                mouseout: this.resetHighlight()
             });
         }
     }
 
     static getChoroplethColor(d) {
-        return  d > 1000 ? '#b2182b' :
-                d > 500  ? '#ef8a62' :
-                d > 200  ? '#fddbc7' :
-                d > 100  ? '#f7f7f7' :
-                d > 50   ? '#d1e5f0' :
-                d > 20   ? '#67a9cf' :
-                d > 10   ? '#2166ac' :
-                '#000000';
+        if (d < 0){
+            d = -d;
+            return  d > 150000 ? '#b2182b' :
+                d > 50000  ? '#ef8a62' :
+                    d > 200  ? '#fddbc7' :
+                                        '#f7f7f7';
+        } else {
+            return  d > 150000 ? '#2166ac' :
+                d > 50000  ? '#67a9cf' :
+                    d > 200  ? '#d1e5f0' :
+                                        '#f7f7f7';
+        }
     }
 
-    static style(feature) {
+    style(feature) {
         return {
             fillColor: Map.getChoroplethColor(project.get_delta_for_code(feature.properties.iso_a2)),
-            weight: 2,
+            weight: 1,
             opacity: 1,
-            color: 'white',
-            dashArray: '3',
-            fillOpacity: 0.7
+            color: 'gray',
+            fillOpacity: 0.3
         };
     }
 
-    static highlightFeature(e) {
+    highlightFeature(e) {
         let layer = e.target;
 
         layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
+            weight: 2,
+            color: 'black',
             fillOpacity: 0.7
         });
 
@@ -254,11 +258,14 @@ class Map {
         }
     }
 
-    static resetHighlight(e) {
-        geojson.resetStyle(e.target);
+    resetHighlight() {
+        // Closure for capturing this object.
+        return (e) =>  {
+            this.geolayer.resetStyle(e.target);
+        }
     }
 
-    static zoomToFeature(e) {
+    zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
     }
 }
