@@ -36,6 +36,7 @@ d3.csv("data/final_data.csv", function (data) {
                         box.update_year_box(box.year_box);
                         country_graph.update_graph();
                         project.map.updateAnimators(project.get_flows());
+                        project.map.updateChoropleth();
                     }
                 };
 

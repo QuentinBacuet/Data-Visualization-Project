@@ -178,6 +178,7 @@ class Map {
         this.interactive_map.getPane('CanvasLayer').style.pointerEvents = 'none';
 
         d3.json("data/world.geo.json", (data) => {
+            this.geodata = data;
             this.geolayer = L.geoJSON(data, {
                 style : this.style,
                 onEachFeature: this.featureAction((e) => {
@@ -195,6 +196,22 @@ class Map {
         this.canvas.addTo(this.interactive_map);
 
         setInterval(() => this.canvas.drawLayer(), 20);
+    }
+
+    updateChoropleth(){
+        this.interactive_map.removeLayer(this.geolayer);
+
+        this.geolayer = L.geoJSON(this.geodata, {
+            style : this.style,
+            onEachFeature: this.featureAction((e) => {
+                country_graph.update_new_graph(e.target.feature.properties.iso_a2);
+                project.set_countries(e.target.feature.properties.iso_a2);
+                this.updateAnimators(project.get_flows());
+            })
+        });
+        this.geolayer.addTo(this.interactive_map);
+        this.geolayer.bringToBack();
+
     }
 
     updateAnimators(newData){
@@ -237,10 +254,10 @@ class Map {
     style(feature) {
         return {
             fillColor: Map.getChoroplethColor(project.get_delta_for_code(feature.properties.iso_a2)),
-            weight: 1,
+            weight: 0.8,
             opacity: 1,
-            color: 'gray',
-            fillOpacity: 0.3
+            color: 'lightgray',
+            fillOpacity: 0.5
         };
     }
 
@@ -248,9 +265,8 @@ class Map {
         let layer = e.target;
 
         layer.setStyle({
-            weight: 2,
-            color: 'black',
-            fillOpacity: 0.7
+            color: 'WhiteSmoke',
+            fillOpacity: 0.8
         });
 
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
