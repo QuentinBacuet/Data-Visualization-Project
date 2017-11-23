@@ -57,14 +57,14 @@ country_graph.update_graph = function (country_code) {
         country_graph.y_axis_up = d3.axisRight(domainOnlyScale_up).ticks(5);
         country_graph.y_axis_down = d3.axisRight(domainOnlyScale_down).ticks(5);
 
-        for (let i = 0, i_entry = 0, i_exit = 0; i < timevals.max_year - timevals.min_year; i++) {
-            if (data_immigration_entry_slice[i_entry].year === (timevals.min_year + i).toString()) {
+        for (let i = 0, i_entry = 0, i_exit = 0; i <= timevals.max_year - timevals.min_year; i++) {
+            if (data_immigration_entry_slice[i_entry] !== undefined && data_immigration_entry_slice[i_entry].year === (timevals.min_year + i).toString()) {
                 data_entry.push(domainOnlyScale_up(data_immigration_entry_slice[i_entry].value));
                 i_entry++;
             } else {
                 data_entry.push(0)
             }
-            if (data_immigration_exit_slice[i_exit].year === (timevals.min_year + i).toString()) {
+            if (data_immigration_exit_slice[i_exit] !== undefined && data_immigration_exit_slice[i_exit].year === (timevals.min_year + i).toString()) {
                 data_exit.push(domainOnlyScale_up(data_immigration_exit_slice[i_exit].value));
                 i_exit++;
             } else {
@@ -89,13 +89,15 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
 
     country_graph.remove(data_entry_slice, data_exit_slice, data_diff_slice);
 
+    const widthRect = (timevals.year_scale(1) - timevals.year_scale(0));
+
     svg.append("g")
         .attr("id", "y_axis")
-        .attr("transform", "translate(" + [width + margins.left, offset + max_entry] + ")")
+        .attr("transform", "translate(" + [width + margins.left + widthRect / 2, offset + max_entry] + ")")
         .call(country_graph.y_axis_up);
     svg.append("g")
         .attr("id", "y_axis")
-        .attr("transform", "translate(" + [width + margins.left, offset + max_entry] + ")")
+        .attr("transform", "translate(" + [width + margins.left + widthRect / 2, offset + max_entry] + ")")
         .call(country_graph.y_axis_down);
 
     svg.selectAll("#graph_entry")
@@ -104,7 +106,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .append("rect")
         .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
         .attr("height", (d, i) => d)
-        .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * i)
+        .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
         .attr("y", (d, i) => offset + max_entry - d)
         .attr("class", "unfocusable")
         .attr("id", "graph_entry");
@@ -115,14 +117,14 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .append("rect")
         .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
         .attr("height", (d, i) => d)
-        .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * i)
+        .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
         .attr("y", (d, i) => offset + max_entry)
         .attr("class", "unfocusable")
         .attr("id", "graph_exit");
 
     // Define the line
     let valueline = d3.line()
-        .x((d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i + 0.5))
+        .x((d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
         .y((d, i) => offset + max_entry - d);
 
 
@@ -140,7 +142,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .enter()
         .append("circle")
         .attr("r", 3.5)
-        .attr("cx", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i + 0.5))
+        .attr("cx", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
         .attr("cy", (d, i) => offset + max_entry - d)
         .attr("id", "graph_dot");
 };
