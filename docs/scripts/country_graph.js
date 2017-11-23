@@ -47,25 +47,25 @@ country_graph.update_graph = function (country_code) {
     if (data_immigration_exit_slice.length > 0 && data_immigration_entry_slice.length > 0) {
         const max_entry = Math.max(...data_immigration_exit_slice.map(x => x.value), ...data_immigration_entry_slice.map(x => x.value));
 
-        const domainOnlyScale_up = d3.scaleLinear().domain([0, max_entry]).range([0, 100]);
-        const domainOnlyScale_down = d3.scaleLinear().domain([max_entry, 0]).range([-100, 0]);
+        country_graph.domainOnlyScale_up = d3.scaleLinear().domain([0, max_entry]).range([0, 100]);
+        country_graph.domainOnlyScale_down = d3.scaleLinear().domain([max_entry, 0]).range([-100, 0]);
 
         const data_entry = [];
         const data_exit = [];
         const data_diff = [];
 
-        country_graph.y_axis_up = d3.axisRight(domainOnlyScale_up).ticks(5);
-        country_graph.y_axis_down = d3.axisRight(domainOnlyScale_down).ticks(5);
+        country_graph.y_axis_up = d3.axisRight(country_graph.domainOnlyScale_up).ticks(5);
+        country_graph.y_axis_down = d3.axisRight(country_graph.domainOnlyScale_down).ticks(5);
 
         for (let i = 0, i_entry = 0, i_exit = 0; i <= timevals.max_year - timevals.min_year; i++) {
             if (data_immigration_entry_slice[i_entry] !== undefined && data_immigration_entry_slice[i_entry].year === (timevals.min_year + i).toString()) {
-                data_entry.push(domainOnlyScale_up(data_immigration_entry_slice[i_entry].value));
+                data_entry.push(country_graph.domainOnlyScale_up(data_immigration_entry_slice[i_entry].value));
                 i_entry++;
             } else {
                 data_entry.push(0)
             }
             if (data_immigration_exit_slice[i_exit] !== undefined && data_immigration_exit_slice[i_exit].year === (timevals.min_year + i).toString()) {
-                data_exit.push(domainOnlyScale_up(data_immigration_exit_slice[i_exit].value));
+                data_exit.push(country_graph.domainOnlyScale_up(data_immigration_exit_slice[i_exit].value));
                 i_exit++;
             } else {
                 data_exit.push(0)
@@ -78,7 +78,7 @@ country_graph.update_graph = function (country_code) {
         const data_exit_slice = data_exit.slice(0, last_year_selected);
         const data_diff_slice = data_diff.slice(0, last_year_selected);
 
-        country_graph.draw_graph(domainOnlyScale_up(max_entry), data_entry_slice, data_exit_slice, data_diff_slice)
+        country_graph.draw_graph(country_graph.domainOnlyScale_up(max_entry), data_entry_slice, data_exit_slice, data_diff_slice)
     } else {
         country_graph.removeAll();
     }
@@ -90,6 +90,9 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
     country_graph.remove(data_entry_slice, data_exit_slice, data_diff_slice);
 
     const widthRect = (timevals.year_scale(1) - timevals.year_scale(0));
+    let div = d3.select("body").append("div")
+        .attr("class", "tooltip").style("opacity", 0);
+
 
     svg.append("g")
         .attr("id", "y_axis")
@@ -109,7 +112,20 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
         .attr("y", (d, i) => offset + max_entry - d)
         .attr("class", "unfocusable")
-        .attr("id", "graph_entry");
+        .attr("id", "graph_entry")
+        .on("mouseover", d => {
+            div.transition()
+                .duration(200)
+                .style("opacity", .9);
+            div.html(Math.ceil(country_graph.domainOnlyScale_up.invert(d)))
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", () => {
+            div.transition()
+                .duration(300)
+                .style("opacity", 0);
+        });
 
     svg.selectAll("#graph_exit")
         .data(data_exit_slice)
@@ -120,7 +136,20 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
         .attr("y", (d, i) => offset + max_entry)
         .attr("class", "unfocusable")
-        .attr("id", "graph_exit");
+        .attr("id", "graph_exit")
+        .on("mouseover", d => {
+            div.transition()
+                .duration(200)
+                .style("opacity", .9);
+            div.html(Math.ceil(country_graph.domainOnlyScale_down.invert(d)))
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", () => {
+            div.transition()
+                .duration(300)
+                .style("opacity", 0);
+        });
 
     // Define the line
     let valueline = d3.line()
