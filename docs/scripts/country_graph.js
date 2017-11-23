@@ -97,10 +97,12 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
     svg.append("g")
         .attr("id", "y_axis")
         .attr("transform", "translate(" + [width + margins.left + widthRect / 2, offset + max_entry] + ")")
+        .attr("class", "unfocusable no_pointer_event")
         .call(country_graph.y_axis_up);
     svg.append("g")
         .attr("id", "y_axis")
         .attr("transform", "translate(" + [width + margins.left + widthRect / 2, offset + max_entry] + ")")
+        .attr("class", "unfocusable no_pointer_event")
         .call(country_graph.y_axis_down);
 
     svg.selectAll("#graph_entry")

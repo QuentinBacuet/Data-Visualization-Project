@@ -198,7 +198,7 @@ class Map {
         setInterval(() => this.canvas.drawLayer(), 20);
     }
 
-    updateChoropleth(){
+    updateChloropleth(){
         this.interactive_map.removeLayer(this.geolayer);
 
         this.geolayer = L.geoJSON(this.geodata, {

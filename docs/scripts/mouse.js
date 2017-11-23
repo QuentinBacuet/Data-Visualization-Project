@@ -8,7 +8,7 @@ const mouse = {
 mouse.down_mouse = function(evt) {
   play.stop_timer();
   mouse.mouse_down = true;
-  project.update_cursor(evt);
+  project.moved_cursor(evt);
 };
 
 /** function called when mouse is released*/

@@ -7,14 +7,14 @@ d3.csv("data/final_data.csv", function (data) {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
             d3.csv("data/data_immigration_delta.csv", function (data_immigration_delta) {
-                /** Called when any event has changed the year_value to move the cursor
-                 * and change the year_box accordingly
-                 */
+
+                /* Initialise project variables*/
                 project.data = [];
                 project.data_immigration_delta = [];
                 project.data_immigration_entry = data_immigration_entry;
                 project.data_immigration_exit = data_immigration_exit;
 
+                /* Copy data in project.data variable*/
                 for (let i_year = data[0].year; i_year <= data[data.length - 1].year; i_year++) {
                     let temp_data = data.filter(x => x.year === i_year.toString());
                     temp_data.forEach(function (v) {
@@ -28,16 +28,20 @@ d3.csv("data/final_data.csv", function (data) {
                     project.data_immigration_delta.push(temp_delta);
                 }
 
-                project.update_cursor = function (evt) {
+                project.moved_cursor = function (evt) {
                     if (mouse.mouse_down) {
                         let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
                         let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
-                        cursor.timeline_cursor.attr("x", new_x);
-                        box.update_year_box(box.year_box);
-                        country_graph.update_graph();
-                        project.map.updateAnimators(project.get_flows());
-                        project.map.updateChoropleth();
+                        project.update_cursor(new_x);
+
                     }
+                };
+                project.update_cursor = function (x) {
+                    cursor.timeline_cursor.attr("x", x);
+                    box.update_year_box(box.year_box);
+                    country_graph.update_graph();
+                    project.map.updateAnimators(project.get_flows());
+                    project.map.updateChloropleth();
                 };
 
                 country_graph.update_graph();
@@ -53,7 +57,7 @@ d3.csv("data/final_data.csv", function (data) {
                     btnl.addEventListener("click", button.btnl_pressed, false);
                     playbtn.addEventListener("click", play.play_clicked, false);
                     document.addEventListener("mouseup", mouse.up_mouse, false);
-                    document.addEventListener("mousemove", project.update_cursor, false);
+                    document.addEventListener("mousemove", project.moved_cursor, false);
                 }
 
                 /* d3.csv("data/test1985.csv", function (d) {
