@@ -1,0 +1,87 @@
+{
+  "historical_events": [
+    {
+      "year_start": "1992",
+      "year_end": "1995",
+	  "country_code": "BA",
+      "title": "Bosnian War",
+      "link": "https://en.wikipedia.org/wiki/Bosnian_War",
+	  "images": ["https://upload.wikimedia.org/wikipedia/commons/5/58/Bosnian_war_header.no.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Goran_Jelisi%C4%87_committing_murder.jpg/800px-Goran_Jelisi%C4%87_committing_murder.jpg",
+	  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Sarajevo_Grbavica.JPG/1920px-Sarajevo_Grbavica.JPG",
+	  "https://upload.wikimedia.org/wikipedia/commons/2/27/Opp_mot_Sniper_Alley.jpg",
+	  "https://upload.wikimedia.org/wikipedia/commons/a/a1/Exhumations_in_Srebrenica_1996.jpg"]
+    },
+    {
+      "year_start": "2011",
+      "year_end": "-",
+	  "country_code": "UA",
+      "title": "Syrian civil war",
+      "link": "https://en.wikipedia.org/wiki/Syrian_Civil_War",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/2/2a/Saadallah_al-Jabiri_square%2C_Aleppo%2C_after_the_explosion_of_October_2012.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Secretary_Kerry_Sits_With_Fellow_Foreign_Ministers_Before_Group_Discussion_in_Austria_About_Syria_%2822573995626%29.jpg/2880px-Secretary_Kerry_Sits_With_Fellow_Foreign_Ministers_Before_Group_Discussion_in_Austria_About_Syria_%2822573995626%29.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/f/ff/FSA_rebels_hold_a_planning_session.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/d/de/Lattakia_20_june_2010.jpg"
+	  ]
+    },
+	{
+      "year_start": "2011",
+      "year_end": "2011",
+	  "country_code": "UA",
+      "title": "Annexation of Crimea by Russia",
+      "link": "https://en.wikipedia.org/wiki/Annexation_of_Crimea_by_the_Russian_Federation",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/3/3d/Euromaidan_Night_of_11_December_18.jpgg",	"https://upload.wikimedia.org/wikipedia/commons/a/a4/%D0%9E%D1%82%D1%80%D1%8F%D0%B4_%D1%81%D0%B0%D0%BC%D0%BE%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D0%BD%D1%8B_%D0%9A%D1%80%D1%8B%D0%BC%D0%B0_%D1%81_%D1%89%D0%B8%D1%82%D0%B0%D0%BC%D0%B8_%D1%80%D0%B0%D1%81%D0%BA%D1%80%D0%B0%D1%88%D0%B5%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8_%D0%B2_%D1%86%D0%B2%D0%B5%D1%82%D0%B0_%D1%84%D0%BB%D0%B0%D0%B3%D0%B0_%D1%80%D0%B5%D1%81%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D0%9A%D1%80%D1%8B%D0%BC_%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D1%8F%D1%8E%D1%82_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%BD%D0%B8%D0%BA_%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2014-03-09_-_Perevalne_military_base_-_0162.JPG/2880px-2014-03-09_-_Perevalne_military_base_-_0162.JPG"
+	  ]
+    },
+	{
+      "year_start": "2012",
+      "year_end": "-",
+	  "country_code": "ML",
+      "title": "Northern Mali Conflict",
+      "link": "https://en.wikipedia.org/wiki/Northern_Mali_conflict",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/6/6d/Soldats_fran%C3%A7ais_%C3%A0_Gao2.PNG",
+		"https://upload.wikimedia.org/wikipedia/commons/3/3e/Islamist_fighters_in_northern_Mali.PNG",
+		"https://upload.wikimedia.org/wikipedia/commons/2/2e/Ansar_Dine_Rebels_-_VOA.jpg"
+	  ]
+    },
+	{
+      "year_start": "1991",
+      "year_end": "-",
+	  "country_code": "SO",
+      "title": "Somali Civil War",
+      "link": "https://en.wikipedia.org/wiki/Somali_Civil_War",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/6/6d/Abandoned_Somali_tanks.JPEG"
+	  ]
+    },
+	{
+      "year_start": "1991",
+      "year_end": "1991",
+	  "country_code": "RU",
+      "title": "Dissolution of the Soviet Union",
+      "link": "https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/a/a5/1991_coup_attempt1.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/c/cd/RIAN_archive_699865_Dushanbe_riots%2C_February_1990.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/7/71/Boris_Yeltsin_19_August_1991-1.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/a/a9/Riga_barricade_1991.jpg"
+	  ]
+    },
+	{
+      "year_start": "1991",
+      "year_end": "1991",
+	  "country_code": "RU",
+      "title": "Dissolution of the Soviet Union",
+      "link": "https://en.wikipedia.org/wiki/Dissolution_of_the_Soviet_Union",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/a/a5/1991_coup_attempt1.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/c/cd/RIAN_archive_699865_Dushanbe_riots%2C_February_1990.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/7/71/Boris_Yeltsin_19_August_1991-1.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/a/a9/Riga_barricade_1991.jpg"
+	  ]
+    }
+  ]
+}
