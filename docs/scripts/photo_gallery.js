@@ -92,7 +92,7 @@ photo_gallery.addNewUrls = function (urls) {
     let temp = [{id: "root", value: null}];
 
     urls.forEach(function (url, i) {
-        temp.push({id: "root." + i, value: null, img: url})
+        temp.push({id: "root.".concat(i), value: null, img: url})
     });
 
     photo_gallery.urls = temp;
