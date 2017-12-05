@@ -231,6 +231,7 @@ class Map {
         return (feature, layer) => {
             layer.on({
                 click: f,
+                dblclick: (e)=>this.zoomToFeature(e),
                 mouseover: this.highlightFeature,
                 mouseout: this.resetHighlight()
             });
@@ -284,7 +285,7 @@ class Map {
     }
 
     zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
+        this.interactive_map.fitBounds(e.target.getBounds());
     }
 }
 
