@@ -102,16 +102,56 @@
     },
 	{
       "year_start": "2003",
-      "year_end": "-",
-	  "country_code": "SS",
+      "year_end": "2006",
+	  "country_code": "BI",
       "title": "Burundian Civil War",
       "link": "https://en.wikipedia.org/wiki/Burundian_Civil_War",
 	  "images": [
 		"https://upload.wikimedia.org/wikipedia/commons/a/a7/Burundi_soldiers.png",
 		"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Burundi_peacekeepers_prepare_for_next_rotation_to_Somalia%2C_Bjumbura%2C_Burundi_012210_%284324781393%29.jpg/2880px-Burundi_peacekeepers_prepare_for_next_rotation_to_Somalia%2C_Bjumbura%2C_Burundi_012210_%284324781393%29.jpg"
 	  ]
+    },
+	{
+      "year_start": "1977",
+      "year_end": "1992",
+	  "country_code": "MZ",
+      "title": "Mozambican Civil War",
+      "link": "https://en.wikipedia.org/wiki/Mozambican_Civil_War",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/6/6c/Land_mine_victim_1_%284364925531%29.jpg"
+	  ]
+    },
+	{
+      "year_start": "1979",
+      "year_end": "1989",
+	  "country_code": "AF",
+      "title": "Soviet-Afghan War",
+      "link": "https://en.wikipedia.org/wiki/Soviet%E2%80%93Afghan_War",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/6/6c/Mortar_attack_on_Shigal_Tarna_garrison%2C_Kunar_Province%2C_87.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/8/82/BMD-1_in_Afghanistan.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/c/cd/August_1984_-_captured_field_guns_in_Jaji%2C_Paktia.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/c/cf/Evstafiev-spetsnaz-prepare-for-mission.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/a/a2/Evstafiev-Soviet-soldier-Afghanistan.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/4/48/RIAN_archive_644461_First_stage_in_the_Soviet_troop_withdrawal_from_Afghanistan.jpg",
+		
+	  ]
+    },
+	{
+      "year_start": "2001",
+      "year_end": "-",
+	  "country_code": "AF",
+      "title": "U.S. War in Afghanistan",
+      "link": "https://en.wikipedia.org/wiki/War_in_Afghanistan_(2001%E2%80%93present)",
+	  "images": [
+		"https://upload.wikimedia.org/wikipedia/commons/d/d1/WTCgroundzero.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/8/8a/US-UK-Sangin2007.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/e/eb/Special_Forces_Medic_in_Afghanistan.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/GIs_burn_a_suspected_Taliban_safehouse.jpg/1280px-GIs_burn_a_suspected_Taliban_safehouse.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Australian-Afgan_Army_patrol_April_2010.jpg/2880px-Australian-Afgan_Army_patrol_April_2010.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/1/14/SF_Sgt_Mario_Vigil_with_SF_and_NA_forces_west_of_Konduz_in_November_2001.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/6/69/Narang_night_raid.jpg",
+	  ]
     }
-	
-	
   ]
 }
