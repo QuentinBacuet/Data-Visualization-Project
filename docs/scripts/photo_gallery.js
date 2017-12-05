@@ -84,7 +84,7 @@ photo_gallery.drawTreemap = function (root) {
             return (d.y1 - d.y0) + "px"
         })
         .style("background-image", function (d) {
-            return "url(" + d.data.img + ")"
+            return "url(".concat(d.data.img).concat(")");
         });
 };
 
@@ -97,15 +97,8 @@ photo_gallery.addNewUrls = function (urls) {
 
     photo_gallery.urls = temp;
     photo_gallery.isFocused = -1;
+    photo_gallery.div.selectAll(".node").remove();
 
     photo_gallery.randomize(1, 10);
     photo_gallery.draw();
 };
-
-photo_gallery.addNewUrls(["https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/UStanks_baghdad_2003.JPEG/2880px-UStanks_baghdad_2003.JPEG",
-    "https://upload.wikimedia.org/wikipedia/commons/c/ce/Type_69_Iraq.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/0/00/Marines_in_Saddams_palace_DM-SD-04-12222.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/5/5a/IA-Sadr-City-04242008.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/b/b1/Iraqi_soldiers_and_Blackhawk.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Car_bomb_victim_in_Iraq.jpg/2880px-Car_bomb_victim_in_Iraq.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Pleadingforfreedom.jpg/2560px-Pleadingforfreedom.jpg"]);

@@ -70,6 +70,7 @@ class History{
         } else {
             button.classList.add('button_history_event_dark')
         }
+        button.classList.add('unfocusable')
 
     }
 }
