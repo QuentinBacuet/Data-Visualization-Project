@@ -9,7 +9,7 @@ const photo_gallery = {
     urls: []
 };
 
-photo_gallery.div = d3.select("#gallery").append("text")
+photo_gallery.div = d3.select("#divimages").append("text")
     .style("position", "relative")
     .style("width", photo_gallery.width_g + "px")
     .style("height", photo_gallery.height_g + "px")

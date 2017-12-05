@@ -201,6 +201,14 @@ class Map {
         this.canvas.addTo(this.interactive_map);
 
         setInterval(() => this.canvas.drawLayer(), 20);
+
+        // Add custom control to map
+        this.info = L.control()
+        this.info.onAdd = (map) => {
+            this.control_div = L.DomUtil.create('div', 'info');
+            this.info.update();
+            return this.control_div;
+        }
     }
 
     updateChloropleth(){
