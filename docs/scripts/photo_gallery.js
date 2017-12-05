@@ -1,21 +1,15 @@
 "use strict";
 
 const photo_gallery = {
-    width_g: 500,
-    height_g: 500,
-    x: 1000,
+    width_g: 100,
+    height_g: 100,
+    x: 0,
     y: 0,
     isFocused: -1,
     urls: []
 };
 
-photo_gallery.div = d3.select("#divimages").append("text")
-    .style("position", "relative")
-    .style("width", photo_gallery.width_g + "px")
-    .style("height", photo_gallery.height_g + "px")
-    .style("left", photo_gallery.x + "px")
-    .style("top", photo_gallery.y + "px")
-    .attr("class", "unfocusable");
+photo_gallery.div = d3.select("#divimages").append("text");
 
 photo_gallery.draw = function () {
     let stratify = d3.stratify()
@@ -52,13 +46,14 @@ photo_gallery.onClick = function (d, i) {
     if (photo_gallery.isFocused !== i) {
         photo_gallery.randomize(1, 3);
         photo_gallery.urls[i + 1].value = 20;
-        photo_gallery.draw()
+        photo_gallery.draw();
+        photo_gallery.isFocused = i;
     } else {
         photo_gallery.randomize(1, 10);
-        photo_gallery.draw()
+        photo_gallery.draw();
+        photo_gallery.isFocused = -1;
     }
 
-    photo_gallery.isFocused = i;
 };
 
 photo_gallery.drawTreemap = function (root) {
@@ -72,16 +67,16 @@ photo_gallery.drawTreemap = function (root) {
         .transition()
         .duration(1000)
         .style("left", function (d) {
-            return d.x0 + "px"
+            return d.x0 + "%"
         })
         .style("top", function (d) {
-            return d.y0 + "px"
+            return d.y0 + "%"
         })
         .style("width", function (d) {
-            return (d.x1 - d.x0) + "px"
+            return (d.x1 - d.x0) + "%"
         })
         .style("height", function (d) {
-            return (d.y1 - d.y0) + "px"
+            return (d.y1 - d.y0) + "%"
         })
         .style("background-image", function (d) {
             return "url(".concat(d.data.img).concat(")");

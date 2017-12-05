@@ -6,7 +6,9 @@
 	  "country_code": "BA",
       "title": "Bosnian War",
       "link": "https://en.wikipedia.org/wiki/Bosnian_War",
-	  "images": ["https://upload.wikimedia.org/wikipedia/commons/5/58/Bosnian_war_header.no.png", "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Goran_Jelisi%C4%87_committing_murder.jpg/800px-Goran_Jelisi%C4%87_committing_murder.jpg",
+      "images": [
+        "https://upload.wikimedia.org/wikipedia/commons/5/58/Bosnian_war_header.no.png",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Goran_Jelisi%C4%87_committing_murder.jpg/800px-Goran_Jelisi%C4%87_committing_murder.jpg",
 	  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Sarajevo_Grbavica.JPG/1920px-Sarajevo_Grbavica.JPG",
 	  "https://upload.wikimedia.org/wikipedia/commons/2/27/Opp_mot_Sniper_Alley.jpg",
 	  "https://upload.wikimedia.org/wikipedia/commons/a/a1/Exhumations_in_Srebrenica_1996.jpg"]
