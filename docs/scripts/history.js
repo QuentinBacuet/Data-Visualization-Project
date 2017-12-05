@@ -60,12 +60,16 @@ class History{
             '] ',
             history_event.title);
 
-        button.onclick = (target => photo_gallery.addNewUrls(history_event.images));
+        button.onclick = (target => {
+            photo_gallery.addNewUrls(history_event.images);
+            project.set_countries(history_event.country_code);
+            project.map.updateAnimators(project.get_flows());
+        });
 
         this.container.appendChild(button);
         this.container.appendChild(document.createElement("br"));
 
-        if(light==1){
+        if (light === 1) {
             button.classList.add('button_history_event_light')
         } else {
             button.classList.add('button_history_event_dark')
