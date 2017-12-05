@@ -47,3 +47,11 @@ div.tooltip {
 }
 
 #mapid { height: 500px; }
+
+#gallery {
+}
+
+.node {
+    position: absolute;
+    background-size: cover;
+}
