@@ -137,26 +137,31 @@ class MapLayer extends L.CanvasLayer {
     }
 }
 
+const map = {width: 75, height: 70, x: margins.left, y: margins.top};
+
+
 class Map {
     constructor() {
         this.id = "#mapid";
-        this.width_ = width;
-        this.height = 500;
-        this.x = margins.left;
-        this.y = margins.top;
+        this.width_ = map.width;
+        this.height = map.height;
+        this.x = map.x;
+        this.y = map.y;
         this.zoom = 2;
         this.max_zoom = 10;
         this.center = [38.338319, 18.466935];
     }
-
     init() {
         // Make map unfocusable
         d3.select(this.id)
-            .style("height", this.height)
-            .style("width", this.width_)
+            .style("height", this.height + "%")
+            .style("width", this.width_ + "%")
             .style("left", this.x)
             .style("top", this.y)
-            .attr("class", "unfocusable");
+            .style("float", "left")
+            .style("position", "absolute")
+            .attr("class", "unfocusable")
+            .attr("display", "inline-block");
 
         // Add interactive Leaflet map to this. object
         this.interactive_map = L.map('mapid', {

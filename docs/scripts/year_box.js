@@ -1,10 +1,9 @@
-const box_size = 24;
+const box_size = 180;
 const left_offset = 20;
 const box = {
     size: box_size,
-    x: margins.left + left_offset,
-    y: margins.top +
-    timevals.height + box_size,
+    x: 120,
+    y: box_size,
     offset: left_offset
 };
 
@@ -18,7 +17,10 @@ box.update_year_box = function (yb) {
  */
 box.move_year = function (year_value) {
     let clamped = helpers.clamp(year_value, timevals.min_year, timevals.max_year);
-    let new_cursor_x = margins.left + timevals.year_scale(clamped);
+    console.log("move year", year_value);
+
+    let new_cursor_x = timevals.year_scale(clamped);
+    console.log("clamped", new_cursor_x);
     //cursor.timeline_cursor.attr("x", margins.left + timevals.year_scale(clamped));
     project.update_cursor(new_cursor_x);
     box.update_year_box(box.year_box);
@@ -32,7 +34,7 @@ box.pass_year = function () {
 };
 
 /** init year box: text that displays the value pointed by the cursor*/
-box.year_box = svg.append("text")
+box.year_box = svg_year.append("text")
     .attr("x", box.x)
     .attr("y", box.y)
     .attr("font-size", box.size)

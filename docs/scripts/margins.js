@@ -1,15 +1,18 @@
 const margins = {
-    top: 50,
-    right: 100,
-    bottom: 50,
-    left: 50
+    top: 10,
+    right: 10,
+    bottom: 10,
+    left: 10
 };
 
 const svg_margins = {
-    top: 25,
-    right: 50,
-    bottom: 50,
-    left: 50
+    top: 40,
+    right: 40,
+    bottom: 40,
+    left: 40
 };
-const width = 800 - margins.left - margins.right;
-const height = 500 - margins.top - margins.bottom;
+
+
+const width = 600;
+const height = 400;
+

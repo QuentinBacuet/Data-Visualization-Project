@@ -4,11 +4,10 @@ const country_graph_size = 24;
 const country_graph_left_offset = 20;
 const country_graph = {
     size: box_size,
-    x: margins.left + country_graph_left_offset,
-    y: margins.top +
-    timevals.height + country_graph_size,
+    x: country_graph_left_offset,
+    y: timevals.y + timevals.height + height*2/100,
     offset: country_graph_left_offset,
-    max_height: 30,
+    max_height: height*0.08,
     current_code: "CH",
     first_index_immigration_exit: 0,
     last_index_immigration_exit: 0,
@@ -63,6 +62,7 @@ country_graph.update_graph = function (country_code) {
                 i_entry++;
             } else {
                 data_entry.push(0)
+                data_entry.push(0)
             }
             if (data_immigration_exit_slice[i_exit] !== undefined && data_immigration_exit_slice[i_exit].year === (timevals.min_year + i).toString()) {
                 data_exit.push(country_graph.domainOnlyScale_up(data_immigration_exit_slice[i_exit].value));
@@ -110,9 +110,9 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .enter()
         .append("rect")
         .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
-        .attr("height", (d, i) => d)
+        .attr("height", (d, i) => d*country_graph.max_height/max_entry)
         .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
-        .attr("y", (d, i) => offset + max_entry - d)
+        .attr("y", (d, i) => country_graph.y + (max_entry - d)*country_graph.max_height/max_entry)
         .attr("class", "unfocusable")
         .attr("id", "graph_entry")
         .on("mouseover", d => {
@@ -134,9 +134,9 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .enter()
         .append("rect")
         .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
-        .attr("height", (d, i) => d)
+        .attr("height", (d, i) => d*country_graph.max_height/max_entry)
         .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
-        .attr("y", (d, i) => offset + max_entry)
+        .attr("y", (d, i) => country_graph.y + country_graph.max_height)
         .attr("class", "unfocusable")
         .attr("id", "graph_exit")
         .on("mouseover", d => {
@@ -156,7 +156,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
     // Define the line
     let valueline = d3.line()
         .x((d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
-        .y((d, i) => offset + max_entry - d);
+        .y((d, i) => country_graph.y + (max_entry - d)*country_graph.max_height/max_entry);
 
 
     // Add the valueline path.
@@ -174,7 +174,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .append("circle")
         .attr("r", 3.5)
         .attr("cx", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
-        .attr("cy", (d, i) => offset + max_entry - d)
+        .attr("cy", (d, i) => country_graph.y  + (max_entry - d)*country_graph.max_height/max_entry)
         .attr("id", "graph_dot");
 };
 

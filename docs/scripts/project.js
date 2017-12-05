@@ -3,6 +3,7 @@
 const project = {};
 project.data = [];
 project.countries = [];
+
 d3.csv("data/final_data.csv", function (data) {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
@@ -30,9 +31,10 @@ d3.csv("data/final_data.csv", function (data) {
 
                 project.moved_cursor = function (evt) {
                     if (mouse.mouse_down) {
-                        let x = helpers.relative_x(evt.clientX) - mouse.mouse_adjustement;
-                        let new_x = helpers.clamp(cursor.round_cursor(x), margins.left, margins.left + width);
+                        let x = helpers.relative_x(evt.clientX);//e.mouse_adjustement);
+                        let new_x = helpers.clamp(cursor.round_cursor(x*width/(window.innerWidth*0.75)), 0, width-2);
                         project.update_cursor(new_x);
+
 
                     }
                 };
