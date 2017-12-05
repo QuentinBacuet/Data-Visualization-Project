@@ -31,7 +31,8 @@
       "title": "Annexation of Crimea by Russia",
       "link": "https://en.wikipedia.org/wiki/Annexation_of_Crimea_by_the_Russian_Federation",
 	  "images": [
-		"https://upload.wikimedia.org/wikipedia/commons/3/3d/Euromaidan_Night_of_11_December_18.jpgg",	"https://upload.wikimedia.org/wikipedia/commons/a/a4/%D0%9E%D1%82%D1%80%D1%8F%D0%B4_%D1%81%D0%B0%D0%BC%D0%BE%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D0%BD%D1%8B_%D0%9A%D1%80%D1%8B%D0%BC%D0%B0_%D1%81_%D1%89%D0%B8%D1%82%D0%B0%D0%BC%D0%B8_%D1%80%D0%B0%D1%81%D0%BA%D1%80%D0%B0%D1%88%D0%B5%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8_%D0%B2_%D1%86%D0%B2%D0%B5%D1%82%D0%B0_%D1%84%D0%BB%D0%B0%D0%B3%D0%B0_%D1%80%D0%B5%D1%81%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D0%9A%D1%80%D1%8B%D0%BC_%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D1%8F%D1%8E%D1%82_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%BD%D0%B8%D0%BA_%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/3/3d/Euromaidan_Night_of_11_December_18.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a4/%D0%9E%D1%82%D1%80%D1%8F%D0%B4_%D1%81%D0%B0%D0%BC%D0%BE%D0%BE%D0%B1%D0%BE%D1%80%D0%BE%D0%BD%D1%8B_%D0%9A%D1%80%D1%8B%D0%BC%D0%B0_%D1%81_%D1%89%D0%B8%D1%82%D0%B0%D0%BC%D0%B8_%D1%80%D0%B0%D1%81%D0%BA%D1%80%D0%B0%D1%88%D0%B5%D0%BD%D0%BD%D1%8B%D0%BC%D0%B8_%D0%B2_%D1%86%D0%B2%D0%B5%D1%82%D0%B0_%D1%84%D0%BB%D0%B0%D0%B3%D0%B0_%D1%80%D0%B5%D1%81%D0%BF%D1%83%D0%B1%D0%BB%D0%B8%D0%BA%D0%B8_%D0%9A%D1%80%D1%8B%D0%BC_%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D1%8F%D1%8E%D1%82_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D0%BD%D0%B8%D0%BA_%D0%9B%D0%B5%D0%BD%D0%B8%D0%BD%D0%B0.jpg",
 		"https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2014-03-09_-_Perevalne_military_base_-_0162.JPG/2880px-2014-03-09_-_Perevalne_military_base_-_0162.JPG"
 	  ]
     },
@@ -89,7 +90,7 @@
 	{
       "year_start": "2003",
       "year_end": "-",
-	  "country_code": "SS",
+      "country_code": "SD",
       "title": "War in Darfur",
       "link": "https://en.wikipedia.org/wiki/War_in_Darfur",
 	  "images": [
@@ -133,7 +134,7 @@
 		"https://upload.wikimedia.org/wikipedia/commons/c/cd/August_1984_-_captured_field_guns_in_Jaji%2C_Paktia.jpg",
 		"https://upload.wikimedia.org/wikipedia/commons/c/cf/Evstafiev-spetsnaz-prepare-for-mission.jpg",
 		"https://upload.wikimedia.org/wikipedia/commons/a/a2/Evstafiev-Soviet-soldier-Afghanistan.jpg",
-		"https://upload.wikimedia.org/wikipedia/commons/4/48/RIAN_archive_644461_First_stage_in_the_Soviet_troop_withdrawal_from_Afghanistan.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/4/48/RIAN_archive_644461_First_stage_in_the_Soviet_troop_withdrawal_from_Afghanistan.jpg"
 		
 	  ]
     },
@@ -150,7 +151,7 @@
 		"https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/GIs_burn_a_suspected_Taliban_safehouse.jpg/1280px-GIs_burn_a_suspected_Taliban_safehouse.jpg",
 		"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Australian-Afgan_Army_patrol_April_2010.jpg/2880px-Australian-Afgan_Army_patrol_April_2010.jpg",
 		"https://upload.wikimedia.org/wikipedia/commons/1/14/SF_Sgt_Mario_Vigil_with_SF_and_NA_forces_west_of_Konduz_in_November_2001.jpg",
-		"https://upload.wikimedia.org/wikipedia/commons/6/69/Narang_night_raid.jpg",
+		"https://upload.wikimedia.org/wikipedia/commons/6/69/Narang_night_raid.jpg"
 	  ]
     }
   ]

@@ -1,3 +1,7 @@
+body{
+    background-color: #ffffff;
+}
+
 .unfocusable{
     /* makes item unselectable (typically for text) */
     -moz-user-select: -moz-none;
@@ -47,6 +51,56 @@ div.tooltip {
 }
 
 #mapid { height: 500px; }
+
+#gallery {
+}
+
+.node {
+    position: absolute;
+    background-size: cover;
+}
+
+.button_history_event_dark {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #595959;
+    font-family: Verdana;
+    font-size: 18pt;
+    font-weight: 600;
+    padding: 8pt;
+    background-color: #cccccc;
+    border: solid #337FED 0px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.button_history_event_dark:hover {
+    background: #d9d9d9;
+    text-decoration: none;
+}
+
+.button_history_event_light {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #595959;
+    font-family: Verdana;
+    font-size: 18pt;
+    font-weight: 600;
+    padding: 8pt;
+    background-color: #e6e6e6;
+    border: solid #337FED 0px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.button_history_event_light:hover {
+    background: #f2f2f2;
+    text-decoration: none;
+}
 
 .svg-container {
     display: inline-block;

@@ -44,6 +44,7 @@ d3.csv("data/final_data.csv", function (data) {
                     country_graph.update_graph();
                     project.map.updateAnimators(project.get_flows());
                     project.map.updateChloropleth();
+                    project.history.update_year_index(timevals.rel_to_year(cursor.get_relative_cursor_x()));
                 };
 
                 country_graph.update_graph();
@@ -75,6 +76,8 @@ d3.csv("data/final_data.csv", function (data) {
 
                 project.map = new Map();
                 project.map.init();
+
+                project.history = new History();
 
             })
         })

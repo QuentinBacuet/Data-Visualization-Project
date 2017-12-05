@@ -206,6 +206,7 @@ class Map {
     updateChloropleth(){
         this.interactive_map.removeLayer(this.geolayer);
 
+        //TODO change this to a replace data
         this.geolayer = L.geoJSON(this.geodata, {
             style : this.style,
             onEachFeature: this.featureAction((e) => {
@@ -235,6 +236,7 @@ class Map {
         return (feature, layer) => {
             layer.on({
                 click: f,
+                dblclick: (e)=>this.zoomToFeature(e),
                 mouseover: this.highlightFeature,
                 mouseout: this.resetHighlight()
             });
@@ -259,7 +261,7 @@ class Map {
     style(feature) {
         return {
             fillColor: Map.getChoroplethColor(project.get_delta_for_code(feature.properties.iso_a2)),
-            weight: 0.8,
+            weight: 0.5,
             opacity: 1,
             color: 'lightgray',
             fillOpacity: 0.5
@@ -271,6 +273,7 @@ class Map {
 
         layer.setStyle({
             color: 'WhiteSmoke',
+            weight:1,
             fillOpacity: 0.8
         });
 
@@ -287,7 +290,7 @@ class Map {
     }
 
     zoomToFeature(e) {
-        map.fitBounds(e.target.getBounds());
+        this.interactive_map.fitBounds(e.target.getBounds());
     }
 }
 
