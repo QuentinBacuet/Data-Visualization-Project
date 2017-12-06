@@ -137,7 +137,7 @@ class MapLayer extends L.CanvasLayer {
     }
 }
 
-const map = {width: 75, height: 70, x: margins.left, y: margins.top};
+const map = {width: 65, height: 70, x: margins.left, y: margins.top};
 
 
 class Map {
@@ -203,12 +203,25 @@ class Map {
         setInterval(() => this.canvas.drawLayer(), 20);
 
         // Add custom control to map
-        this.info = L.control()
+        this.info = L.control();
         this.info.onAdd = (map) => {
             this.control_div = L.DomUtil.create('div', 'info');
             this.info.update();
             return this.control_div;
-        }
+        };
+
+        this.info.update = (isocode, name) => {
+
+            let inflow = project.get_inflow_for_code(isocode);
+            let outflow = project.get_outflow_for_code(isocode);
+
+            this.control_div.innerHTML = '<h3>Worldwide refugee flux</h3>'.concat(
+                '<b>', name ? name : '','</b><br />',
+                ' Inflow: ', name ? ''.concat(inflow, ' refugees'):'', '<br/>',
+                ' Outflow: ', name ? ''.concat(outflow, ' refugees') :'');
+        };
+
+        this.info.addTo(this.interactive_map);
     }
 
     updateChloropleth(){
@@ -245,7 +258,7 @@ class Map {
             layer.on({
                 click: f,
                 dblclick: (e)=>this.zoomToFeature(e),
-                mouseover: this.highlightFeature,
+                mouseover: (e)=>this.highlightFeature(e),
                 mouseout: this.resetHighlight()
             });
         }
@@ -288,12 +301,14 @@ class Map {
         if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
             layer.bringToFront();
         }
+        this.info.update(layer.feature.properties.iso_a2, layer.feature.properties.name);
     }
 
     resetHighlight() {
         // Closure for capturing this object.
         return (e) =>  {
             this.geolayer.resetStyle(e.target);
+            this.info.update();
         }
     }
 

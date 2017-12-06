@@ -13,6 +13,12 @@ body{
     pointer-events: none;
 }
 
+.year_label{
+    font-family: 'Merriweather', serif;
+    font-size: 12em;
+    font-weight: 300;
+}
+
 #graph_entry{
     fill: #67a9cf
 }
@@ -27,6 +33,19 @@ body{
 
 #graph_exit:hover {
     fill: #b2182b;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h3 {
+    margin: 0 0 5px;
+    color: #777;
 }
 
 div.tooltip {
@@ -63,9 +82,10 @@ div.tooltip {
     border-radius: 0px;
     color: #595959;
     font-family: Verdana;
-    font-size: 18pt;
-    font-weight: 600;
+    font-size: 12pt;
+    font-weight: 300;
     padding: 8pt;
+    width: 100%;
     background-color: #cccccc;
     border: solid #337FED 0px;
     text-decoration: none;
@@ -84,9 +104,10 @@ div.tooltip {
     border-radius: 0px;
     color: #595959;
     font-family: Verdana;
-    font-size: 18pt;
-    font-weight: 600;
+    font-size: 12pt;
+    font-weight: 300;
     padding: 8pt;
+    width: 100%;
     background-color: #e6e6e6;
     border: solid #337FED 0px;
     text-decoration: none;

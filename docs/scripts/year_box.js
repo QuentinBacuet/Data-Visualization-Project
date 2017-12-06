@@ -37,6 +37,6 @@ box.pass_year = function () {
 box.year_box = svg_year.append("text")
     .attr("x", box.x)
     .attr("y", box.y)
-    .attr("font-size", box.size)
+    //.attr("font-size", box.size)
     .text(timevals.rel_to_year(cursor.get_relative_cursor_x()))
-    .attr("class", "unfocusable no_pointer_event");
+    .attr("class", "year_label unfocusable no_pointer_event");

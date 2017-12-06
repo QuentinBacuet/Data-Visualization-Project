@@ -183,3 +183,16 @@ project.get_delta_for_code = function (code_country) {
     }
 };
 
+project.get_outflow_for_code = (isocode) =>{
+    let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
+    let outflow =  project.data_immigration_exit.filter(x => x.country_origin === isocode && parseInt(x.year, 10) === year);
+
+    return (outflow.length > 0) ? parseInt(outflow[0].value, 10).toFixed(0) : 0;
+};
+
+project.get_inflow_for_code = (isocode) =>{
+    let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
+    let inflow = project.data_immigration_entry.filter(x => x.country_asylum === isocode && parseInt(x.year, 10) === year);
+    return (inflow.length > 0) ? parseInt(inflow[0].value, 10).toFixed(0) : 0;
+};
+
