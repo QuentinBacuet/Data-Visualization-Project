@@ -1,6 +1,8 @@
+const ratio_left = 65;
+const vert_ratio_map_timeline = 70;
 let dv_svg = d3.select("#divsvgmap")
     .style("height", 98 + "%")
-    .style("width", 65 + "%")
+    .style("width", ratio_left + "%")
     .style("left", margins.left)
     .style("top", margins.top)
     .style("float", "left")
