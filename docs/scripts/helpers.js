@@ -20,7 +20,7 @@ helpers.clamp = function(val, min, max) {
  * @return {int} the value adapted to timeline origin
  */
 helpers.relative_x = function(x) {
-  return (x - margins.left);
+  return x;
 };
 
 helpers.LinearInterpolator2D = (p1, p2) => {

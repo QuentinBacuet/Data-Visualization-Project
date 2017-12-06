@@ -32,7 +32,7 @@ d3.csv("data/final_data.csv", function (data) {
                 project.moved_cursor = function (evt) {
                     if (mouse.mouse_down) {
                         let x = helpers.relative_x(evt.clientX);//e.mouse_adjustement);
-                        let new_x = helpers.clamp(cursor.round_cursor(x*width/(window.innerWidth*0.75)), 0, width-2);
+                        let new_x = helpers.clamp(cursor.round_cursor(x*width/(window.innerWidth*ratios.map_width/100)), 0, width-2);
                         project.update_cursor(new_x);
 
 

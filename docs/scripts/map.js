@@ -143,7 +143,7 @@ const map = {width: 65, height: 70, x: margins.left, y: margins.top};
 class Map {
     constructor() {
         this.id = "#mapid";
-        this.width_ = map.width;
+        this.width_ = ratios.map_width;
         this.height = map.height;
         this.x = map.x;
         this.y = map.y;
@@ -156,8 +156,8 @@ class Map {
         d3.select(this.id)
             .style("height", this.height + "%")
             .style("width", this.width_ + "%")
-            .style("left", this.x)
-            .style("top", this.y)
+            //.style("left", this.x)
+            //.style("top", this.y)
             .style("float", "left")
             .style("position", "absolute")
             .attr("class", "unfocusable")

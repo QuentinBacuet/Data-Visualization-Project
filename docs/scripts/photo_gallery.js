@@ -9,7 +9,7 @@ const photo_gallery = {
     urls: []
 };
 
-photo_gallery.div = d3.select("#divimages").append("text");
+photo_gallery.div = d3.select("#dv_images").append("text");
 
 photo_gallery.draw = function () {
     let stratify = d3.stratify()
@@ -84,6 +84,7 @@ photo_gallery.drawTreemap = function (root) {
 };
 
 photo_gallery.addNewUrls = function (urls) {
+    console.log(urls);
     let temp = [{id: "root", value: null}];
 
     urls.forEach(function (url, i) {
