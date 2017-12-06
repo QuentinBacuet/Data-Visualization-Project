@@ -62,13 +62,12 @@ country_graph.update_graph = function (country_code) {
                 i_entry++;
             } else {
                 data_entry.push(0);
-                data_entry.push(0);
             }
             if (data_immigration_exit_slice[i_exit] !== undefined && data_immigration_exit_slice[i_exit].year === (timevals.min_year + i).toString()) {
                 data_exit.push(country_graph.domainOnlyScale_up(data_immigration_exit_slice[i_exit].value));
                 i_exit++;
             } else {
-                data_exit.push(0)
+                data_exit.push(0);
             }
 
             data_diff.push(data_entry[i] - data_exit[i])
