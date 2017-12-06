@@ -1,11 +1,11 @@
 /* Constant values for the timeline*/
 const timevals = {
-    color: "steelblue",
+    color: "#e6e6e6",
     height: height/20,
     width: 600,
     min_year: 1985,
     max_year: 2016,
-    y: height*75/100,
+    y: height*72/100,
     x: 0,
     axis_height: 1.6
 };
@@ -56,8 +56,7 @@ timevals.rel_to_year = function(x_val) {
 };*/
 
 timevals.axis_ref = svg.append("g")
-    .style("font", "8px times")
-    .attr("class", "axis")
+    .style("font", "6px Verdana")
     .attr("transform", "translate(" + 0 + "," + +(timevals.y + timevals.height) + ")")
-    .attr("class", "unfocusable no_pointer_event")
+    .attr("class", "axis unfocusable no_pointer_event")
     .call(timevals.year_axis);

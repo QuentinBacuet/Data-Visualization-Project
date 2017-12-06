@@ -167,7 +167,7 @@ class Map {
         this.interactive_map = L.map('mapid', {
             center: this.center,
             zoom: this.zoom,
-            scrollWheelZoom: false
+            scrollWheelZoom: true
         });
 
         // Add carto layer to map
