@@ -14,7 +14,7 @@ cursor.round_cursor = function(x_val) {
 
 /** Return the position of the cursor relative to the timeline [0, width]*/
 cursor.get_relative_cursor_x = function() {
-    return +(+(cursor.get_cursor_x()) + margins.left);
+    return +(+(cursor.get_cursor_x()) + margins.inner);
 };
 
 /** Return the raw cursor x position*/
@@ -27,7 +27,7 @@ cursor.get_cursor_x = function() {
 cursor.timeline_cursor = svg.append("rect")
     .attr("width", cursor.width)
     .attr("height", cursor.height)
-    .attr("x", svg_margins.left + cursor.init)
+    .attr("x", cursor.init)
     .attr("y", timevals.height + timevals.y - cursor.height)
     .attr("class", "unfocusable no_pointer_event")
     .attr("position", "absolute")

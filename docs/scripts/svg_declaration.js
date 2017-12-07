@@ -1,6 +1,5 @@
 
 const ratios = {map_width: 65, year_height : 10, list_height: 40};
-const img_height = 100 - ratios.year_height - ratios.list_height - 2*margins.inner;
 
 let root = d3.select("#root")
     .style("height", 100 - 2*margins.root + "%")
@@ -12,17 +11,26 @@ let root = d3.select("#root")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
 
-//<div id="divsvgmap"></div>
-let dv_svg = root.append("div")
-    .attr("id","divsvgmap")
-    .style("height", 98 + "%")
-    .style("width", ratios.map_width + "%")
+let left = root.append("div")
+    .attr("id","left")
+    .style("float", "left")
+    .style("width", cst.left_div_width + "%")
+    .style("position", "absolute")
+    .attr("class", "unfocusable")
+    .attr("display", "inline-block");
+
+let right = root.append("div")
+    .attr("id", "right")
+    .style("height", 100 + "%")
+    .style("width", sub_cst.right_div_width + "%")
+    .style("left", sub_cst.right_div_x + "%")
     .style("float", "left")
     .style("position", "absolute")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
 
-let svg = dv_svg
+//Left children
+let svg = left
     .append("svg")
     .attr("width", "100%")
     .attr("height", "100%")
@@ -32,24 +40,10 @@ let svg = dv_svg
     .attr("top", 0)
     .attr("preserveAspectRatio", "none");
 
-//<div id="divsvgyear"></div>
-let left = root.append("div")
-    .attr("id", "left_div")
-    .style("height", 100 + "%")
-    .style("width", 100 - ratios.map_width - margins.inner + "%")
-    .style("left", ratios.map_width + margins.inner + "%")
-    //.style("top", margins.top)
-    .style("float", "left")
-    .style("position", "absolute")
-    .attr("class", "unfocusable")
-    .attr("display", "inline-block");
-
-let dv_year = left.append("div")
+//Right Children
+let dv_year = right.append("div")
     .attr("id", "div_year")
-    .style("height", ratios.year_height + "%")
-    //.style("width", 100 + "%")
-    //.style("left", ratios.map_width + margins.inner + "%")
-    //.style("top", margins.top)
+    .style("height", cst.year_div_height + "%")
     .style("float", "left")
     .style("position", "absolute")
     .attr("class", "unfocusable")
@@ -57,7 +51,6 @@ let dv_year = left.append("div")
 
 let svg_year = dv_year.append("svg")
     .attr("id", "svg_year")
-    //.attr("width", "100%")
     .attr("height", "100%")
     .attr("viewBox", "0 0 600 400")
     .attr("position", "absolute")
@@ -65,23 +58,22 @@ let svg_year = dv_year.append("svg")
     .attr("top", 0)
     .attr("preserveAspectRatio", "none");
 
-let dv_events = left.append("div")
+let dv_events = right.append("div")
     .attr("id", "div_events")
-    .style("height", ratios.list_height + "%")
+    .style("height", cst.events_height + "%")
     .style("width", 100 + "%")
     //.style("left",  + "%")
-    .style("top", ratios.year_height + margins.inner + "%")
+    .style("top", sub_cst.events_y + "%")
     .style("float", "left")
     .style("position", "absolute")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
 
-let dv_images = left.append("div")
+let dv_images = right.append("div")
     .attr("id", "dv_images")
-    .style("height", img_height + "%")
+    .style("height", sub_cst.images_height + "%")
     .style("width", 100 + "%")
-    //.style("left", 0+ "%")
-    .style("top", ratios.year_height + ratios.list_height + 2*margins.inner +"%")
+    .style("top",  + sub_cst.images_y +"%")
     .style("float", "left")
     .style("position", "absolute")
     .attr("class", "unfocusable")

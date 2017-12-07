@@ -1,11 +1,11 @@
 /* Constant values for the timeline*/
 const timevals = {
     color: "#e6e6e6",
-    height: height/20,
-    width: 600,
+    height: height*cst.timeline_height/100,
+    width: 600 * cst.timeline_width/100,
     min_year: 1985,
     max_year: 2016,
-    y: height*72/100,
+    y: height*sub_cst.timeline_y/100,
     x: 0,
     axis_height: 1.6
 };
@@ -14,7 +14,6 @@ const timevals = {
 let timeline = svg.append("rect")
     .attr("width", timevals.width)
     .attr("height", timevals.height)
-    .attr("x", timevals.x)
     .attr("y", timevals.y)
     .attr("fill", timevals.color)
     .attr("id", "timeline");
@@ -40,7 +39,7 @@ timevals.year_axis = d3.axisTop()
  * @return {int} The corresponding year value on the timeline
  */
 timevals.rel_to_year = function(x_val) {
-  x_year = Math.round(timevals.min_year + (timevals.max_year - timevals.min_year) * (x_val - margins.left) / width);
+  x_year = Math.round(timevals.min_year + (timevals.max_year - timevals.min_year) * (x_val - margins.inner) /timevals.width);
   return x_year;
 };
 

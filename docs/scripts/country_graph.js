@@ -1,13 +1,13 @@
 "use strict";
 
 const country_graph_size = 24;
-const country_graph_left_offset = 20;
+const country_graph_left_offset = 0;
 const country_graph = {
     size: box_size,
     x: country_graph_left_offset,
-    y: timevals.y + timevals.height + height*2/100,
+    y: height*sub_cst.graph_y/100,
     offset: country_graph_left_offset,
-    max_height: height*0.08,
+    max_height: height*sub_cst.graph_height/200,
     current_code: "CH",
     first_index_immigration_exit: 0,
     last_index_immigration_exit: 0,
@@ -46,15 +46,23 @@ country_graph.update_graph = function (country_code) {
     if (data_immigration_exit_slice.length > 0 && data_immigration_entry_slice.length > 0) {
         const max_entry = Math.max(...data_immigration_exit_slice.map(x => x.value), ...data_immigration_entry_slice.map(x => x.value));
 
-        country_graph.domainOnlyScale_up = d3.scaleLinear().domain([0, max_entry]).range([0, 100]);
-        country_graph.domainOnlyScale_down = d3.scaleLinear().domain([max_entry, 0]).range([-100, 0]);
+        country_graph.domainOnlyScale_up = d3.scaleLinear()
+            .domain([0, max_entry])
+            .range([0, country_graph.max_height]);
+        country_graph.domainOnlyScale_down = d3.scaleLinear()
+            .domain([max_entry, 0])
+            .range([-country_graph.max_height, 0]);
 
         const data_entry = [];
         const data_exit = [];
         const data_diff = [];
 
-        country_graph.y_axis_up = d3.axisRight(country_graph.domainOnlyScale_up).ticks(5);
-        country_graph.y_axis_down = d3.axisRight(country_graph.domainOnlyScale_down).ticks(5);
+        country_graph.y_axis_up = d3.axisRight(country_graph.domainOnlyScale_up)
+            .ticks(5)
+            .tickFormat(d3.format("d"));
+        country_graph.y_axis_down = d3.axisRight(country_graph.domainOnlyScale_down)
+            .ticks(5)
+            .tickFormat(d3.format("d"));
 
         for (let i = 0, i_entry = 0, i_exit = 0; i <= timevals.max_year - timevals.min_year; i++) {
             if (data_immigration_entry_slice[i_entry] !== undefined && data_immigration_entry_slice[i_entry].year === (timevals.min_year + i).toString()) {
@@ -84,23 +92,20 @@ country_graph.update_graph = function (country_code) {
 };
 
 country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slice, data_diff_slice) {
-    const offset = margins.top + (timevals.height) + country_graph.max_height;
+    const offset = margins.inner + (timevals.height) + country_graph.max_height;
 
     country_graph.remove(data_entry_slice, data_exit_slice, data_diff_slice);
 
     const widthRect = (timevals.year_scale(1) - timevals.year_scale(0));
-    let div = d3.select("body").append("div")
-        .attr("class", "tooltip").style("opacity", 0);
-
 
     svg.append("g")
         .attr("id", "y_axis")
-        .attr("transform", "translate(" + [width + margins.left + widthRect / 2, offset + max_entry] + ")")
+        .attr("transform", "translate(" + [(cst.graph_width + 2)*width/100, country_graph.y + country_graph.max_height] + ")")
         .attr("class", "unfocusable no_pointer_event")
         .call(country_graph.y_axis_up);
     svg.append("g")
         .attr("id", "y_axis")
-        .attr("transform", "translate(" + [width + margins.left + widthRect / 2, offset + max_entry] + ")")
+        .attr("transform", "translate(" + [(cst.graph_width + 2)*width/100, country_graph.y + country_graph.max_height] + ")")
         .attr("class", "unfocusable no_pointer_event")
         .call(country_graph.y_axis_down);
 
@@ -110,7 +115,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .append("rect")
         .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
         .attr("height", (d, i) => d*country_graph.max_height/max_entry)
-        .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
+        .attr("x", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
         .attr("y", (d, i) => country_graph.y + (max_entry - d)*country_graph.max_height/max_entry)
         .attr("class", "unfocusable")
         .attr("id", "graph_entry")
@@ -134,7 +139,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .append("rect")
         .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
         .attr("height", (d, i) => d*country_graph.max_height/max_entry)
-        .attr("x", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
+        .attr("x", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
         .attr("y", (d, i) => country_graph.y + country_graph.max_height)
         .attr("class", "unfocusable")
         .attr("id", "graph_exit")
@@ -154,7 +159,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
 
     // Define the line
     let valueline = d3.line()
-        .x((d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
+        .x((d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
         .y((d, i) => country_graph.y + (max_entry - d)*country_graph.max_height/max_entry);
 
 
@@ -172,7 +177,7 @@ country_graph.draw_graph = function (max_entry, data_entry_slice, data_exit_slic
         .enter()
         .append("circle")
         .attr("r", 3.5)
-        .attr("cx", (d, i) => margins.left + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
+        .attr("cx", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
         .attr("cy", (d, i) => country_graph.y  + (max_entry - d)*country_graph.max_height/max_entry)
         .attr("id", "graph_dot");
 };

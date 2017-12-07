@@ -137,16 +137,13 @@ class MapLayer extends L.CanvasLayer {
     }
 }
 
-const map = {width: 65, height: 70, x: margins.left, y: margins.top};
-
-
 class Map {
     constructor() {
         this.id = "#mapid";
-        this.width_ = ratios.map_width;
-        this.height = map.height;
-        this.x = map.x;
-        this.y = map.y;
+        this.width_ = cst.left_div_width;
+        this.height = cst.map_height;
+        this.x = 0;
+        this.y = 0;
         this.zoom = 2;
         this.max_zoom = 10;
         this.center = [38.338319, 18.466935];
@@ -154,10 +151,8 @@ class Map {
     init() {
         // Make map unfocusable
         d3.select(this.id)
-            .style("height", this.height + "%")
+            .style("height", cst.map_height + "%")
             .style("width", this.width_ + "%")
-            //.style("left", this.x)
-            //.style("top", this.y)
             .style("float", "left")
             .style("position", "absolute")
             .attr("class", "unfocusable")
