@@ -21,7 +21,11 @@ body{
 }
 
 #graph_entry{
-    fill: #67a9cf
+    fill: #b2d2f4
+}
+
+#graph_entry_focused {
+    fill: #2166ac
 }
 
 #graph_entry:hover {
@@ -29,7 +33,11 @@ body{
 }
 
 #graph_exit{
-    fill: #ef8a62
+    fill: #f4b2b7
+}
+
+#graph_exit_focused {
+    fill: #b2182b
 }
 
 #graph_exit:hover {
@@ -61,7 +69,7 @@ body{
     color: #777;
 }
 
-div.tooltip {
+div.info_graph {
     position: absolute;
     text-align: center;
     width: 60px;
@@ -73,13 +81,13 @@ div.tooltip {
 }
 
 #line{
-    stroke: #E6E6FA;
+    stroke: #c0c0c0;
     stroke-width: 2;
     fill: none;
 }
 
 #graph_dot{
-    fill: #006666
+    fill: #e0e0e0
 }
 
 #mapid {
@@ -93,9 +101,9 @@ div.tooltip {
 }
 
 .button_history_event_dark {
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
     color: #595959;
     font-family: Verdana;
     font-size: 12pt;
@@ -103,7 +111,7 @@ div.tooltip {
     padding: 8pt;
     width: 100%;
     background-color: #cccccc;
-    border: solid #337FED 0px;
+    border: solid #337FED 0;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
@@ -115,9 +123,9 @@ div.tooltip {
 }
 
 .button_history_event_light {
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
     color: #595959;
     font-family: Verdana;
     font-size: 12pt;
@@ -125,7 +133,7 @@ div.tooltip {
     padding: 8pt;
     width: 100%;
     background-color: #e6e6e6;
-    border: solid #337FED 0px;
+    border: solid #337FED 0;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;

@@ -182,7 +182,7 @@ class Map {
             this.geolayer = L.geoJSON(data, {
                 style : this.style,
                 onEachFeature: this.featureAction((e) => {
-                    country_graph.update_new_graph(e.target.feature.properties.iso_a2);
+                    country_graph.update_graph_new_country(e.target.feature.properties.iso_a2);
                     project.set_countries(e.target.feature.properties.iso_a2);
                     this.updateAnimators(project.get_flows());
                 })
@@ -200,7 +200,7 @@ class Map {
         // Add custom control to map
         this.info = L.control();
         this.info.onAdd = (map) => {
-            this.control_div = L.DomUtil.create('div', 'info');
+            this.control_div = L.DomUtil.create('info_graph', 'info');
             this.info.update();
             return this.control_div;
         };
@@ -226,7 +226,7 @@ class Map {
         this.geolayer = L.geoJSON(this.geodata, {
             style : this.style,
             onEachFeature: this.featureAction((e) => {
-                country_graph.update_new_graph(e.target.feature.properties.iso_a2);
+                country_graph.update_graph_new_country(e.target.feature.properties.iso_a2);
                 project.set_countries(e.target.feature.properties.iso_a2);
                 this.updateAnimators(project.get_flows());
             })

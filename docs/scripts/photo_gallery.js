@@ -9,7 +9,7 @@ const photo_gallery = {
     urls: []
 };
 
-photo_gallery.div = d3.select("#dv_images").append("text");
+photo_gallery.info_graph = d3.select("#dv_images").append("text");
 
 photo_gallery.draw = function () {
     let stratify = d3.stratify()
@@ -58,10 +58,10 @@ photo_gallery.onClick = function (d, i) {
 
 photo_gallery.drawTreemap = function (root) {
 
-    let node = photo_gallery.div.selectAll(".node").data(root.children);
+    let node = photo_gallery.info_graph.selectAll(".node").data(root.children);
 
     let newNode = node.enter()
-        .append("div").attr("class", "node").on('click', photo_gallery.onClick);
+        .append("info_graph").attr("class", "node").on('click', photo_gallery.onClick);
 
     node.merge(newNode)
         .transition()
@@ -93,7 +93,7 @@ photo_gallery.addNewUrls = function (urls) {
 
     photo_gallery.urls = temp;
     photo_gallery.isFocused = -1;
-    photo_gallery.div.selectAll(".node").remove();
+    photo_gallery.info_graph.selectAll(".node").remove();
 
     photo_gallery.randomize(1, 10);
     photo_gallery.draw();

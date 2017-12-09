@@ -11,7 +11,7 @@ let root = d3.select("#root")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
 
-let left = root.append("div")
+let left = root.append("info_graph")
     .attr("id","left")
     .style("float", "left")
     .style("width", cst.left_div_width + "%")
@@ -19,7 +19,7 @@ let left = root.append("div")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
 
-let right = root.append("div")
+let right = root.append("info_graph")
     .attr("id", "right")
     .style("height", 100 + "%")
     .style("width", sub_cst.right_div_width + "%")
@@ -41,7 +41,7 @@ let svg = left
     .attr("preserveAspectRatio", "none");
 
 //Right Children
-let dv_year = right.append("div")
+let dv_year = right.append("info_graph")
     .attr("id", "div_year")
     .style("height", cst.year_div_height + "%")
     .style("float", "left")
@@ -58,7 +58,7 @@ let svg_year = dv_year.append("svg")
     .attr("top", 0)
     .attr("preserveAspectRatio", "none");
 
-let dv_events = right.append("div")
+let dv_events = right.append("info_graph")
     .attr("id", "div_events")
     .style("height", cst.events_height + "%")
     .style("width", 100 + "%")
@@ -69,7 +69,7 @@ let dv_events = right.append("div")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
 
-let dv_images = right.append("div")
+let dv_images = right.append("info_graph")
     .attr("id", "dv_images")
     .style("height", sub_cst.images_height + "%")
     .style("width", 100 + "%")
