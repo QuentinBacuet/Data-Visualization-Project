@@ -93,6 +93,7 @@ div.info_graph {
 #mapid {
     height: 500px;
     border: 1px solid #cccccc;
+    z-index: 2000;
 }
 
 .node {
