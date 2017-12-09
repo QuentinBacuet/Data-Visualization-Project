@@ -44,13 +44,13 @@ d3.csv("data/final_data.csv", function (data) {
                 project.update_cursor = function (x) {
                     cursor.timeline_cursor.attr("x", x);
                     box.update_year_box(box.year_box);
-                    country_graph.draw_graph_from_current_data();
+                    country_graph.update_graph_time();
                     project.map.updateAnimators(project.get_flows());
                     project.map.updateChloropleth();
                     project.history.update_year_index(timevals.rel_to_year(cursor.get_relative_cursor_x()));
                 };
 
-                country_graph.update_graph_new_country();
+                country_graph.init();
 
                 /** add listeners to every dynamic DOM element*/
                 {
