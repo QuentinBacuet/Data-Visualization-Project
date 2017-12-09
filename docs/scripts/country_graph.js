@@ -177,7 +177,7 @@ country_graph.draw_graph_from_current_data = function () {
             .data(country_graph.data_diff)
             .enter()
             .append("circle")
-            .attr("r", 3.5)
+            .attr("r", 3)
             .attr("cx", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
             .attr("cy", (d, i) => country_graph.y + (country_graph.max_entry - d) * country_graph.max_height / country_graph.max_entry)
             .attr("id", "graph_dot");

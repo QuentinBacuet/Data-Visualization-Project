@@ -20,13 +20,9 @@ box.move_year = function (year_value) {
     console.log("move year", year_value);
 
     let new_cursor_x = timevals.year_scale(clamped);
-    console.log("clamped", new_cursor_x);
-    //cursor.timeline_cursor.attr("x", margins.left + timevals.year_scale(clamped));
+
     project.update_cursor(new_cursor_x);
     box.update_year_box(box.year_box);
-    /*country_graph.update_graph();
-    project.map.updateAnimators(project.get_flows());
-    project.map.updateChloropleth();*/
 };
 
 box.pass_year = function () {

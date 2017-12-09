@@ -34,9 +34,11 @@ d3.csv("data/final_data.csv", function (data) {
                         let x = helpers.relative_x(evt.clientX);//e.mouse_adjustement);
                         let new_x = helpers.clamp(cursor.round_cursor(x*timevals.width/(window.innerWidth*
                             cst.left_div_width/100 * cst.timeline_width/100)), 0, timevals.width-2);
-                        project.update_cursor(new_x);
 
-
+                        if (project.cursor_x !== new_x) {
+                            project.update_cursor(new_x);
+                            project.cursor_x = new_x;
+                        }
                     }
                 };
                 project.update_cursor = function (x) {
@@ -61,7 +63,7 @@ d3.csv("data/final_data.csv", function (data) {
                     btnl.addEventListener("click", button.btnl_pressed, false);
                     playbtn.addEventListener("click", play.play_clicked, false);
                     document.addEventListener("mouseup", mouse.up_mouse, false);
-                    document.addEventListener("mousemove", project.moved_cursor, false);
+                    document.addEventListener("mousemove", project.moved_cursor, true);
                 }
 
                 /* d3.csv("data/test1985.csv", function (d) {
