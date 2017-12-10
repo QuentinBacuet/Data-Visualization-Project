@@ -55,7 +55,7 @@ timevals.rel_to_year = function(x_val) {
 };*/
 
 timevals.axis_ref = svg.append("g")
-    .style("font", "6px Verdana")
+    .style("font", "6px Arial")
     .attr("transform", "translate(" + 0 + "," + +(timevals.y + timevals.height) + ")")
     .attr("class", "axis unfocusable no_pointer_event")
     .call(timevals.year_axis);
