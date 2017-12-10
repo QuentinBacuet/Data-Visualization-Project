@@ -63,6 +63,7 @@ class History{
             photo_gallery.addNewUrls(history_event.images);
             project.set_countries(history_event.country_code);
             project.map.updateAnimators(project.get_flows());
+            project.map.focusOn(history_event.country_code);
             country_graph.update_graph_new_country(history_event.country_code);
         });
 

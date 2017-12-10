@@ -8,6 +8,13 @@ d3.csv("data/final_data.csv", function (data) {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
             d3.csv("data/data_immigration_delta.csv", function (data_immigration_delta) {
+                d3.csv("data/countries_latlon.csv", (countries_latlon) =>{
+                    project.data_countries_latlon = {};
+
+                    countries_latlon.forEach(e =>{
+                        project.data_countries_latlon[e.country] = L.latLng(e.latitude, e.longitude);
+                    });
+                });
 
                 /* Initialise project variables*/
                 project.data = [];
@@ -199,3 +206,7 @@ project.get_inflow_for_code = (isocode) =>{
     return (inflow.length > 0) ? parseInt(inflow[0].value, 10).toFixed(0) : 0;
 };
 
+
+project.get_latlon_for_code = (isocode) => {
+    return project.data_countries_latlon[isocode];
+}

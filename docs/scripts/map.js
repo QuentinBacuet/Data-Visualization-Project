@@ -246,7 +246,7 @@ class Map {
             this.legend_div = L.DomUtil.create('div', 'info legend');
 
             // loop through our density intervals and generate a label with a colored square for each interval
-            for (let i = 0; i < this.quantiles.length; i++) {
+            for (let i = this.quantiles.length - 1; i >= 0; i--) {
 
                 let currentQuantile = this.quantiles[i];
                 let abs_v = 0;
@@ -358,6 +358,10 @@ class Map {
 
     zoomToFeature(e) {
         this.interactive_map.fitBounds(e.target.getBounds());
+    }
+
+    focusOn(countrycode){
+        this.interactive_map.flyTo(project.get_latlon_for_code(countrycode), 4);
     }
 }
 
