@@ -66,6 +66,8 @@ class History{
             country_graph.update_graph_new_country(history_event.country_code);
         });
 
+        button.ondblclick = target => window.open(history_event.link);
+
         this.container.appendChild(button);
         this.container.appendChild(document.createElement("br"));
 

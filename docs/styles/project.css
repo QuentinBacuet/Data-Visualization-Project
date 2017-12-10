@@ -81,13 +81,13 @@ div.info_graph {
 }
 
 #line{
-    stroke: #c0c0c0;
-    stroke-width: 2;
+    stroke: #7f7f7f;
+    stroke-width: 1;
     fill: none;
 }
 
 #graph_dot{
-    fill: #e0e0e0
+    fill: #7f7f7f
 }
 
 #mapid {

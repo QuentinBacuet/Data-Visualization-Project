@@ -16,6 +16,7 @@ class AnimatedPoint{
 }
 
 const dist_scale = 0.03;
+const quantity_scale = 0.001;
 class Animator{
     constructor(quantity, color_code, start_geopoint, end_geopoint){
         this.color_code = color_code;
@@ -32,7 +33,7 @@ class Animator{
 
         let dy = start_geopoint[1] - end_geopoint[1];
         let dist = Math.sqrt(dx*dx + dy*dy);
-        let normalized_quantity = quantity * dist_scale * dist;
+        let normalized_quantity = quantity * quantity_scale * dist_scale * dist;
 
         // Add points
         for(let i=0; i < normalized_quantity; i++){
@@ -240,11 +241,11 @@ class Map {
         this.canvas.animators.splice(0, this.canvas.animators.length);
 
         newData.outflows.forEach( d => {
-            this.canvas.animators.push(new Animator(Math.round(d.value/1000), Animator.outflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
+            this.canvas.animators.push(new Animator(d.value, Animator.outflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
         });
 
         newData.inflows.forEach( d => {
-            this.canvas.animators.push(new Animator(Math.round(d.value/1000), Animator.inflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
+            this.canvas.animators.push(new Animator(d.value, Animator.inflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
         });
     }
 

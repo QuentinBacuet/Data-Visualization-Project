@@ -203,7 +203,7 @@ country_graph.draw_graph_from_new_country_data = function () {
 
         point.enter()
             .append("circle")
-            .attr("r", 3)
+            .attr("r", 2)
             .attr("cx", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
             .attr("id", "graph_dot");
 
