@@ -16,10 +16,11 @@ class AnimatedPoint{
 }
 
 const dist_scale = 0.03;
-const quantity_scale = 0.001;
+const quantity_scale = 0.0005;
 class Animator{
     constructor(quantity, color_code, start_geopoint, end_geopoint){
         this.color_code = color_code;
+        this.quantity = quantity;
         this.animated_points = [];
         this.start_geopoint = start_geopoint.slice(); // Slice just makes a copy
         this.end_geopoint = end_geopoint.slice(); // Slice just makes a copy
@@ -42,8 +43,8 @@ class Animator{
     }
 }
 
-Animator.outflowColor = "rgba(214,96,77, 1.0)";
-Animator.inflowColor = "rgba(67,147,195, 1.0)";
+Animator.outflowColor = "#b2182b";
+Animator.inflowColor = "#2166ac";
 
 // Canvas manipulation object
 class MapLayer extends L.CanvasLayer {
@@ -87,6 +88,7 @@ class MapLayer extends L.CanvasLayer {
 
     };
 
+
     onDrawLayer(info) {
         const ctx = info.canvas.getContext('2d');
         ctx.clearRect(0, 0, info.canvas.width, info.canvas.height);
@@ -99,6 +101,7 @@ class MapLayer extends L.CanvasLayer {
         let sizeRef1 = info.layer._map.latLngToContainerPoint([0.0,0.0]);
         let sizeRef2 = info.layer._map.latLngToContainerPoint([0.0, AnimationConstants.lnScale]);
         let dotRadius = sizeRef2.x - sizeRef1.x + AnimationConstants.min_dot_size;
+        ctx.font = ''.concat(3 * dotRadius, 'pt Verdana');
 
         this.animators.forEach((animator) => {
 
@@ -106,6 +109,13 @@ class MapLayer extends L.CanvasLayer {
 
             let p1 = info.layer._map.latLngToContainerPoint(animator.start_geopoint);
             let p2 = info.layer._map.latLngToContainerPoint(animator.end_geopoint);
+
+
+            if(animator.color_code === Animator.outflowColor){
+                ctx.fillText(parseInt(animator.quantity, 10).toFixed(0), p2.x, p2.y);
+            } else {
+                ctx.fillText(parseInt(animator.quantity, 10).toFixed(0), p1.x, p1.y);
+            }
 
             let perp = [-p2.y + p1.y, p2.x-p1.x];
             let norm = Math.sqrt(perp[0] * perp[0] + perp[1] * perp[1]);
