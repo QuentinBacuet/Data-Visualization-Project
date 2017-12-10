@@ -1,8 +1,11 @@
 /** Constant values for the cursor*/
+
+let initial_year = 2001;
+
 const cursor = {
   height: 4*height/100,
   width: width/300,
-  init: timevals.year_scale(2001)
+  init: timevals.year_scale(initial_year)
 
 };
 

@@ -4,7 +4,7 @@ class History{
 
     constructor(){
 
-        this.year_index = 1990;
+        this.year_index = initial_year;
         this.container = document.getElementById("div_events");
         d3.json("data/historical_events.json", (data) => {
 
