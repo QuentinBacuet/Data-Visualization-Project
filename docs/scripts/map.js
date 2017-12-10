@@ -166,7 +166,7 @@ class Map {
         this.max_zoom = 10;
         this.center = [38.338319, 18.466935];
         this.choroplethColors = ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#f7f7f7', '#d1e5f0', '#92c5de', '#4393c3', '#2166ac', '#053061'];
-        this.quantiles = [-116915., -15082., -1632., -114., -5., 119., 2414., 9802., 43690., 164085.]
+        this.quantiles = [-117000., -15000., -1600., -100., -0., 120., 2400., 9800., 43700., 165000.]
     }
 
     init() {
@@ -238,6 +238,36 @@ class Map {
         };
 
         this.info.addTo(this.interactive_map);
+
+        this.legend = L.control({position:"bottomleft"});
+
+        this.legend.onAdd = (map) => {
+
+            this.legend_div = L.DomUtil.create('div', 'info legend');
+
+            // loop through our density intervals and generate a label with a colored square for each interval
+            for (let i = 0; i < this.quantiles.length; i++) {
+
+                let currentQuantile = this.quantiles[i];
+                let abs_v = 0;
+                let v = 0;
+
+                if (currentQuantile > 0){
+                    v = this.quantiles[i] + 1;
+                } else {
+                    v = this.quantiles[i]-1
+                }
+                abs_v = Math.abs(v)
+
+                this.legend_div.innerHTML +=
+                    '<i style="background:' + this.getChoroplethColor(v) + '"></i> ' +
+                    abs_v + ((currentQuantile > 0) ? '+' : '-') +'<br>';
+            }
+
+            return this.legend_div;
+        };
+
+        this.legend.addTo(this.interactive_map);
     }
 
     updateChloropleth() {

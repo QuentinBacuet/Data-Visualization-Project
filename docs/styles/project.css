@@ -59,8 +59,7 @@ body{
 .info {
     padding: 6px 8px;
     font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
-    background: rgba(255,255,255,0.8);
+    background: #f8f8f8;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
 }
@@ -69,7 +68,30 @@ body{
     color: #777;
 }
 
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 12pt;
+    height: 12pt;
+    float: left;
+    margin-right: 4pt;
+    opacity: 0.7;
+}
+
 div.info_graph {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 1px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+div.info_legend {
     position: absolute;
     text-align: center;
     width: 60px;
@@ -106,9 +128,9 @@ div.info_graph {
     -moz-border-radius: 0;
     border-radius: 0;
     color: #595959;
-    font-family: Verdana;
+    font-family: Arial;
     font-size: 12pt;
-    font-weight: 300;
+    font-weight: 600;
     padding: 8pt;
     width: 100%;
     background-color: #cccccc;
@@ -128,9 +150,9 @@ div.info_graph {
     -moz-border-radius: 0;
     border-radius: 0;
     color: #595959;
-    font-family: Verdana;
+    font-family: Arial;
     font-size: 12pt;
-    font-weight: 300;
+    font-weight: 600;
     padding: 8pt;
     width: 100%;
     background-color: #e6e6e6;
