@@ -2,7 +2,7 @@
 const cursor = {
   height: 4*height/100,
   width: width/300,
-  init: timevals.year_scale(1990)
+  init: timevals.year_scale(2001)
 
 };
 
