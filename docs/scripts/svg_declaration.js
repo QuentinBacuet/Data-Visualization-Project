@@ -45,6 +45,7 @@ let dv_year = right.append("info_graph")
     .attr("id", "div_year")
     .style("height", cst.year_div_height + "%")
     .style("float", "left")
+    .style("width", 100+"%")
     .style("position", "absolute")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
@@ -52,11 +53,12 @@ let dv_year = right.append("info_graph")
 let svg_year = dv_year.append("svg")
     .attr("id", "svg_year")
     .attr("height", "100%")
-    .attr("viewBox", "0 0 600 400")
+    .style("width", 100 +"%")
+    .attr("viewBox", "0 0 1000 50")
     .attr("position", "absolute")
     .attr("left", 0)
     .attr("top", 0)
-    .attr("preserveAspectRatio", "none");
+    .attr("preserveAspectRatio", "xMinYMin");
 
 let dv_events = right.append("info_graph")
     .attr("id", "div_events")

@@ -1,10 +1,13 @@
-const box_size = 180;
 const left_offset = 20;
+const view_box_width = 1000;
+const view_box_height = 50;
+const box_size = view_box_height /2;
 const box = {
-    size: box_size,
-    x: 120,
-    y: box_size,
-    offset: left_offset
+
+    size: 20,
+    x: "40%",
+    y: 60,
+    offset: 0
 };
 
 /** updates the year_box value accoridng to the cursor position*/
@@ -35,4 +38,5 @@ box.year_box = svg_year.append("text")
     .attr("y", box.y)
     //.attr("font-size", box.size)
     .text(timevals.rel_to_year(cursor.get_relative_cursor_x()))
-    .attr("class", "year_label unfocusable no_pointer_event");
+    .attr("class", "year_label unfocusable no_pointer_event")
+    .attr("position", "absolute");
