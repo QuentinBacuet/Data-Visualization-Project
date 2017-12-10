@@ -43,8 +43,10 @@ class Animator{
     }
 }
 
-Animator.outflowColor = "#b2182b";
+Animator.outflowColor = "#e61a2e";
 Animator.inflowColor = "#2166ac";
+Animator.textOutflowColor = "#b2182b";
+Animator.textInflowColor = "#2166ac";
 
 // Canvas manipulation object
 class MapLayer extends L.CanvasLayer {
@@ -101,21 +103,25 @@ class MapLayer extends L.CanvasLayer {
         let sizeRef1 = info.layer._map.latLngToContainerPoint([0.0,0.0]);
         let sizeRef2 = info.layer._map.latLngToContainerPoint([0.0, AnimationConstants.lnScale]);
         let dotRadius = sizeRef2.x - sizeRef1.x + AnimationConstants.min_dot_size;
-        ctx.font = ''.concat(3 * dotRadius, 'pt Verdana');
+        let textSize = 5 * dotRadius;
+        ctx.font = ''.concat(textSize, 'px Verdana');
 
         this.animators.forEach((animator) => {
 
             ctx.fillStyle = animator.color_code;
-
             let p1 = info.layer._map.latLngToContainerPoint(animator.start_geopoint);
+
             let p2 = info.layer._map.latLngToContainerPoint(animator.end_geopoint);
 
-
             if(animator.color_code === Animator.outflowColor){
-                ctx.fillText(parseInt(animator.quantity, 10).toFixed(0), p2.x, p2.y);
+                ctx.fillStyle = Animator.textOutflowColor;
+                ctx.fillText(parseInt(animator.quantity, 10).toFixed(0), p2.x, p2.y + textSize);
             } else {
+                ctx.fillStyle = Animator.textInflowColor;
                 ctx.fillText(parseInt(animator.quantity, 10).toFixed(0), p1.x, p1.y);
             }
+
+            ctx.fillStyle = animator.color_code;
 
             let perp = [-p2.y + p1.y, p2.x-p1.x];
             let norm = Math.sqrt(perp[0] * perp[0] + perp[1] * perp[1]);
