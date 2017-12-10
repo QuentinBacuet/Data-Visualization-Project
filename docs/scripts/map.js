@@ -1,15 +1,15 @@
 'use strict';
 
 let AnimationConstants = {
-    offset_interval_size : 10,
-    half_interval_size : 5,
-    min_dot_size : 0.8,
-    lnScale : 0.2, // Defines the scaling factor of the points with respect to the zoom level
-    speed : 0.0001 // Defines the speed of the animated points on the map
+    offset_interval_size: 10,
+    half_interval_size: 5,
+    min_dot_size: 0.8,
+    lnScale: 0.2, // Defines the scaling factor of the points with respect to the zoom level
+    speed: 0.0001 // Defines the speed of the animated points on the map
 };
 
-class AnimatedPoint{
-    constructor(travel_time){
+class AnimatedPoint {
+    constructor(travel_time) {
         this.delta_t = Math.random() * travel_time;
         this.offset = (Math.random() * AnimationConstants.offset_interval_size) - AnimationConstants.half_interval_size;
     }
@@ -17,8 +17,9 @@ class AnimatedPoint{
 
 const dist_scale = 0.03;
 const quantity_scale = 0.0005;
-class Animator{
-    constructor(quantity, color_code, start_geopoint, end_geopoint){
+
+class Animator {
+    constructor(quantity, color_code, start_geopoint, end_geopoint) {
         this.color_code = color_code;
         this.quantity = quantity;
         this.animated_points = [];
@@ -26,18 +27,18 @@ class Animator{
         this.end_geopoint = end_geopoint.slice(); // Slice just makes a copy
         this.travel_time = d3.geoDistance(start_geopoint.reverse(), end_geopoint.reverse()) / AnimationConstants.speed;
         //this.travel_time = 4000;
-          /*TO CHANGE TO DISTANCE SCALE: uncomment const dist_scale, uncomment following lines
-            comment the line before and uncomment this.travel_time = d3. etc.
-            then change quantity in the for-loop to normalized quantity*/
+        /*TO CHANGE TO DISTANCE SCALE: uncomment const dist_scale, uncomment following lines
+          comment the line before and uncomment this.travel_time = d3. etc.
+          then change quantity in the for-loop to normalized quantity*/
 
         let dx = start_geopoint[0] - end_geopoint[0];
 
         let dy = start_geopoint[1] - end_geopoint[1];
-        let dist = Math.sqrt(dx*dx + dy*dy);
+        let dist = Math.sqrt(dx * dx + dy * dy);
         let normalized_quantity = quantity * quantity_scale * dist_scale * dist;
 
         // Add points
-        for(let i=0; i < normalized_quantity; i++){
+        for (let i = 0; i < normalized_quantity; i++) {
             this.animated_points.push(new AnimatedPoint(this.travel_time))
         }
     }
@@ -100,7 +101,7 @@ class MapLayer extends L.CanvasLayer {
         /* Size refs are used to specify the dot size in pixels.
          * The farther the camera from the map, the smaller the dots.
          */
-        let sizeRef1 = info.layer._map.latLngToContainerPoint([0.0,0.0]);
+        let sizeRef1 = info.layer._map.latLngToContainerPoint([0.0, 0.0]);
         let sizeRef2 = info.layer._map.latLngToContainerPoint([0.0, AnimationConstants.lnScale]);
         let dotRadius = sizeRef2.x - sizeRef1.x + AnimationConstants.min_dot_size;
         let textSize = 5 * dotRadius;
@@ -113,7 +114,7 @@ class MapLayer extends L.CanvasLayer {
 
             let p2 = info.layer._map.latLngToContainerPoint(animator.end_geopoint);
 
-            if(animator.color_code === Animator.outflowColor){
+            if (animator.color_code === Animator.outflowColor) {
                 ctx.fillStyle = Animator.textOutflowColor;
                 ctx.fillText(parseInt(animator.quantity, 10).toFixed(0), p2.x, p2.y + textSize);
             } else {
@@ -123,16 +124,16 @@ class MapLayer extends L.CanvasLayer {
 
             ctx.fillStyle = animator.color_code;
 
-            let perp = [-p2.y + p1.y, p2.x-p1.x];
+            let perp = [-p2.y + p1.y, p2.x - p1.x];
             let norm = Math.sqrt(perp[0] * perp[0] + perp[1] * perp[1]);
 
-            perp = perp.map((v) => v/norm);
+            perp = perp.map((v) => v / norm);
 
             let interpolate = helpers.LinearInterpolator2D(p1, p2);
 
             animator.animated_points.forEach((point) => {
 
-                if (t - point.delta_t < this.animation_start_time){
+                if (t - point.delta_t < this.animation_start_time) {
                     return;
                 } else {
 
@@ -164,7 +165,10 @@ class Map {
         this.zoom = 2;
         this.max_zoom = 10;
         this.center = [38.338319, 18.466935];
+        this.choroplethColors = ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#f7f7f7', '#d1e5f0', '#92c5de', '#4393c3', '#2166ac', '#053061'];
+        this.quantiles = [-116915., -15082., -1632., -114., -5., 119., 2414., 9802., 43690., 164085.]
     }
+
     init() {
         // Make map unfocusable
         d3.select(this.id)
@@ -197,7 +201,7 @@ class Map {
         d3.json("data/world.geo.json", (data) => {
             this.geodata = data;
             this.geolayer = L.geoJSON(data, {
-                style : this.style,
+                style: (() => this.style())(),
                 onEachFeature: this.featureAction((e) => {
                     country_graph.update_graph_new_country(e.target.feature.properties.iso_a2);
                     project.set_countries(e.target.feature.properties.iso_a2);
@@ -228,20 +232,20 @@ class Map {
             let outflow = project.get_outflow_for_code(isocode);
 
             this.control_div.innerHTML = '<h3>Worldwide refugee flux</h3>'.concat(
-                '<b>', name ? name : '','</b><br />',
-                ' Inflow: ', name ? ''.concat(inflow, ' refugees'):'', '<br/>',
-                ' Outflow: ', name ? ''.concat(outflow, ' refugees') :'');
+                '<b>', name ? name : '', '</b><br />',
+                ' Inflow: ', name ? ''.concat(inflow, ' refugees') : '', '<br/>',
+                ' Outflow: ', name ? ''.concat(outflow, ' refugees') : '');
         };
 
         this.info.addTo(this.interactive_map);
     }
 
-    updateChloropleth(){
+    updateChloropleth() {
         this.interactive_map.removeLayer(this.geolayer);
 
         //TODO change this to a replace data
         this.geolayer = L.geoJSON(this.geodata, {
-            style : this.style,
+            style: this.style(),
             onEachFeature: this.featureAction((e) => {
                 country_graph.update_graph_new_country(e.target.feature.properties.iso_a2);
                 project.set_countries(e.target.feature.properties.iso_a2);
@@ -253,14 +257,14 @@ class Map {
 
     }
 
-    updateAnimators(newData){
+    updateAnimators(newData) {
         this.canvas.animators.splice(0, this.canvas.animators.length);
 
-        newData.outflows.forEach( d => {
+        newData.outflows.forEach(d => {
             this.canvas.animators.push(new Animator(d.value, Animator.outflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
         });
 
-        newData.inflows.forEach( d => {
+        newData.inflows.forEach(d => {
             this.canvas.animators.push(new Animator(d.value, Animator.inflowColor, [d.latitude_origin, d.longitude_origin], [d.latitude_asylum, d.longitude_asylum]))
         });
     }
@@ -269,35 +273,33 @@ class Map {
         return (feature, layer) => {
             layer.on({
                 click: f,
-                dblclick: (e)=>this.zoomToFeature(e),
-                mouseover: (e)=>this.highlightFeature(e),
+                dblclick: (e) => this.zoomToFeature(e),
+                mouseover: (e) => this.highlightFeature(e),
                 mouseout: this.resetHighlight()
             });
         }
     }
 
-    static getChoroplethColor(d) {
-        if (d < 0){
-            d = -d;
-            return  d > 150000 ? '#b2182b' :
-                d > 50000  ? '#ef8a62' :
-                    d > 200  ? '#fddbc7' :
-                                        '#f7f7f7';
+    getChoroplethColor(d) {
+
+        let index = this.quantiles.findIndex((q) => q > d);
+
+        if (index === -1){
+            return this.choroplethColors[this.choroplethColors.length -1];
         } else {
-            return  d > 150000 ? '#2166ac' :
-                d > 50000  ? '#67a9cf' :
-                    d > 200  ? '#d1e5f0' :
-                                        '#f7f7f7';
+            return this.choroplethColors[index];
         }
     }
 
-    style(feature) {
-        return {
-            fillColor: Map.getChoroplethColor(project.get_delta_for_code(feature.properties.iso_a2)),
-            weight: 0.5,
-            opacity: 1,
-            color: 'lightgray',
-            fillOpacity: 0.5
+    style() {
+        return (feature) => {
+            return {
+                fillColor: this.getChoroplethColor(project.get_delta_for_code(feature.properties.iso_a2)),
+                weight: 0.5,
+                opacity: 0.4,
+                color: 'lightgray',
+                fillOpacity: 0.4
+            };
         };
     }
 
@@ -306,7 +308,7 @@ class Map {
 
         layer.setStyle({
             color: 'WhiteSmoke',
-            weight:1,
+            weight: 1,
             fillOpacity: 0.8
         });
 
@@ -318,7 +320,7 @@ class Map {
 
     resetHighlight() {
         // Closure for capturing this object.
-        return (e) =>  {
+        return (e) => {
             this.geolayer.resetStyle(e.target);
             this.info.update();
         }
