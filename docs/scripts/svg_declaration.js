@@ -15,7 +15,7 @@ let left = root.append("info_graph")
     .attr("id","left")
     .style("float", "left")
     .style("width", cst.left_div_width + "%")
-    .style("position", "absolute")
+    .style("position", "relative")
     .attr("class", "unfocusable")
     .attr("display", "inline-block");
 
