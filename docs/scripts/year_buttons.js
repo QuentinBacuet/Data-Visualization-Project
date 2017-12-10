@@ -1,9 +1,9 @@
 const button = {
-  height: 150,
-  width: 100,
-  left: 100,
-  right: 400,
-  y: box.size + 50
+  height: play.height,
+  width: play.width,
+  left: 325,
+  right: 625,
+  y: play.y
 };
 
 /** function called when right button is pressed*/
@@ -19,7 +19,7 @@ button.btnl_pressed = function() {
 };
 
 /** init left button: a button to decrease the year value by 1*/
-button.button_left = svg_year.append("polygon")
+button.button_left = svg_year.append("polyline")
     .attr("points", +(button.left + button.width) + " " +
         button.y + " " + button.left + " " + +(button.y +
             button.height / 2) + " " + +(button.left + button.width) +
@@ -27,10 +27,12 @@ button.button_left = svg_year.append("polygon")
     .attr("id", "btnL")
     .attr("stroke-width", "10")
     .attr("stroke", "black")
-    .attr("fill", "white");
+    .attr("stroke-linecap", "round")
+    .attr("stroke-linejoin", "round")
+    .attr("fill", "#f2f2f2");
 
 /** init right button: a button to increase the year value by 1*/
-button.button_right = svg_year.append("polygon")
+button.button_right = svg_year.append("polyline")
     .attr("points", button.right + " " +
         button.y + " " + +(button.right + button.width) +
         " " + +(button.y + button.height / 2) + " " + button.right +
@@ -38,4 +40,6 @@ button.button_right = svg_year.append("polygon")
     .attr("id", "btnR")
     .attr("stroke-width", "10")
     .attr("stroke", "black")
-    .attr("fill", "white");
+    .attr("stroke-linecap", "round")
+    .attr("stroke-linejoin", "round")
+    .attr("fill", "#f2f2f2");
