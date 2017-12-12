@@ -268,6 +268,37 @@ class Map {
         };
 
         this.legend.addTo(this.interactive_map);
+
+        this.description_shown = false;
+
+        L.easyButton('fa fa-question-circle', (btn, map) => {
+            if(this.description_shown === true){
+                this.description.remove();
+                this.description_shown = false;
+            } else {
+                this.description.addTo(this.interactive_map);
+                this.description_shown = true;
+            }
+        }).addTo( this.interactive_map );
+
+        this.description = L.control({position:"topleft"});
+
+        this.description.onAdd = (map) => {
+            this.description_div = L.DomUtil.create('div', 'info description');
+
+            this.description_div.innerHTML =
+                "<p>The worldwide refugee flux is a visualisation based on the UNHCR <br>" +
+                "data available at <a href='https://www.kaggle.com/unitednations/refugee-data'>this adress</a>.</p>" +
+                "<p>The choropleth map shows the net difference between refugees leaving the country and refugees coming in.</p> " +
+                "<p>Click on a country to see its corresponding flow of refugees. Red and blue dots represent people respectively leaving and entering" +
+                " the country. The numbers displayed on the map show the exact count of refugees while" +
+                "the graph below shows the cumulative quantities for the selected country.</p>" +
+                "<p>Clicking on the events on the right will display the corresponding geographical locations. Double-clicking " +
+                "them will open the appropriate Wikipedia article.</p>";
+
+            return this.description_div;
+        };
+
     }
 
     updateChloropleth() {
