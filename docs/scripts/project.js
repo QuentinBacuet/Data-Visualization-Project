@@ -7,7 +7,7 @@ project.countries = [];
 d3.csv("data/final_data.csv", function (data) {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
-            d3.csv("data/data_immigration_delta.csv", function (data_immigration_delta) {
+            d3.csv("data/data_population_fraction.csv", function (data_immigration_delta) {
                 d3.csv("data/countries_latlon.csv", (countries_latlon) =>{
                     project.data_countries_latlon = {};
 
@@ -84,7 +84,7 @@ d3.csv("data/final_data.csv", function (data) {
                      console.log(project.get_flows());
                  });*/
 
-                project.map = new Map();
+                project.map = new MapViz();
                 project.map.init();
 
                 project.history = new History();
@@ -187,7 +187,7 @@ project.get_delta_for_code = function (code_country) {
     let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
     let data_per_country = project.data_immigration_delta[year - timevals.min_year].filter(x => x.country === code_country);
     if (data_per_country.length === 1) {
-        return data_per_country[0].value
+        return data_per_country[0].per_million
     } else {
         return 0;
     }

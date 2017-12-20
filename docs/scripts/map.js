@@ -1,7 +1,7 @@
 'use strict';
 
 let AnimationConstants = {
-    offset_interval_size: 10,
+    offset_interval_size: 7,
     half_interval_size: 5,
     min_dot_size: 0.8,
     lnScale: 0.2, // Defines the scaling factor of the points with respect to the zoom level
@@ -155,7 +155,7 @@ class MapLayer extends L.CanvasLayer {
     }
 }
 
-class Map {
+class MapViz {
     constructor() {
         this.id = "#mapid";
         this.width_ = cst.left_div_width;
@@ -166,7 +166,7 @@ class Map {
         this.max_zoom = 10;
         this.center = [38.338319, 18.466935];
         this.choroplethColors = ['#67001f', '#b2182b', '#d6604d', '#f4a582', '#fddbc7', '#f7f7f7', '#d1e5f0', '#92c5de', '#4393c3', '#2166ac', '#053061'];
-        this.quantiles = [-117000., -15000., -1600., -100., -0., 120., 2400., 9800., 43700., 165000.]
+        this.quantiles = [-10000, -3000,  -1000,   -200, -10,    10,   200,   1000,  3000,  10000]
     }
 
     init() {
