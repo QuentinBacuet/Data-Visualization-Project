@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21e6f176-ae4f-4de9-a5b3-54d5729b6b19" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/docs/imgs/banner.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/docs/imgs/buttons.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/docs/imgs/context_img.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/docs/imgs/events.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/docs/imgs/graph.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/docs/imgs/map.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/docs/imgs/timeline.png" />
+    <list default="true" id="21e6f176-ae4f-4de9-a5b3-54d5729b6b19" name="Default" comment="Rename explication.hmtl -&gt; index.hmtl&#10;Rename index.html -&gt; visu.html&#10;Add images in index.html">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/docs/explication.html" afterPath="$PROJECT_DIR$/docs/index.html" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/visu.html" />
+      <change beforePath="$PROJECT_DIR$/docs/index.html" afterPath="$PROJECT_DIR$/docs/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -78,11 +70,9 @@
       <file leaf-file-name="country_graph.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/docs/scripts/country_graph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3094">
-              <caret line="182" column="29" lean-forward="false" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
-              <folding>
-                <marker date="1513772788418" expanded="true" signature="9429:9431" ph="{...}" />
-              </folding>
+            <state relative-caret-position="3332">
+              <caret line="196" column="29" lean-forward="false" selection-start-line="196" selection-start-column="29" selection-end-line="196" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -90,8 +80,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/docs/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="123" column="38" lean-forward="false" selection-start-line="123" selection-start-column="38" selection-end-line="123" selection-end-column="38" />
+            <state relative-caret-position="487">
+              <caret line="138" column="4" lean-forward="false" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -166,6 +156,7 @@
     </replaceStrings>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_CHANGES_POLICY" value="SHELVE" />
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -344,7 +335,7 @@
       <workItem from="1512851232286" duration="1273000" />
       <workItem from="1512923466826" duration="5078000" />
       <workItem from="1513768043511" duration="4965000" />
-      <workItem from="1513773073341" duration="3274000" />
+      <workItem from="1513773073341" duration="3444000" />
     </task>
     <task id="LOCAL-00001" summary="Layout map, disable scrolling with wheel and rectify display order">
       <created>1510060255662</created>
@@ -472,11 +463,18 @@
       <option name="project" value="LOCAL" />
       <updated>1513772836347</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Rename explication.hmtl -&gt; index.hmtl&#10;Rename index.html -&gt; visu.html&#10;Add images in index.html">
+      <created>1513776402653</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1513776402653</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120777000" />
+    <option name="totallyTimeSpent" value="120947000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
@@ -545,7 +543,8 @@
     <MESSAGE value="Refactor: extract UI constants in margins.js" />
     <MESSAGE value="Center year, move year buttons and play button" />
     <MESSAGE value="Add explication.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add explication.html" />
+    <MESSAGE value="Rename explication.hmtl -&gt; index.hmtl&#10;Rename index.html -&gt; visu.html&#10;Add images in index.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename explication.hmtl -&gt; index.hmtl&#10;Rename index.html -&gt; visu.html&#10;Add images in index.html" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -800,11 +799,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/scripts/country_graph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3094">
-          <caret line="182" column="29" lean-forward="false" selection-start-line="182" selection-start-column="29" selection-end-line="182" selection-end-column="29" />
-          <folding>
-            <marker date="1513772788418" expanded="true" signature="9429:9431" ph="{...}" />
-          </folding>
+        <state relative-caret-position="3332">
+          <caret line="196" column="29" lean-forward="false" selection-start-line="196" selection-start-column="29" selection-end-line="196" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -818,8 +815,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/docs/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="123" column="38" lean-forward="false" selection-start-line="123" selection-start-column="38" selection-end-line="123" selection-end-column="38" />
+        <state relative-caret-position="487">
+          <caret line="138" column="4" lean-forward="false" selection-start-line="138" selection-start-column="4" selection-end-line="138" selection-end-column="4" />
           <folding />
         </state>
       </provider>
