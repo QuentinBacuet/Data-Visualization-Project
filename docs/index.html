@@ -1,46 +1,141 @@
-<!DOCTYPE HTML PUBLIC >
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="styles/project.css">
-    <!-- Leaflet stylesheet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-          crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-            crossorigin=""></script>
+    <meta charset="UTF-8">
+    <title>Project Data visualization</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0
+        }
+        p {
+            text-align: justify;
+        }
 
-    <script type="text/javascript" src="plugins/gLayers.Leaflet/L.CanvasLayer.js"></script>
-    <script type="text/javascript" src="plugins/EasyButton/src/easy-button.js"></script>
-    <script type="text/javascript" src="scripts/helpers.js"></script>
+        .headerimg {
+            position: fixed;
+            z-index: 0;
+            top: 0px;
+            left: -200px;
+            height: 200px;
+            width: 100em;
+            display: inline-block;
+            overflow: hidden;
+            margin: 0;
+        }
+        .banner{
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-height: 100%;
+            min-width: 100%;
+            transform: translate(-50%, -50%);
+        }
+        .content {
+            position: relative;
+            z-index: 1000;
+            margin-top: 180px;
+            /*height: 1000px;*/
+            background-color: white;
+            padding-left: 16em;
+            padding-right: 16em;
+        }
 
-    <title>Worldwide refugee flux along the years</title>
+        div {
+            overflow: hidden;
+        }
+        img {
+            max-width: 48em;
+        }
+
+    </style>
 </head>
 <body>
+<div class="headerimg">
+    <img src="imgs/banner.png" class = "banner"/>
+</div><
+<div class = "content">
+    <h1>Data Visualization Project</h1>
+<h2>Goals</h2>
+<p>The visualization is meant to provide an insight into the world refugees data and a way to observe how
+events such as wars and conflicts influence the movements of refugees. </p>
+<h2>Data</h2>
+<p> Out of the <a href ="https://www.kaggle.com/unitednations/refugee-data/data">UNHCR Refugee Data</a>, we use the
+    file time_series.csv which is organised in the following way:</p>
+<ul>
+    <li>Year</li>
+    <li>Country / territory of asylum / residence</li>
+    <p>Indicates the destination of the refugees</p>
+    <li>Origin</li>
+    <p>Indicates the origin of the refugees</p>
+    <li>Population type</li>
+    <p>This column was irrelevant as its field was always 'Refugees'</p>
+    <li>Value</li>
+    <p>The number of refugees that year</p>
+</ul>
+<p></p>
+<h2>Features of the visualization</h2>
 
-</body>
-<script type="text/javascript" src="scripts/margins.js"></script>
-<div id="root">
-    <div id="mapid"></div>
+    <h3>Interactive map</h3>
+    <img src = "imgs/map.png">
+    <p>
+        The map contains mainly two visual representation of the data: The chloropleth and the flows.
+    The chloropleth represents the delta of inflows and outflows. If for a given year a country had more incoming
+    refugees than outgoing its color will be in the blue tones, whereas in the other case its color will be in the
+    red tones. The flows give a feeling about the number of refugees moving out/in a selected country; a country can
+    be selected by a simple click. For the flows, we chose the tradeoff of having a better feeling of the data
+    over a linear mapping from the data to the number of points in the flow. Each time you select a country, you will
+    also see numbers on the map representing in red: the number of refugees from the selected country that went to the
+    country where the number is displayed and in blue the number of refugee that came from the country where the number
+    is displayed to the selected country.The map also gives two more classical features: a click & drag as well as a zoom feature
+    </p>
+
+    <h3>Timeline</h3>
+    <img src = "imgs/timeline.png">
+    <p>
+        The timeline is the main year-selection tool. You can either click the timeline on the year you with to
+        visualize or click & drag the cursor to either see the evolution on the map or choose a year more freely
+    </p>
+
+    <h3>Graph</h3>
+    <img src = "imgs/graph.png">
+    <p>
+        The graph provides more accurate information about the data in comparison with the map. The bars represent
+        the inflows (blue) and outlfows (red) for the selected country on the map. The line shows the delta of flows.
+        The current year is highlighted and by sliding over the bars, you can find the exact values from the data.
+        The graph with evolve as you select different countries or different years.
+    </p>
+    <h3>Buttons</h3>
+    <img src = "imgs/buttons.png">
+    <p>
+        Near the year display, you will find three small buttons. The two surrounding the year allow you to
+        increase or decrease current year by 1. The play button, once clicked, starts an automatic mode where the
+        current year increase periodically; changing the map and the graph display in the process.
+    </p>
+    <h3>List of events</h3>
+    <img src = "imgs/events.png">
+    <p>
+        The list of events gives a non-exhaustive list of events correlated with the movements of refugees for the
+        current year. If you click an event, the map, the graph and the images will change its display to show the flows
+        for the event-related country.
+    </p>
+    <h3>Contextual images</h3>
+    <img src = "imgs/context_img.png">
+    <p>
+        Only accessible from the list of events, the contextual images are event-related. The navigation between
+        images can be done through clicking in order to zoom on a specific image.
+    </p>
+
+<h2>The Syria refugee crisis</h2>
+<p>
+    Now let's use our new tools to get an insight of the refugee flows during the Syrian crisis. Start by moving
+    the cursor to 2011. In the least of events, you can see that the event 'Syrian civil war' appeared. If you click
+    on it, you can see on the map that the flows displayed are now the flows from and to Syria. The graph also changed
+    and we see that the increase in outgoing refugees increases drastically after 2011. Now we can select 2012 to see
+    the evolution of the flow. We see that the flow has already increased a lot. In 2012, the main destination of
+    refugees is Turkey, with 317'239 refugees in 2012 as well as Jordan with 239'289 refugees.
+</p>
 </div>
-
-<script type="text/javascript" src="scripts/svg_declaration.js"></script>
-<script type="text/javascript" src="scripts/map.js"></script>
-
-<script type="text/javascript" src="scripts/timeline.js"></script>
-<script type="text/javascript" src="scripts/cursor.js"></script>
-<script type="text/javascript" src="scripts/year_box.js"></script>
-<script type="text/javascript" src="scripts/play_button.js"></script>
-<script type="text/javascript" src="scripts/mouse.js"></script>
-<script type="text/javascript" src="scripts/year_buttons.js"></script>
-<script type="text/javascript" src="scripts/country_graph.js"></script>
-<script type="text/javascript" src="scripts/photo_gallery.js"></script>
-<script type="text/javascript" src="scripts/history.js"></script>
-<script type="text/javascript" src="scripts/project.js"></script>
-
-
+</body>
 </html>
