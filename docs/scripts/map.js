@@ -245,6 +245,8 @@ class MapViz {
 
             this.legend_div = L.DomUtil.create('div', 'info legend');
 
+            this.legend_div.innerHTML = "<h3>Refugees per <br/>million inhabitants</h3>";
+
             // loop through our density intervals and generate a label with a colored square for each interval
             for (let i = this.quantiles.length - 1; i >= 0; i--) {
 
