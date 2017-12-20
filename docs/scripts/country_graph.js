@@ -9,7 +9,6 @@ const country_graph = {
     max_height: height * sub_cst.graph_height / 200,
     current_code: "CH",
     isValid: true,
-    isValidChanged: false,
     transition_time: 700
 };
 
@@ -29,7 +28,9 @@ country_graph.info_graph = d3.select("body").append("div").attr("class", "info_g
 
 country_graph.init = function () {
     country_graph.load_data(country_graph.current_code);
-    country_graph.isValidChanged = true;
+
+    // Make sure to have data exit and entry
+    country_graph.draw_graph_from_new_country_data();
     country_graph.draw_graph_from_new_country_data();
 };
 
@@ -63,11 +64,10 @@ country_graph.load_data = function (country_code) {
 
         country_graph.y_axis_up = d3.axisRight(country_graph.domainOnlyScale_up)
             .ticks(5)
-            .tickFormat(d3.format(".2s"));
-
+            .tickFormat(d3.format("d"));
         country_graph.y_axis_down = d3.axisRight(country_graph.domainOnlyScale_down)
             .ticks(5)
-            .tickFormat(d3.format(".2s"));
+            .tickFormat(d3.format("d"));
 
         for (let i = 0, i_entry = 0, i_exit = 0; i <= timevals.max_year - timevals.min_year; i++) {
             if (data_immigration_entry_filtered[i_entry] !== undefined && data_immigration_entry_filtered[i_entry].year === (timevals.min_year + i).toString()) {
@@ -89,11 +89,9 @@ country_graph.load_data = function (country_code) {
         country_graph.data_exit = data_exit;
         country_graph.data_diff = data_diff;
         country_graph.max_entry = country_graph.domainOnlyScale_up(max_entry);
-        country_graph.isValidChanged = country_graph.isValid !== true;
         country_graph.isValid = true;
     } else {
         country_graph.isValid = false;
-        country_graph.isValidChanged = country_graph.isValid !== false;
     }
 };
 
@@ -121,125 +119,116 @@ country_graph.update_graph_time = function () {
 };
 
 country_graph.draw_graph_from_new_country_data = function () {
-    if (!country_graph.isValid) {
-        country_graph.removeAll();
-    } else if (country_graph.isValidChanged) {
-        // Make sure to have data exit and entry
-        country_graph.draw();
-        country_graph.draw();
-    } else {
-        country_graph.draw();
-    }
-};
-
-country_graph.draw = function () {
     const current_year_selected = timevals.rel_to_year(cursor.get_relative_cursor_x()) - timevals.min_year;
-    svg.append("g")
-        .attr("id", "y_axis")
-        .attr("transform", "translate(" + [(cst.graph_width + 2) * width / 100, country_graph.y + country_graph.max_height] + ")")
-        .attr("class", "unfocusable no_pointer_event")
-        .call(country_graph.y_axis_up);
 
-    svg.append("g")
-        .attr("id", "y_axis")
-        .attr("transform", "translate(" + [(cst.graph_width + 2) * width / 100, country_graph.y + country_graph.max_height] + ")")
-        .attr("class", "unfocusable no_pointer_event")
-        .call(country_graph.y_axis_down);
+    if (country_graph.isValid) {
+        svg.append("g")
+            .attr("id", "y_axis")
+            .attr("transform", "translate(" + [(cst.graph_width + 2) * width / 100, country_graph.y + country_graph.max_height] + ")")
+            .attr("class", "unfocusable no_pointer_event")
+            .call(country_graph.y_axis_up);
+        svg.append("g")
+            .attr("id", "y_axis")
+            .attr("transform", "translate(" + [(cst.graph_width + 2) * width / 100, country_graph.y + country_graph.max_height] + ")")
+            .attr("class", "unfocusable no_pointer_event")
+            .call(country_graph.y_axis_down);
 
-    let entry = svg.selectAll("#graph_entry")
-        .data(country_graph.data_entry);
+        let entry = svg.selectAll("#graph_entry")
+            .data(country_graph.data_entry);
 
-    let exit = svg.selectAll("#graph_exit")
-        .data(country_graph.data_exit);
+        let exit = svg.selectAll("#graph_exit")
+            .data(country_graph.data_exit);
 
-    let line = svg.selectAll("#line")
-        .data(country_graph.data_diff);
+        let line = svg.selectAll("#line")
+            .data(country_graph.data_diff);
 
-    let point = svg.selectAll("#graph_dot")
-        .data(country_graph.data_diff);
+        let point = svg.selectAll("#graph_dot")
+            .data(country_graph.data_diff);
 
-    entry.enter()
-        .append("rect")
-        .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
-        .attr("x", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
-        .attr("class", "unfocusable")
-        .attr("id", "graph_entry")
-        .style("fill", (d, i) => {
+        entry.enter()
+            .append("rect")
+            .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
+            .attr("x", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
+            .attr("class", "unfocusable")
+            .attr("id", "graph_entry")
+            .style("fill", (d, i) => {
+                    if (i === current_year_selected) {
+                        return color_focused_entry
+                    } else return color_normal_entry
+                }
+            )
+            .on("mouseover", d => {
+                country_graph.info_graph.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                country_graph.info_graph.html(Math.ceil(country_graph.domainOnlyScale_up.invert(d)))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", () => {
+                country_graph.info_graph.transition()
+                    .duration(300)
+                    .style("opacity", 0);
+            });
+
+        exit.enter()
+            .append("rect")
+            .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
+            .attr("x", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
+            .attr("y", (d, i) => country_graph.y + country_graph.max_height)
+            .attr("class", "unfocusable")
+            .attr("id", "graph_exit")
+            .style("fill", (d, i) => {
                 if (i === current_year_selected) {
-                    return color_focused_entry
-                } else return color_normal_entry
-            }
-        )
-        .on("mouseover", d => {
-            country_graph.info_graph.transition()
-                .duration(200)
-                .style("opacity", .9);
-            country_graph.info_graph.html(Math.ceil(country_graph.domainOnlyScale_up.invert(d)))
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-        })
-        .on("mouseout", () => {
-            country_graph.info_graph.transition()
-                .duration(300)
-                .style("opacity", 0);
-        });
+                    return color_focused_exit
+                } else return color_normal_exit
+            })
+            .on("mouseover", d => {
+                country_graph.info_graph.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                country_graph.info_graph.html(Math.ceil(country_graph.domainOnlyScale_down.invert(d)))
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseleave", () => {
+                country_graph.info_graph.transition()
+                    .duration(300)
+                    .style("opacity", 0);
+            });
 
-    exit.enter()
-        .append("rect")
-        .attr("width", (d, i) => timevals.year_scale(i + 1) - timevals.year_scale(i))
-        .attr("x", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i - 1 / 2))
-        .attr("y", (d, i) => country_graph.y + country_graph.max_height)
-        .attr("class", "unfocusable")
-        .attr("id", "graph_exit")
-        .style("fill", (d, i) => {
-            if (i === current_year_selected) {
-                return color_focused_exit
-            } else return color_normal_exit
-        })
-        .on("mouseover", d => {
-            country_graph.info_graph.transition()
-                .duration(200)
-                .style("opacity", .9);
-            country_graph.info_graph.html(Math.ceil(country_graph.domainOnlyScale_down.invert(d)))
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-        })
-        .on("mouseleave", () => {
-            country_graph.info_graph.transition()
-                .duration(300)
-                .style("opacity", 0);
-        });
+        line.enter()
+            .append("path")
+            .attr("id", "line");
 
-    line.enter()
-        .append("path")
-        .attr("id", "line");
+        point.enter()
+            .append("circle")
+            .attr("r", 2)
+            .attr("cx", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
+            .attr("id", "graph_dot");
 
-    point.enter()
-        .append("circle")
-        .attr("r", 2)
-        .attr("cx", (d, i) => margins.inner + (timevals.year_scale(i + 1) - timevals.year_scale(i)) * (i))
-        .attr("id", "graph_dot");
+        entry.exit().remove();
+        exit.exit().remove();
+        line.exit().remove();
+        point.exit().remove();
 
-    entry.exit().remove();
-    exit.exit().remove();
-    line.exit().remove();
-    point.exit().remove();
+        entry.transition()
+            .duration(country_graph.transition_time)
+            .attr("y", (d, i) => country_graph.y + (country_graph.max_entry - d) * country_graph.max_height / country_graph.max_entry)
+            .attr("height", (d, i) => d * country_graph.max_height / country_graph.max_entry);
 
-    entry.transition()
-        .duration(country_graph.transition_time)
-        .attr("y", (d, i) => country_graph.y + (country_graph.max_entry - d) * country_graph.max_height / country_graph.max_entry)
-        .attr("height", (d, i) => d * country_graph.max_height / country_graph.max_entry);
+        exit.transition()
+            .duration(country_graph.transition_time)
+            .attr("height", (d, i) => d * country_graph.max_height / country_graph.max_entry);
 
-    exit.transition()
-        .duration(country_graph.transition_time)
-        .attr("height", (d, i) => d * country_graph.max_height / country_graph.max_entry);
+        line.transition(country_graph.transition_time).attr("d", country_graph.valueline(country_graph.data_diff));
 
-    line.transition(country_graph.transition_time).attr("d", country_graph.valueline(country_graph.data_diff));
+        point.transition(country_graph.transition_time)
+            .attr("cy", (d, i) => country_graph.y + (country_graph.max_entry - d) * country_graph.max_height / country_graph.max_entry)
 
-    point.transition(country_graph.transition_time)
-        .attr("cy", (d, i) => country_graph.y + (country_graph.max_entry - d) * country_graph.max_height / country_graph.max_entry)
-
-
+    } else {
+        country_graph.removeAll();
+    }
 };
 
 country_graph.valueline = d3.line()
