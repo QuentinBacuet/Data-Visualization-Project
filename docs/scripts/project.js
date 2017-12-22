@@ -5,7 +5,7 @@ project.data = [];
 project.countries = [];
 
 /** fetches all data and executes main code*/
-d3.csv("data/final_data.csv", function (data) {
+d3.csv("data/flows.csv", function (data) {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
             d3.csv("data/data_population_fraction.csv", function (data_immigration_delta) {
