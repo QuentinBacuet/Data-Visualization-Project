@@ -1,3 +1,4 @@
+/** constants for the play_button*/
 const play = {
   x: 125,
   y: box.size/2,

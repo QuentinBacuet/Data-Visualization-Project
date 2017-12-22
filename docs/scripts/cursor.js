@@ -1,7 +1,6 @@
-/** Constant values for the cursor*/
 
 let initial_year = 2001;
-
+/** Constant values for the cursor*/
 const cursor = {
   height: 4*height/100,
   width: width/300,
@@ -9,6 +8,7 @@ const cursor = {
 
 };
 
+/** transform a given value into an exact value on the year_sclae*/
 cursor.round_cursor = function(x_val) {
   let x_year = timevals.rel_to_year(x_val);
   let new_x = timevals.year_scale(x_year);

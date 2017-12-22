@@ -4,6 +4,7 @@ const project = {};
 project.data = [];
 project.countries = [];
 
+/** fetches all data and executes main code*/
 d3.csv("data/final_data.csv", function (data) {
     d3.csv("data/data_immigration_entry.csv", function (data_immigration_entry) {
         d3.csv("data/data_immigration_exit.csv", function (data_immigration_exit) {
@@ -36,6 +37,7 @@ d3.csv("data/final_data.csv", function (data) {
                     project.data_immigration_delta.push(temp_delta);
                 }
 
+                /** callback for cursor movements*/
                 project.moved_cursor = function (evt) {
                     if (mouse.mouse_down) {
                         let x = helpers.relative_x(evt.clientX);//e.mouse_adjustement);
@@ -48,6 +50,8 @@ d3.csv("data/final_data.csv", function (data) {
                         }
                     }
                 };
+
+                /** propagate events to cursor and other objects*/
                 project.update_cursor = function (x) {
                     cursor.timeline_cursor.attr("x", x);
                     box.update_year_box(box.year_box);
@@ -72,17 +76,6 @@ d3.csv("data/final_data.csv", function (data) {
                     document.addEventListener("mouseup", mouse.up_mouse, false);
                     document.addEventListener("mousemove", project.moved_cursor, true);
                 }
-
-                /* d3.csv("data/test1985.csv", function (d) {
-                     d.forEach(function(v){ delete v.Year });
-                     console.log(d);
-                     console.log('project data', project.data);
-                     project.set_countries(['ET']);
-                     console.log(project.get_flows());
-                     console.log(project.get_delta());
-                     project.set_countries(['AO']);
-                     console.log(project.get_flows());
-                 });*/
 
                 project.map = new MapViz();
                 project.map.init();
@@ -193,6 +186,7 @@ project.get_delta_for_code = function (code_country) {
     }
 };
 
+/** Return the outflow for the given isocode*/
 project.get_outflow_for_code = (isocode) =>{
     let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
     let outflow =  project.data_immigration_exit.filter(x => x.country_origin === isocode && parseInt(x.year, 10) === year);
@@ -200,13 +194,14 @@ project.get_outflow_for_code = (isocode) =>{
     return (outflow.length > 0) ? parseInt(outflow[0].value, 10).toFixed(0) : 0;
 };
 
+/** Return the inflow for the given isocode*/
 project.get_inflow_for_code = (isocode) =>{
     let year = timevals.rel_to_year(cursor.get_relative_cursor_x());
     let inflow = project.data_immigration_entry.filter(x => x.country_asylum === isocode && parseInt(x.year, 10) === year);
     return (inflow.length > 0) ? parseInt(inflow[0].value, 10).toFixed(0) : 0;
 };
 
-
+/** Return the latitude and longitude for the given isocode*/
 project.get_latlon_for_code = (isocode) => {
     return project.data_countries_latlon[isocode];
-}
+};
