@@ -84,7 +84,6 @@ photo_gallery.drawTreemap = function (root) {
 };
 
 photo_gallery.addNewUrls = function (urls) {
-    console.log(urls);
     let temp = [{id: "root", value: null}];
 
     urls.forEach(function (url, i) {

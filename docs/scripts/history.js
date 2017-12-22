@@ -1,8 +1,8 @@
 'using strict';
 
-class History{
+class History {
 
-    constructor(){
+    constructor() {
 
         this.year_index = initial_year;
         this.container = document.getElementById("div_events");
@@ -11,9 +11,9 @@ class History{
             this.history_data = data;
 
             // Convert data types
-            this.history_data.historical_events.forEach((event, index, array) =>{
-                array[index].year_start = parseInt(array[index].year_start ,10);
-                if(array[index].year_end === '-'){
+            this.history_data.historical_events.forEach((event, index, array) => {
+                array[index].year_start = parseInt(array[index].year_start, 10);
+                if (array[index].year_end === '-') {
                     array[index].year_end = "Today"
                 } else {
                     array[index].year_end = parseInt(array[index].year_end, 10);
@@ -25,16 +25,16 @@ class History{
         })
     }
 
-    init(){
+    init() {
 
     }
 
-    update_year_index(year_index){
+    update_year_index(year_index) {
         this.year_index = year_index;
         this.redraw();
     }
 
-    redraw(){
+    redraw() {
         // Clear the data
         this.container.innerHTML = '';
 
@@ -42,16 +42,16 @@ class History{
 
         this.history_data.historical_events.forEach((history_event) => {
 
-           if (history_event.year_start <= this.year_index){
-               if (history_event.year_end === "Today" || this.year_index <= history_event.year_end) {
-                   this.add_button(history_event, i);
-                   i = (i+1)%2;
-               }
-           }
+            if (history_event.year_start <= this.year_index) {
+                if (history_event.year_end === "Today" || this.year_index <= history_event.year_end) {
+                    this.add_button(history_event, i);
+                    i = (i + 1) % 2;
+                }
+            }
         });
     }
 
-    add_button(history_event, light){
+    add_button(history_event, light) {
         let button = document.createElement("button");
         button.innerHTML = '['.concat(history_event.year_start,
             ' - ',

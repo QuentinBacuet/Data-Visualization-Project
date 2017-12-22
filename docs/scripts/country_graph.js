@@ -64,10 +64,10 @@ country_graph.load_data = function (country_code) {
 
         country_graph.y_axis_up = d3.axisRight(country_graph.domainOnlyScale_up)
             .ticks(5)
-            .tickFormat(d3.format("d"));
+            .tickFormat(d3.format(".2s"));
         country_graph.y_axis_down = d3.axisRight(country_graph.domainOnlyScale_down)
             .ticks(5)
-            .tickFormat(d3.format("d"));
+            .tickFormat(d3.format(".2s"));
 
         for (let i = 0, i_entry = 0, i_exit = 0; i <= timevals.max_year - timevals.min_year; i++) {
             if (data_immigration_entry_filtered[i_entry] !== undefined && data_immigration_entry_filtered[i_entry].year === (timevals.min_year + i).toString()) {
